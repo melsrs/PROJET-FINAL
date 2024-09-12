@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+
+   RewriteCond %{ENV:REDIRECT_STATUS} ^$
+   RewriteCond %{REQUEST_URI} !\.(css|js|jpg|png|jpeg|webp|svg|gif|eot|otf|woff|woff2|ttf)$ [NC] 
+   RewriteRule ^(.*)$  /index.php [L] 
+
+  ## Retour d'erreur :
+</IfModule>
+  ErrorDocument 404 /page-introuvable
+
+  <IfModule mod_header.c>
+    Header set Access-Control-Allow-Origin "*"
+  </IfModule>

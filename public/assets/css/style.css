@@ -1,0 +1,14 @@
+.accueil{
+  display: flex;
+  margin: 50px 40px 50px 40px;
+  align-items: center;
+}
+
+.imgAccueil{
+  max-width: 100%;
+  border-radius: 15px;
+}
+
+.texteAccueil{
+  margin-right: 95px;
+}
