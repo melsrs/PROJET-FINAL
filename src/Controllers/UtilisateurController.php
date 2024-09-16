@@ -60,10 +60,10 @@ class UtilisateurController
             // var_dump($utilisateur);
             // die();
             if (!$utilisateur) {
-                throw new Exception("le mail ou Le mot de passe est incorrect.");
+                throw new Exception("Le mail ou le mot de passe est incorrect.");
             }
             if (!password_verify($motDePasse, $utilisateur['mdp'])) {
-                throw new Exception("le mail ou Le mot de passe est incorrect.");
+                throw new Exception("Le mail ou le mot de passe est incorrect.");
             }
 
             // ici on stocke les données de l'utilisateur en session
@@ -77,16 +77,16 @@ class UtilisateurController
             // var_dump($_SESSION);
             // die();
 
-            // ici redirection icvers la page d'accueil
+            // ici redirection vers la page d'accueil
             if ($role_type === 'admin') {
                 $_SESSION['adminConnecte'] = true;
-                header('Location:' . HOME_URL . 'admin?success=Vous êtes connecté avec succès administrateur.');
-            } elseif ($role_type === 'utilisteur') {
+                header('Location:' . HOME_URL . 'dashboardAdmin?success=Vous êtes connecté avec succès administrateur.');
+            } elseif ($role_type === 'utilisateur') {
                 $_SESSION['connecte'] = true;
-                header('Location:' . HOME_URL . 'accueil?success=Vous êtes connecté avec succès.');
+                header('Location:' . HOME_URL . 'dashboard?success=Vous êtes connecté avec succès.');
             }
         } catch (Exception $e) {
-            // ici on rest sur la meme page avec un message d'erreur
+            // ici on reste sur la meme page avec un message d'erreur
             header('Location:' . HOME_URL . 'connexion?error=' . $e->getMessage());
         }
     }

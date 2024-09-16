@@ -22,8 +22,8 @@ final class Database
         try {
             $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME;
             $this->DB = new PDO($dsn, DB_USER, DB_PWD);
-        } catch (PDOException $error) {
-            echo 'Connexion échouée : ' . $error->getMessage();
+        } catch (PDOException $e) {
+            echo 'Connexion échouée : ' . $e->getMessage();
         }
     }
     public function getDB(): mixed

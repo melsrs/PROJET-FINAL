@@ -16,22 +16,24 @@ include __DIR__ . '/../Includes/navbar.php';
         <div class="alert alert-success"><?php echo $_GET['success']; ?></div>
     <?php endif; ?>
 
-<div class="container" >
-    <form class="" method="POST" action="<?= HOME_URL .'connexion' ?>">
-        <div class="form-group">
-            <label for="mail">Email</label>
-            <input type="email" class="form-control" id="mail" name="mail" required>
-        </div>
-        <div class="form-group">
-            <label for="motDePasse">Mot de passe</label>
-            <input type="password" class="form-control" id="motDePasse" name="motDePasse" required>
-        </div>
-        <button type="submit" class="btn btn-primary my-3">Se connecter</button>
-        <p>Je n'ai pas de compte <a href="<?= HOME_URL .'inscription' ?>">s'inscrire</a></p>
-    </form>
+    <div class="container d-flex justify-content-center align-items-center">
+        <form class="w-100" style="max-width: 500px; method="POST" action="<?= HOME_URL . 'connexion' ?>">
+            <div class="mb-3 my-3">
+                <label for="mail">Email</label>
+                <input type="email" class="form-control" id="mail" name="mail" required>
+            </div>
+            <div class="mb-3 my-3">
+                <label for="motDePasse">Mot de passe</label>
+                <input type="password" class="form-control" id="motDePasse" name="motDePasse" required>
+            </div>
+            <button type="submit" class="btn btn-primary --bs-btn-bg: #ff5733; my-3">Se connecter</button>
+            <p class="mt-3">Je n'ai pas de compte <a href="<?= HOME_URL . 'inscription' ?>">S'inscrire</a></p>
+        </form>
     </div>
-<?php
 
-include __DIR__ . '/../Includes/footer.php';
 
-?>
+    <?php
+
+    include __DIR__ . '/../Includes/footer.php';
+
+    ?>

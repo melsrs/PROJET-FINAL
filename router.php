@@ -6,17 +6,17 @@ use src\Controllers\UtilisateurController;
 $homeController = new HomeController();
 $utlisateurController = new UtilisateurController();
 
-
 $route = $_SERVER['REDIRECT_URL'];
 $methode = $_SERVER['REQUEST_METHOD'];
 // var_dump($_SERVER);
 // die();
 
-// $route = Router::routeComposee();
-
 switch ($route) {
     case HOME_URL:
-        $homeController->afficherAccueil();
+        $homeController->accueil();
+        break;
+    case HOME_URL . 'accueil':
+        $homeController->accueil();
         break;
     case HOME_URL . 'categorie':
         $homeController->categorie();
@@ -32,7 +32,6 @@ switch ($route) {
             $homeController->afficherLaPageConnexion();
         }
         break;
-        // termine
     case HOME_URL . 'inscription':
         if ($methode === 'POST') {
             $utlisateurController->createUtilisateur();
@@ -41,36 +40,24 @@ switch ($route) {
         }
         break;
 
-    case HOME_URL . 'accueil':
-        if ($methode === 'POST') {
-           //
+    case HOME_URL . 'dashboardAdmin':
+        if ($_SESSION['adminConnecte'] = true) {
+            $homeController->dashboardAdmin();
         } else {
-            $homeController->afficherAccueil();
+            header('Location: ' . HOME_URL . 'connexion');
+        }
+        break;
+    case HOME_URL . 'dashboard':
+        if ($_SESSION['connecte'] = true) {
+            $homeController->dashboard();
+        } else {
+            header('Location: ' . HOME_URL . 'connexion');
         }
         break;
 
-        case HOME_URL .'admin':
-            
-            if ($_SESSION['adminConnecte'] = true) {
-                $homeController->adminPage();
-            } else {
-                header('Location: '.HOME_URL.'connexion');
-            }
 
-        break;
-
-
-
-
-
-
-
-
-
-
-
-        case HOME_URL . 'deconnexion':
-            $homeController->deconnexion();
+    case HOME_URL . 'deconnexion':
+        $homeController->deconnexion();
         break;
     default:
         echo "Page non trouvée";

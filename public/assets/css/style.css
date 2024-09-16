@@ -1,15 +1,45 @@
-.accueil{
+body {
+  color: white !important;
+  background-color: black !important;
+}
+
+a {
+  color: #ff8fc3 !important;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.accueil {
   display: flex;
   margin: 50px 40px 50px 40px;
   align-items: center;
 }
 
-.imgAccueil{
+.imgAccueil {
   max-width: 100%;
   border-radius: 15px;
-  
 }
 
-.texteAccueil{
+.texteAccueil {
   margin-right: 95px;
 }
+
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #f56cab !important;
+  --bs-btn-border-color: #f56cab !important;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #fb499c !important;
+  --bs-btn-hover-border-color: #fb499c !important;
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #fb499c !important;
+  --bs-btn-active-border-color: #fb499c !important;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #fb499c!important;
+  --bs-btn-disabled-border-color: #fb499c !important;
+}
+

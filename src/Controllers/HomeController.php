@@ -4,6 +4,11 @@ namespace src\Controllers;
 
 class HomeController
 {
+    public function accueil()
+    {
+        include __DIR__. '/../Views/Accueil/accueil.php';
+    }
+
     public function categorie()
     {
         include __DIR__ . '/../Views/Categorie/categorie.php';
@@ -23,15 +28,20 @@ class HomeController
     {
         include __DIR__ . '/../Views/Inscription/inscription.php';
     }
-    
-    public function afficherAccueil()
+
+    public function dashboardAdmin()
     {
-        include __DIR__. '/../Views/Accueil/accueil.php';
+        include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
+    }
+
+    public function dashboard()
+    {
+        include __DIR__ . '/../Views/DashboardUtilisateur/dashboardUtilisateur.php';
     }
     
     public function deconnexion()
     {
         session_destroy();
-        header('Location: '.HOME_URL .'accueil?success=deconnexion réussie');
+        header('Location: '.HOME_URL .'connexion?success=Déconnexion réussie');
     }
 }
