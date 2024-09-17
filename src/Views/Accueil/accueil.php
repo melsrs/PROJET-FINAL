@@ -5,7 +5,7 @@ include __DIR__ . '/../Includes/navbar.php';
 
 ?>
 
-<body class="bg-black text-white">
+<div class="bg-black text-white">
     <?php if (isset($_GET['error'])): ?>
         <div class="alert alert-danger"><?php echo $_GET['error']; ?></div>
     <?php endif; ?>
@@ -22,7 +22,7 @@ include __DIR__ . '/../Includes/navbar.php';
             <img class="imgAccueil" src="assets/image/imageAccueil.jpg" alt="Eren et Mikasa au pied d'un arbre">
         </div>
     </div>
-</body>
+</div>
 
 <?php
 

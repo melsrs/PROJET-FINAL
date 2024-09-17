@@ -3,9 +3,7 @@
 namespace src\Repositories;
 
 use PDO;
-use PDOException;
 use src\Models\Database;
-use src\Models\Utilisateur;
 
 class UtilisateurRepository
 {
@@ -43,6 +41,7 @@ class UtilisateurRepository
     return (int) $statement->fetch()['nombre'] > 0;
     
   }
+
   public function getUtilisateurByMail($mail)
   {
       $sql = "SELECT * FROM utilisateur WHERE mail = :mail;";
@@ -50,6 +49,7 @@ class UtilisateurRepository
       $statement->execute([':mail' => $mail]);
       return $statement->fetch(PDO::FETCH_ASSOC);
   }
+
   public function getRoleType($Id_Role)
   {
     $sql = "SELECT type FROM role WHERE Id_Role = :id_role;";

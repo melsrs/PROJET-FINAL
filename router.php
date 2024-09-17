@@ -47,6 +47,7 @@ switch ($route) {
             header('Location: ' . HOME_URL . 'connexion');
         }
         break;
+
     case HOME_URL . 'dashboard':
         if ($_SESSION['connecte'] = true) {
             $homeController->dashboard();
