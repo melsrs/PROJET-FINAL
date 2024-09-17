@@ -55,7 +55,6 @@ switch ($route) {
         }
         break;
 
-
     case HOME_URL . 'deconnexion':
         $homeController->deconnexion();
         break;
