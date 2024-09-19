@@ -63,5 +63,11 @@ h2 {
 }
 
 .navbar-margin {
-  margin-bottom: 20px; 
+  margin-bottom: 20px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  margin: 150px 40px 0px 40px;
 }
