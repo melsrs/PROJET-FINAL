@@ -24,6 +24,16 @@ switch ($route) {
     case HOME_URL . 'aPropos':
         $homeController->aPropos();
         break;
+    case HOME_URL . 'mentionsLegales':
+        $homeController->mentionsLegales();
+        break;
+    case HOME_URL . 'politiqueConfidentialité':
+        $homeController->politiqueConfidentialité();
+        break;
+    case HOME_URL . 'conditionsGenerales':
+        $homeController->conditionsGenerales();
+        break;
+
 
     case HOME_URL . 'connexion':
         if ($methode === 'POST') {
@@ -55,6 +65,7 @@ switch ($route) {
         }
         break;
 
+
     case HOME_URL . 'createArticle':
         if ($_SESSION['adminConnecte'] = true) {
             $homeController->createArticle();
@@ -62,6 +73,7 @@ switch ($route) {
             header('Location: ' . HOME_URL . 'connexion');
         }
         break;
+        
 
     case HOME_URL . 'deconnexion':
         $homeController->deconnexion();

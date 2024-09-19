@@ -19,6 +19,21 @@ class HomeController
         include __DIR__ . '/../Views/APropos/aPropos.php';
     }
 
+    public function mentionsLegales()
+    {
+        include __DIR__ . '/../Views/PagesLegales/mentionsLegales.php';
+    }
+
+    public function politiqueConfidentialité()
+    {
+        include __DIR__ . '/../Views/PagesLegales/politiqueConfidentialite.php';
+    }
+
+    public function conditionsGenerales()
+    {
+        include __DIR__ . '/../Views/PagesLegales/conditionsGenerales.php';
+    }
+
     public function afficherLaPageConnexion()
     {
         include __DIR__ . '/../Views/Connexion/connexion.php';
