@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-black">
+<nav class="navbar navbar-expand-lg bg-black navbar-margin">
     <div class="container-fluid">
         <a class="navbar-brand" style="color: #ff8fc3;" href="<?= HOME_URL . 'accueil' ?>">SNK</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

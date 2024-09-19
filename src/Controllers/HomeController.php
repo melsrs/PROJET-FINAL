@@ -38,6 +38,11 @@ class HomeController
     {
         include __DIR__ . '/../Views/DashboardUtilisateur/dashboardUtilisateur.php';
     }
+
+    public function createArticle()
+    {
+        include __DIR__ . '/../Views/DashboardAdmin/ArticleAdmin.php/createArticle.php';
+    }
     
     public function deconnexion()
     {

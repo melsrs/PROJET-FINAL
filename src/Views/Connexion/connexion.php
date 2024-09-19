@@ -5,15 +5,14 @@ include __DIR__ . '/../Includes/navbar.php';
 
 ?>
 
-
 <div class="connexion">
     <h2> Connexion </h2>
 
     <?php if (isset($_GET['error'])): ?>
-        <div class="alert alert-danger"><?php echo $_GET['error']; ?></div>
+        <div class="alert alert-danger container d-flex justify-content-center align-items-center"><?php echo $_GET['error']; ?></div>
     <?php endif; ?>
     <?php if (isset($_GET['success'])): ?>
-        <div class="alert alert-success"><?php echo $_GET['success']; ?></div>
+        <div class="alert alert-success container d-flex justify-content-center align-items-center"><?php echo $_GET['success']; ?></div>
     <?php endif; ?>
 
     <div class="container d-flex justify-content-center align-items-center">
@@ -34,7 +33,6 @@ include __DIR__ . '/../Includes/navbar.php';
             </div>
         </form>
     </div>
-
 
     <?php
 

@@ -25,12 +25,13 @@ class ArticleRepository
 
         $success = $statement->execute([
             ':titre'               => $titre,
-            ':texte'                  => $texte,
-            ':date'                  => $date,
-            ':image'                 => $image,
-            ':Id_categorie'       => $Id_Categorie,
+            ':texte'               => $texte,
+            ':date'                => $date,
+            ':image'               => $image,
+            ':Id_categorie'        => $Id_Categorie,
         ]);
 
         return $success;
     }
+
 }
