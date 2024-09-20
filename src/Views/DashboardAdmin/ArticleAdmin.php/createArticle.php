@@ -19,6 +19,9 @@ use src\Repositories\CategorieRepository;
 
     <div class="container d-flex justify-content-center align-items-center">
         <form class="w-50" method="POST" action="<?= HOME_URL . 'createArticle' ?>">
+            <?php
+            var_dump(HOME_URL . 'createArticle');
+            ?>
             <div class="mb-3 my-3">
                 <label for="titre" class="form-label">Titre</label>
                 <input type="text" name="titre" class="form-control" id="titre" required>
@@ -38,18 +41,21 @@ use src\Repositories\CategorieRepository;
 
             <div class="mb-3 my-3">
                 <label for="categorie" class="form-label">Catégorie</label>
-                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                <  class="form-select" id="floatingSelect" name="id_categorie" aria-label="Floating label select example">
                     <option selected>Sélectionner la catégorie</option>
-                    
-                    <?php foreach ($categories as $categorie): ?>
-                        <option value="<?= $categorie['Id_Categorie'] ?></option>
-                        <?php endforeach; ?>
 
+                    <!-- <?php foreach ($categories as $categorie): ?>
+                        <option value="<?= htmlspecialchars($categorie['Id_Categorie']) ?>">
+                            <?= htmlspecialchars($categorie['Nom_Categorie']) ?>
+                        </option>
+                    <?php endforeach; ?> -->
                 </select>
             </div>
 
 
-                <button type=" submit" class="btn btn-primary">Créer l'article</button>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary my-3">Créer un article</button>
+            </div>
         </form>
 
         </form>

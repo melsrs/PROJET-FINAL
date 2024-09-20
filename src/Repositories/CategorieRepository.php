@@ -24,4 +24,13 @@ class CategorieRepository
         $statement->execute([':categorie' => $Id_categorie]);
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getAllCategories()
+    {
+        $query = "SELECT * FROM Categorie";
+        $statement = $this->DB->prepare($query);
+        $statement->execute();
+        
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

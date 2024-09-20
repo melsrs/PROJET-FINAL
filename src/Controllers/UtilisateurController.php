@@ -68,6 +68,7 @@ class UtilisateurController
             $Id_Role =  $utilisateur['Id_Role'];
             $role_type =  $utilisateurRepository->getRoleType($Id_Role);
             $_SESSION['role'] = $role_type;
+            $_SESSION['id'] = $utilisateur['id'];
 
             if ($role_type === 'admin') {
                 $_SESSION['adminConnecte'] = true;

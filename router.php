@@ -2,9 +2,11 @@
 
 use src\Controllers\HomeController;
 use src\Controllers\UtilisateurController;
+use src\Controllers\ArticleController;
 
 $homeController = new HomeController();
 $utlisateurController = new UtilisateurController();
+$articleController = new ArticleController();
 
 $route = $_SERVER['REDIRECT_URL'];
 $methode = $_SERVER['REQUEST_METHOD'];
@@ -67,10 +69,10 @@ switch ($route) {
 
 
     case HOME_URL . 'createArticle':
-        if ($_SESSION['adminConnecte'] = true) {
-            $homeController->createArticle();
+        if ($methode === 'POST') {
+            $articleController->createArticle();
         } else {
-            header('Location: ' . HOME_URL . 'connexion');
+            $homeController->createArticle();
         }
         break;
         

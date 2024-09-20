@@ -19,7 +19,8 @@ class ArticleRepository
 
     public function createArticle($titre, $texte, $date, $image, $Id_Categorie, $Id_Utilisateur_)
     {
-        $sql = "INSERT INTO . article (titre, texte, date, image, Id_categorie, Id_utilisateur_) VALUES (:titre, :texte, :date, :image, :Id_categorie, 1);";
+        $sql = "INSERT INTO article (titre, texte, date, image, Id_Categorie, Id_Utilisateur_) 
+        VALUES (:titre, :texte, :date, :image, :Id_categorie, :Id_Utilisateur_);";
 
         $statement = $this->DB->prepare($sql);
 
@@ -29,6 +30,7 @@ class ArticleRepository
             ':date'                => $date,
             ':image'               => $image,
             ':Id_categorie'        => $Id_Categorie,
+            ':Id_Utilisateur_'     => $Id_Utilisateur_
         ]);
 
         return $success;
