@@ -5,6 +5,8 @@ include __DIR__ . '/../../Includes/navbar.php';
 
 use src\Repositories\CategorieRepository;
 
+$categorieRepository = new CategorieRepository();
+$categories = $categorieRepository->getAllCategories();
 ?>
 
 <div class="createArticle">
@@ -39,12 +41,12 @@ use src\Repositories\CategorieRepository;
 
             <div class="mb-3 my-3">
                 <label for="categorie" class="form-label">Catégorie</label>
-                <select class="form-select" id="floatingSelect" name="id_categorie" aria-label="Floating label select example">
-                    <option selected>Sélectionner la catégorie</option>
+                <select class="form-select" id="categorie" name="categorie" aria-label="Sélectionner une catégorie">
+                    <option selected disabled>Sélectionner la catégorie</option>
 
                     <?php foreach ($categories as $categorie): ?>
                         <option value="<?= htmlspecialchars($categorie['Id_Categorie']) ?>">
-                            <?= htmlspecialchars($categorie['Nom_Categorie']) ?>
+                            <?= htmlspecialchars($categorie['type']) ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
@@ -54,8 +56,6 @@ use src\Repositories\CategorieRepository;
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary my-3">Créer un article</button>
             </div>
-        </form>
-
         </form>
     </div>
 

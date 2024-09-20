@@ -19,7 +19,8 @@ class UtilisateurRepository
 
   public function createUtilisateur($prenom, $nom, $mail, $motDePasseHash)
   {
-    $sql = "INSERT INTO " . "utilisateur (prenom, nom, mail, mdp, id_role) VALUES (:prenom, :nom, :mail, :motDePasseHash, 2);";
+    $sql = "INSERT INTO " . "utilisateur (prenom, nom, mail, mdp, id_role) 
+    VALUES (:prenom, :nom, :mail, :motDePasseHash, 2);";
 
     $statement = $this->DB->prepare($sql);
 
