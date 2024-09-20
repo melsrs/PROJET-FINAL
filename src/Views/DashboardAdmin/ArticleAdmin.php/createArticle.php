@@ -40,8 +40,8 @@ $categories = $categorieRepository->getAllCategories();
             </div>
 
             <div class="mb-3 my-3">
-                <label for="categorie" class="form-label">Catégorie</label>
-                <select class="form-select" id="categorie" name="categorie" aria-label="Sélectionner une catégorie">
+                <label for="categories" class="form-label">Catégories</label>
+                <select class="form-select" id="categories" name="categories" aria-label="Sélectionner une catégorie">
                     <option selected disabled>Sélectionner la catégorie</option>
 
                     <?php foreach ($categories as $categorie): ?>
@@ -51,7 +51,6 @@ $categories = $categorieRepository->getAllCategories();
                     <?php endforeach; ?>
                 </select>
             </div>
-
 
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary my-3">Créer un article</button>

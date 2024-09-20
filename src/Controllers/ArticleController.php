@@ -18,7 +18,7 @@ class ArticleController
             $texte = isset($_POST['texte']) ? htmlspecialchars($_POST['texte']) : null;
             $date = isset($_POST['date']) ? htmlspecialchars($_POST['date']) : null;
             $image = isset($_POST['image']) ? htmlspecialchars($_POST['image']) : null;
-            $Id_Categorie = isset($_POST['Id_Categorie']) ? htmlspecialchars($_POST['Id_Categorie']) : null;
+            $Id_Categorie = isset($_POST['categories']) ? (int) $_POST['categories'] : null;
 
             if (empty($titre) || empty($texte) || empty($date) || empty($image) || empty($Id_Categorie)) {
                 throw new Exception("Veuillez remplir tous les champs.");
@@ -32,16 +32,21 @@ class ArticleController
                 throw new Exception("L'utilisateur n'est pas connecté.");
             }
 
-            $Id_Categorie = new CategorieRepository();
-            $Id_Categorie = $Id_Categorie->getAllCategories();
+            $categorieRepository = new CategorieRepository();
+            // $toutesCategories = $categorieRepository->getAllCategories();
 
+            // Création de l'article
             $articleRepository = new ArticleRepository();
             $articleRepository->createArticle($titre, $texte, $date, $image, $Id_Categorie, $Id_Utilisateur);
 
+            // Redirection en cas de succès
             header('Location:' . HOME_URL . 'dashboardAdmin?success=Votre article a bien été créé.');
+            exit;
 
         } catch (Exception $e) {
-            header('Location:' . HOME_URL . 'createArticle?error=' . $e->getMessage());
+            // Redirection en cas d'erreur avec message
+            header('Location:' . HOME_URL . 'createArticle?error=' . urlencode($e->getMessage()));
+            exit;
         }
     }
 }
