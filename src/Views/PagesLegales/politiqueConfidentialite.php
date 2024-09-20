@@ -70,7 +70,7 @@ include __DIR__ . '/../Includes/navbar.php';
         <li>Droit à la limitation du traitement : vous pouvez demander à limiter l'utilisation de vos données.</li>
         <li>Droit à la portabilité : vous avez le droit de recevoir les données que vous nous avez fournies dans un format structuré et lisible par machine.</li>
         <li>Droit d’opposition : vous pouvez vous opposer à l’utilisation de vos données à des fins de marketing direct.</li>
-        <li>Pour exercer vos droits, vous pouvez nous contacter à l’adresse suivante : [adresse email]</li>
+        <li>Pour exercer vos droits, vous pouvez nous contacter à l’adresse suivante : melissa@soares.com</li>
         <li>Nous répondrons à votre demande dans les meilleurs délais et en tout état de cause dans le respect des délais légaux.</li><br>
     </ul>
 
@@ -88,7 +88,7 @@ include __DIR__ . '/../Includes/navbar.php';
     Nous nous réservons le droit de modifier la présente politique de confidentialité à tout moment. En cas de modification, une notification sera mise en ligne sur notre site ou vous sera envoyée par email. Nous vous invitons à consulter régulièrement cette page pour prendre connaissance des éventuels changements.<br><br><br>
 
     9. Contact<br><br>
-    Pour toute question ou demande concernant cette politique de confidentialité, vous pouvez nous contacter à l’adresse suivante : [adresse email]<br>
+    Pour toute question ou demande concernant cette politique de confidentialité, vous pouvez nous contacter à l’adresse suivante : melissa@soares.com<br>
     Ou par courrier à : [Adresse postale complète]
 </div>
 
