@@ -9,9 +9,9 @@ class ArticleController
 {
     public function createArticle()
     {
-        var_dump($_SESSION);
-        die();
-        
+        // var_dump($_SESSION);
+        // die();
+
         try {
             $titre = isset($_POST['titre']) ? htmlspecialchars($_POST['titre']) : null;
             $texte = isset($_POST['texte']) ? htmlspecialchars($_POST['texte']) : null;
@@ -27,8 +27,16 @@ class ArticleController
             //     throw new Exception("Veuillez remplir tous les champs.");
             // }
 
+            // Récupération de l'ID de l'utilisateur à partir de la session
+            $Id_Utilisateur = isset($_SESSION['Id_Utilisateur']) ? $_SESSION['Id_Utilisateur'] : null;
+
+            // Vérification si l'utilisateur est connecté
+            if (empty($Id_Utilisateur)) {
+                throw new Exception("L'utilisateur n'est pas connecté.");
+            }
+
             $articleRepository = new ArticleRepository();
-            $articleRepository->createArticle($titre, $texte, $date, $image, 1, 1);
+            $articleRepository->createArticle($titre, $texte, $date, $image, 1, $Id_Utilisateur);
 
             header('Location:' . HOME_URL . 'dashboardAdmin?success=Votre article a bien été créé.');
 

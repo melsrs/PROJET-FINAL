@@ -62,17 +62,17 @@ class UtilisateurController
             }
 
             // ici on stocke les données de l'utilisateur en session
+            $_SESSION['Id_Utilisateur'] = $utilisateur['Id_Utilisateur'];
             $_SESSION['prenom'] = $utilisateur['prenom'];
             $_SESSION['nom'] = $utilisateur['nom'];
             $_SESSION['mail'] = $utilisateur['mail'];
             $Id_Role =  $utilisateur['Id_Role'];
             $role_type =  $utilisateurRepository->getRoleType($Id_Role);
             $_SESSION['role'] = $role_type;
-            $_SESSION['id'] = $utilisateur['id'];
 
             if ($role_type === 'admin') {
                 $_SESSION['adminConnecte'] = true;
-                header('Location:' . HOME_URL . 'dashboardAdmin?success=Vous êtes connecté avec succès administrateur.');
+                header('Location:' . HOME_URL . 'dashboardAdmin?success=Vous êtes connecté avec succès.');
             } elseif ($role_type === 'utilisateur') {
                 $_SESSION['connecte'] = true;
                 header('Location:' . HOME_URL . 'dashboard?success=Vous êtes connecté avec succès.');

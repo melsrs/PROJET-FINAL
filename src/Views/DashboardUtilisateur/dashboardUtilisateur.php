@@ -5,7 +5,12 @@ include __DIR__ . '/../Includes/navbar.php';
 
 ?>
 
-PAGE UTILISATEUR
+<?php if (isset($_GET['error'])): ?>
+        <div class="alert alert-danger"><?php echo $_GET['error']; ?></div>
+    <?php endif; ?>
+    <?php if (isset($_GET['success'])): ?>
+        <div class="alert alert-success"><?php echo $_GET['success']; ?></div>
+    <?php endif; ?>
 
 <?php
 

@@ -10,8 +10,6 @@ $articleController = new ArticleController();
 
 $route = $_SERVER['REDIRECT_URL'];
 $methode = $_SERVER['REQUEST_METHOD'];
-// var_dump($_SERVER);
-// die();
 
 switch ($route) {
     case HOME_URL:
@@ -69,7 +67,7 @@ switch ($route) {
 
 
     case HOME_URL . 'createArticle':
-        if ($methode === 'POST') {
+        if ($methode === 'POST' && $_SESSION['adminConnecte'] = true) {
             $articleController->createArticle();
         } else {
             $homeController->createArticle();

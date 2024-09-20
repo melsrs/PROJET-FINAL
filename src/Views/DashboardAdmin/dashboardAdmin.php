@@ -7,6 +7,13 @@ include __DIR__ . '/../Includes/navbar.php';
 
 <h2>Mon compte</h2>
 
+<?php if (isset($_GET['error'])): ?>
+        <div class="alert alert-danger"><?php echo $_GET['error']; ?></div>
+    <?php endif; ?>
+    <?php if (isset($_GET['success'])): ?>
+        <div class="alert alert-success"><?php echo $_GET['success']; ?></div>
+    <?php endif; ?>
+
 <div class="bg-white dashboard d-flex align-items-start ">
     <div class="navbarDash nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
         <a class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Utilisateurs</a>
