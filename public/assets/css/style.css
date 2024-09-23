@@ -52,14 +52,11 @@ h2 {
   border-radius: 10px;
 }
 
-/* .nav-pills {
-  background-color: black;
-} */
-
 .dashboard {
   max-width: 96%;
   margin: auto;
   border-radius: 10px;
+  padding: 20px 10px 20px 10px;
 }
 
 .navbar-margin {

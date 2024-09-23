@@ -30,6 +30,9 @@ include __DIR__ . '/../Includes/navbar.php';
 
 
         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0" style="color: black;">
+            <div class="d-flex justify-content-center">
+                <a href="<?= HOME_URL . 'createArticle' ?>" class="btn btn-success">Ajouter un article</a>
+            </div>
             <div class="card" style="width: 18rem;">
                 <img src="..." class="card-img-top" alt="...">
                 <div class="card-body">
