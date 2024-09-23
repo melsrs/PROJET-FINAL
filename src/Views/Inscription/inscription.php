@@ -39,10 +39,10 @@ include __DIR__ . '/../Includes/navbar.php';
                 <input type="password" name="motDePasseConfirme" class="form-control" id="motDePasseConfirme" required>
             </div>
             <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary mt-3">Créer un compte</button>
+                <button type="submit" class="btn btn-primary mt-3 boutonConnexion">Créer un compte</button>
             </div>
             <div class="d-flex justify-content-center">
-                <p class="my-3">J'ai un compte <a href="<?= HOME_URL . 'connexion' ?>">Se connecter</a></p>
+                <p class="my-3">J'ai un compte <a href="<?= HOME_URL . 'connexion' ?>" class="lien">Se connecter</a></p>
             </div>
         </form>
     </div>

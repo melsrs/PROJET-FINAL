@@ -8,11 +8,11 @@ include __DIR__ . '/../Includes/navbar.php';
 <h2>Mon compte</h2>
 
 <?php if (isset($_GET['error'])): ?>
-        <div class="alert alert-danger"><?php echo $_GET['error']; ?></div>
-    <?php endif; ?>
-    <?php if (isset($_GET['success'])): ?>
-        <div class="alert alert-success"><?php echo $_GET['success']; ?></div>
-    <?php endif; ?>
+    <div class="alert alert-danger"><?php echo $_GET['error']; ?></div>
+<?php endif; ?>
+<?php if (isset($_GET['success'])): ?>
+    <div class="alert alert-success"><?php echo $_GET['success']; ?></div>
+<?php endif; ?>
 
 <div class="bg-white dashboard d-flex align-items-start ">
     <div class="navbarDash nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -27,7 +27,23 @@ include __DIR__ . '/../Includes/navbar.php';
             jljh
 
         </div>
-        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">...</div>
+
+
+        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0" style="color: black;">
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <button type="button" class="btn btn-primary" href="">Modifier</button>
+                    <button type="button" class="btn btn-danger">Supprimer</button>
+
+                </div>
+            </div>
+
+
+
+        </div>
         <div class="tab-pane fade" id="v-pills-disabled" role="tabpanel" aria-labelledby="v-pills-disabled-tab" tabindex="0">...</div>
         <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0">...</div>
         <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0">...</div>

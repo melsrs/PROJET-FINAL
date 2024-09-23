@@ -3,7 +3,7 @@ body {
   background-color: black !important;
 }
 
-a {
+.lien {
   color: #ff8fc3 !important;
 }
 
@@ -31,7 +31,7 @@ h2 {
   margin-right: 95px;
 }
 
-.btn-primary {
+.boutonConnexion{
   --bs-btn-color: #fff;
   --bs-btn-bg: #f56cab !important;
   --bs-btn-border-color: #f56cab !important;
@@ -52,9 +52,9 @@ h2 {
   border-radius: 10px;
 }
 
-.nav-pills {
+/* .nav-pills {
   background-color: black;
-}
+} */
 
 .dashboard {
   max-width: 96%;

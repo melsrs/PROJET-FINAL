@@ -26,10 +26,10 @@ include __DIR__ . '/../Includes/navbar.php';
                 <input type="password" class="form-control" id="motDePasse" name="motDePasse" required>
             </div>
             <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary my-3">Se connecter</button>
+                <button type="submit" class="btn btn-primary my-3 boutonConnexion">Se connecter</button>
             </div>
             <div class="d-flex justify-content-center">
-                <p class="mt-3 ">Je n'ai pas de compte <a href="<?= HOME_URL . 'inscription' ?>">S'inscrire</a></p>
+                <p class="mt-3 ">Je n'ai pas de compte <a href="<?= HOME_URL . 'inscription' ?>" class="lien">S'inscrire</a></p>
             </div>
         </form>
     </div>
