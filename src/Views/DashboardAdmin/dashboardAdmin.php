@@ -3,6 +3,11 @@
 include __DIR__ . '/../Includes/header.php';
 include __DIR__ . '/../Includes/navbar.php';
 
+use src\Repositories\ArticleRepository;
+
+$articleRepository = new ArticleRepository();
+$articles = $articleRepository->getAllArticles();
+
 ?>
 
 <h2>Mon compte</h2>
@@ -29,7 +34,7 @@ include __DIR__ . '/../Includes/navbar.php';
         </div>
 
 
-        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0" style="color: black;">
+        <!-- <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0" style="color: black;">
             <div class="d-flex justify-content-center">
                 <a href="<?= HOME_URL . 'createArticle' ?>" class="btn btn-success">Ajouter un article</a>
             </div>
@@ -42,13 +47,44 @@ include __DIR__ . '/../Includes/navbar.php';
                     <button type="button" class="btn btn-danger">Supprimer</button>
 
                 </div>
+            </div> -->
+
+        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0" style="color: black;">
+            <div class="d-flex justify-content-center">
+                <a href="<?= HOME_URL . 'createArticle' ?>" class="btn btn-success">Ajouter un article</a>
             </div>
 
+            <!-- Vérifiez que $articles est bien défini et qu'il contient des articles -->
+            <?php if (isset($articles) && !empty($articles)): ?>
+                <?php foreach ($articles as $article): ?>
+                    <div class="card" style="width: 18rem; margin: 20px auto;">
+                        <!-- Afficher l'image si elle existe -->
+                        <?php if (!empty($article['image'])): ?>
+                            <img src="<?= $article['image'] ?>" class="card-img-top" alt="Image de l'article">
+                        <?php else: ?>
+                            <img src="placeholder_image.jpg" class="card-img-top" alt="Image placeholder">
+                        <?php endif; ?>
 
-
+                        <div class="card-body">
+                            <h5 class="card-title"><?= htmlspecialchars($article['titre']) ?></h5>
+                            <p class="card-text"><?= htmlspecialchars($article['texte']) ?></p>
+                            <a class="btn btn-primary" href="<?= HOME_URL . 'editArticle/' . $article['Id_Article'] ?>">Modifier</a>
+                            <button type="button" class="btn btn-danger" href="<?= HOME_URL . 'deleteArticle/' . $article['Id_Article'] ?>">Supprimer</button>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Aucun article trouvé.</p>
+            <?php endif; ?>
         </div>
-        <div class="tab-pane fade" id="v-pills-disabled" role="tabpanel" aria-labelledby="v-pills-disabled-tab" tabindex="0">...</div>
-        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0">...</div>
-        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0">...</div>
+
+
+
+
+
     </div>
+    <div class="tab-pane fade" id="v-pills-disabled" role="tabpanel" aria-labelledby="v-pills-disabled-tab" tabindex="0">...</div>
+    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0">...</div>
+    <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0">...</div>
+</div>
 </div>

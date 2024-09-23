@@ -36,4 +36,11 @@ class ArticleRepository
         return $success;
     }
 
+    public function getAllArticles()
+    {
+        $sql = "SELECT * FROM article;";
+        $statement = $this->DB->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

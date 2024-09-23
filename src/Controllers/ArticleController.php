@@ -4,7 +4,6 @@ namespace src\Controllers;
 
 use Exception;
 use src\Repositories\ArticleRepository;
-use src\Repositories\CategorieRepository;
 
 class ArticleController
 {
@@ -32,9 +31,6 @@ class ArticleController
                 throw new Exception("L'utilisateur n'est pas connecté.");
             }
 
-            $categorieRepository = new CategorieRepository();
-            // $toutesCategories = $categorieRepository->getAllCategories();
-
             // Création de l'article
             $articleRepository = new ArticleRepository();
             $articleRepository->createArticle($titre, $texte, $date, $image, $Id_Categorie, $Id_Utilisateur);
@@ -48,5 +44,12 @@ class ArticleController
             header('Location:' . HOME_URL . 'createArticle?error=' . urlencode($e->getMessage()));
             exit;
         }
+    }
+
+    public function showAllArticle(){
+        $articleRepository = new ArticleRepository();
+        $articleRepository->getAllArticles();
+
+        include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
     }
 }
