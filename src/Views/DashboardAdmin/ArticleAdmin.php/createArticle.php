@@ -21,7 +21,6 @@ $categories = $categorieRepository->getAllCategories();
 
     <div class="container d-flex justify-content-center align-items-center">
         <form class="w-50" method="POST" action="<?= HOME_URL . 'createArticle' ?>">
-
             <div class="mb-3 my-3">
                 <label for="titre" class="form-label">Titre</label>
                 <input type="text" name="titre" class="form-control" id="titre" required>
@@ -38,12 +37,10 @@ $categories = $categorieRepository->getAllCategories();
                 <label for="image" class="form-label">Image</label>
                 <input type="text" name="image" class="form-control" id="image">
             </div>
-
             <div class="mb-3 my-3">
                 <label for="categories" class="form-label">Catégories</label>
                 <select class="form-select" id="categories" name="categories" aria-label="Sélectionner une catégorie">
                     <option selected disabled>Sélectionner la catégorie</option>
-
                     <?php foreach ($categories as $categorie): ?>
                         <option value="<?= htmlspecialchars($categorie['Id_Categorie']) ?>">
                             <?= htmlspecialchars($categorie['type']) ?>
@@ -51,16 +48,8 @@ $categories = $categorieRepository->getAllCategories();
                     <?php endforeach; ?>
                 </select>
             </div>
-
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary my-3">Créer un article</button>
             </div>
         </form>
     </div>
-
-
-    <?php
-
-    include __DIR__ . '/../../Includes/footer.php';
-
-    ?>

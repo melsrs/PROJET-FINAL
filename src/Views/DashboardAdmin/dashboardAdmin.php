@@ -33,9 +33,3 @@ include __DIR__ . '/../Includes/navbar.php';
         <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0">...</div>
     </div>
 </div>
-
-<?php
-
-include __DIR__ . '/../Includes/footer.php';
-
-?>
