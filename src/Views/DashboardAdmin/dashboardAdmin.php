@@ -34,57 +34,42 @@ $articles = $articleRepository->getAllArticles();
         </div>
 
 
-        <!-- <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0" style="color: black;">
-            <div class="d-flex justify-content-center">
-                <a href="<?= HOME_URL . 'createArticle' ?>" class="btn btn-success">Ajouter un article</a>
-            </div>
-            <div class="card" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <button type="button" class="btn btn-primary" href="">Modifier</button>
-                    <button type="button" class="btn btn-danger">Supprimer</button>
-
-                </div>
-            </div> -->
-
         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0" style="color: black;">
             <div class="d-flex justify-content-center">
                 <a href="<?= HOME_URL . 'createArticle' ?>" class="btn btn-success">Ajouter un article</a>
             </div>
 
-            <!-- Vérifiez que $articles est bien défini et qu'il contient des articles -->
-            <?php if (isset($articles) && !empty($articles)): ?>
-                <?php foreach ($articles as $article): ?>
-                    <div class="card" style="width: 18rem; margin: 20px auto;">
-                        <!-- Afficher l'image si elle existe -->
-                        <?php if (!empty($article['image'])): ?>
-                            <img src="<?= $article['image'] ?>" class="card-img-top" alt="Image de l'article">
-                        <?php else: ?>
-                            <img src="placeholder_image.jpg" class="card-img-top" alt="Image placeholder">
-                        <?php endif; ?>
 
-                        <div class="card-body">
-                            <h5 class="card-title"><?= htmlspecialchars($article['titre']) ?></h5>
-                            <p class="card-text"><?= htmlspecialchars($article['texte']) ?></p>
-                            <a class="btn btn-primary" href="<?= HOME_URL . 'editArticle/' . $article['Id_Article'] ?>">Modifier</a>
-                            <button type="button" class="btn btn-danger" href="<?= HOME_URL . 'deleteArticle/' . $article['Id_Article'] ?>">Supprimer</button>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p>Aucun article trouvé.</p>
-            <?php endif; ?>
+            <div class="container">
+                <div class="row">
+                    <?php if (isset($articles) && !empty($articles)): ?>
+                        <?php foreach ($articles as $article): ?>
+                            <div class="col-md-4">
+                                <div class="card" style="margin: 20px 0;">
+                                    <?php if (!empty($article['image'])): ?>
+                                        <img src="<?= htmlspecialchars($article['image']) ?>" class="card-img-top" alt="Image de l'article">
+                                    <?php else: ?>
+                                        <img src="placeholder_image.jpg" class="card-img-top" alt="Image placeholder">
+                                    <?php endif; ?>
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?= htmlspecialchars($article['titre']) ?></h5>
+                                        <p class="card-text"><?= htmlspecialchars(mb_substr($article['texte'], 0, 100)) . (strlen($article['texte']) > 50 ? '...' : '') ?></p>
+                                        <a class="btn btn-primary" href="<?= HOME_URL . 'editArticle' . $article['Id_Article'] ?>">Modifier</a>
+                                        <button type="button" class="btn btn-danger" href="<?= HOME_URL . 'deleteArticle' . $article['Id_Article'] ?>">Supprimer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>Aucun article trouvé.</p>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+
         </div>
-
-
-
-
-
+        <div class="tab-pane fade" id="v-pills-disabled" role="tabpanel" aria-labelledby="v-pills-disabled-tab" tabindex="0">...</div>
+        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0">...</div>
+        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0">...</div>
     </div>
-    <div class="tab-pane fade" id="v-pills-disabled" role="tabpanel" aria-labelledby="v-pills-disabled-tab" tabindex="0">...</div>
-    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0">...</div>
-    <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0">...</div>
-</div>
 </div>
