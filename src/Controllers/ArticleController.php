@@ -5,7 +5,6 @@ namespace src\Controllers;
 use DateTime;
 use Exception;
 use src\Models\Article;
-use src\Models\Utilisateur;
 use src\Repositories\ArticleRepository;
 
 class ArticleController
@@ -23,6 +22,12 @@ class ArticleController
             $article->setTitre(isset($_POST['titre']) ? htmlspecialchars($_POST['titre']) : null);
             $article->setTexte(isset($_POST['texte']) ? htmlspecialchars($_POST['texte']) : null);
             $dateString = isset($_POST['date']) ? $_POST['date'] : null;
+            $article->setImage(isset($_POST['image']) ? htmlspecialchars($_POST['image']) : null);
+
+            if (!isset($_POST['categories']) || $_POST['categories'] === '') {
+                throw new Exception("Veuillez remplir le champs catégories.");
+            }
+            $article->setIdCategorie(isset($_POST['categories']) ? (int) $_POST['categories'] : null);
 
             if ($dateString) {
                 try {
@@ -32,9 +37,6 @@ class ArticleController
                     throw new Exception("La date fournie est invalide.");
                 }
             }
-
-            $article->setImage(isset($_POST['image']) ? htmlspecialchars($_POST['image']) : null);
-            $article->setIdCategorie(isset($_POST['categories']) ? (int) $_POST['categories'] : null);
 
             if (
                 empty($article->getTitre()) ||
@@ -46,16 +48,15 @@ class ArticleController
                 throw new Exception("Veuillez remplir tous les champs.");
             }
 
-            $utilisateur = new Utilisateur();
-            $utilisateur->setIdUtilisateur(isset($_SESSION['Id_Utilisateur']) ? $_SESSION['Id_Utilisateur'] : null);
+            $article->setIdUtilisateur(isset($_SESSION['Id_Utilisateur']) ? $_SESSION['Id_Utilisateur'] : null);
 
-            if (empty($utilisateur->getIdUtilisateur())) {
+            if (empty($article->getIdUtilisateur())) {
                 throw new Exception("L'utilisateur n'est pas connecté.");
             }
 
             $this->articleRepository->createArticle($article);
 
-            $success = "L'article a bien été créé";
+            $success = "L'article a bien été créé.";
             include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
             exit;
         } catch (Exception $e) {
@@ -140,7 +141,7 @@ class ArticleController
                 throw new Exception("L'ID de l'article est manquant.");
             }
 
-            $this->articleRepository->updateArticle();
+            $this->articleRepository->updateArticle($article);
 
             $success = "L'article a bien été modifié";
             include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';

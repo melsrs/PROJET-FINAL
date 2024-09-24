@@ -29,7 +29,7 @@ class ArticleRepository
         $statement->execute([
             ':titre'               => $article->getTitre(),
             ':texte'               => $article->getTexte(),
-            ':date'                => $article->getDate(),
+            ':date'                => $article->getDate()->format('Y-m-d H:i:s'),
             ':image'               => $article->getImage(),
             ':Id_categorie'        => $article->getIdCategorie(),
             ':Id_Utilisateur'      => $article->getIdUtilisateur()
@@ -44,11 +44,11 @@ class ArticleRepository
     public function getAllArticles()
     {
         $sql = "SELECT * FROM article;";
-        // $statement = $this->DB->prepare($sql);
-        // $statement->execute();
-        // return $statement->fetchAll(PDO::FETCH_ASSOC);
+        $statement = $this->DB->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
 
-    return  $this->DB->query($sql)->fetchAll(PDO::FETCH_CLASS, Article::class);
+    // return  $this->DB->query($sql)->fetchAll(PDO::FETCH_CLASS, Article::class);
 
     }
 
@@ -82,11 +82,7 @@ class ArticleRepository
     {
         $sql = "SELECT * FROM article WHERE Id_Article = :Id_Article";
         $statement = $this->DB->prepare($sql);
-        // $statement->execute([':Id_Article' => $Id_Article]);
-        // return $statement->fetch(PDO::FETCH_ASSOC);
-
-        $statement->bindParam(':Id_Article', $Id_Article);
-        $statement->execute();
+        $statement->execute([':Id_Article' => $Id_Article]);
         $statement->setFetchMode(PDO::FETCH_CLASS, Article::class);
         return $statement->fetch();
     }
