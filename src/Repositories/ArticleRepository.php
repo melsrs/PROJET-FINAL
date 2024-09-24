@@ -2,7 +2,9 @@
 
 namespace src\Repositories;
 
+use Exception;
 use PDO;
+use src\Models\Article;
 use src\Models\Database;
 
 class ArticleRepository
@@ -17,30 +19,75 @@ class ArticleRepository
         require_once __DIR__ . '/../../config.php';
     }
 
-    public function createArticle($titre, $texte, $date, $image, $Id_Categorie, $Id_Utilisateur)
+    public function createArticle(Article $article) : Article
     {
         $sql = "INSERT INTO article (titre, texte, date, image, Id_Categorie, Id_Utilisateur) 
                 VALUES (:titre, :texte, :date, :image, :Id_categorie, :Id_Utilisateur);";
 
         $statement = $this->DB->prepare($sql);
 
-        $success = $statement->execute([
-            ':titre'               => $titre,
-            ':texte'               => $texte,
-            ':date'                => $date,
-            ':image'               => $image,
-            ':Id_categorie'        => $Id_Categorie,
-            ':Id_Utilisateur'     => $Id_Utilisateur
+        $statement->execute([
+            ':titre'               => $article->getTitre(),
+            ':texte'               => $article->getTexte(),
+            ':date'                => $article->getDate(),
+            ':image'               => $article->getImage(),
+            ':Id_categorie'        => $article->getIdCategorie(),
+            ':Id_Utilisateur'      => $article->getIdUtilisateur()
         ]);
 
-        return $success;
+        $idArticle = $this->DB->lastInsertId();
+        $article->setIdArticle($idArticle);
+    
+        return $article;
     }
 
     public function getAllArticles()
     {
         $sql = "SELECT * FROM article;";
+        // $statement = $this->DB->prepare($sql);
+        // $statement->execute();
+        // return $statement->fetchAll(PDO::FETCH_ASSOC);
+
+    return  $this->DB->query($sql)->fetchAll(PDO::FETCH_CLASS, Article::class);
+
+    }
+
+    public function updateArticle(Article $article)
+    {
+        $sql = "UPDATE article 
+                SET titre = :titre, 
+                    texte = :texte, 
+                    date = :date, 
+                    image = :image, 
+                    Id_Categorie = :Id_categorie, 
+                    Id_Utilisateur = :Id_Utilisateur 
+                WHERE Id_Article = :Id_Article;";
+
         $statement = $this->DB->prepare($sql);
+
+        $success = $statement->execute([
+            ':Id_Article'           => $article->getIdArticle(),
+            ':titre'                => $article->getTitre(),
+            ':texte'                => $article->getTexte(),
+            ':date'                 => $article->getDate(),
+            ':image'                => $article->getImage(),
+            ':Id_Categorie'         => $article->getIdCategorie(),
+            ':Id_Utilisateur'       => $article->getIdUtilisateur()
+        ]);
+
+        return $success;
+    }
+
+    public function getArticleById($Id_Article)
+    {
+        $sql = "SELECT * FROM article WHERE Id_Article = :Id_Article";
+        $statement = $this->DB->prepare($sql);
+        // $statement->execute([':Id_Article' => $Id_Article]);
+        // return $statement->fetch(PDO::FETCH_ASSOC);
+
+        $statement->bindParam(':Id_Article', $Id_Article);
         $statement->execute();
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
+        $statement->setFetchMode(PDO::FETCH_CLASS, Article::class);
+        return $statement->fetch();
     }
 }

@@ -56,7 +56,11 @@ class HomeController
 
     public function createArticle()
     {
-        include __DIR__ . '/../Views/DashboardAdmin/ArticleAdmin.php/createArticle.php';
+        include __DIR__ . '/../Views/DashboardAdmin/ArticleAdmin/createArticle.php';
+    }
+
+    public function updateArticle(){
+        include __DIR__. '/../Views/DashboardAdmin/ArticleAdmin/updateArticle.php';
     }
     
     public function deconnexion()

@@ -12,6 +12,8 @@ class Article
         private string $texte;
         private DateTime $date;
         private string $image;
+        private int $Id_Categorie;
+        private int $Id_Utilisateur;
 
     use Hydratation; 
 
@@ -101,6 +103,42 @@ class Article
         public function setImage(string $image): self
         {
                 $this->image = $image;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of Id_Categorie
+         */
+        public function getIdCategorie(): int
+        {
+                return $this->Id_Categorie;
+        }
+
+        /**
+         * Set the value of Id_Categorie
+         */
+        public function setIdCategorie(int $Id_Categorie): self
+        {
+                $this->Id_Categorie = $Id_Categorie;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of Id_Utilisateur
+         */
+        public function getIdUtilisateur(): int
+        {
+                return $this->Id_Utilisateur;
+        }
+
+        /**
+         * Set the value of Id_Utilisateur
+         */
+        public function setIdUtilisateur(int $Id_Utilisateur): self
+        {
+                $this->Id_Utilisateur = $Id_Utilisateur;
 
                 return $this;
         }

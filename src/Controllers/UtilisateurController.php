@@ -8,6 +8,12 @@ use src\Repositories\UtilisateurRepository;
 class UtilisateurController
 {
 
+    private $utilisateurRepository;
+    public function __construct()
+    {
+        $this->utilisateurRepository = new UtilisateurRepository();
+    }
+
     public function createUtilisateur()
     {
         try {

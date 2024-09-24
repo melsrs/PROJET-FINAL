@@ -12,11 +12,11 @@ $articles = $articleRepository->getAllArticles();
 
 <h2>Mon compte</h2>
 
-<?php if (isset($_GET['error'])): ?>
-    <div class="alert alert-danger"><?php echo $_GET['error']; ?></div>
+<?php if (isset($error)): ?>
+    <div class="alert alert-danger"><?php echo $error; ?></div>
 <?php endif; ?>
-<?php if (isset($_GET['success'])): ?>
-    <div class="alert alert-success"><?php echo $_GET['success']; ?></div>
+<?php if (isset($success)): ?>
+    <div class="alert alert-success"><?php echo $success; ?></div>
 <?php endif; ?>
 
 <div class="bg-white dashboard d-flex align-items-start ">
@@ -36,10 +36,8 @@ $articles = $articleRepository->getAllArticles();
 
         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0" style="color: black;">
             <div class="d-flex justify-content-center">
-                <a href="<?= HOME_URL . 'createArticle' ?>" class="btn btn-success">Ajouter un article</a>
+                <a href="<?= HOME_URL . 'dashboardAdmin/createArticle' ?>" class="btn btn-success">Ajouter un article</a>
             </div>
-
-
             <div class="container">
                 <div class="row">
                     <?php if (isset($articles) && !empty($articles)): ?>
@@ -54,7 +52,7 @@ $articles = $articleRepository->getAllArticles();
                                     <div class="card-body">
                                         <h5 class="card-title"><?= htmlspecialchars($article['titre']) ?></h5>
                                         <p class="card-text"><?= htmlspecialchars(mb_substr($article['texte'], 0, 100)) . (strlen($article['texte']) > 50 ? '...' : '') ?></p>
-                                        <a class="btn btn-primary" href="<?= HOME_URL . 'editArticle' . $article['Id_Article'] ?>">Modifier</a>
+                                        <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateArticle?id=' . $article['Id_Article'] ?>">Modifier</a>
                                         <button type="button" class="btn btn-danger" href="<?= HOME_URL . 'deleteArticle' . $article['Id_Article'] ?>">Supprimer</button>
                                     </div>
                                 </div>

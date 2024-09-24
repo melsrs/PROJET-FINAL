@@ -66,14 +66,21 @@ switch ($route) {
         break;
 
 
-    case HOME_URL . 'createArticle':
+    case HOME_URL . 'dashboardAdmin/createArticle':
         if ($methode === 'POST' && $_SESSION['adminConnecte'] = true) {
             $articleController->createArticle();
         } else {
             $homeController->createArticle();
         }
         break;
-        
+    case HOME_URL . 'dashboardAdmin/updateArticle':
+        if ($methode === 'GET') {
+            $articleController->showUpdateForm();
+        } elseif ($methode === 'POST') {
+            $articleController->saveUpdateArticle();
+        }
+        break;
+
 
     case HOME_URL . 'deconnexion':
         $homeController->deconnexion();
