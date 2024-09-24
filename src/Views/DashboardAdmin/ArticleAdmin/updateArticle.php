@@ -58,7 +58,3 @@ $categories = $categorieRepository->getAllCategories();
             </div>
         </form>
     </div>
-
-    <?php 
-    var_dump($_POST);
-    exit;

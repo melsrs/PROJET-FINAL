@@ -73,30 +73,29 @@ class ArticleController
         include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
     }
 
-    public function showUpdateForm()
+    public function showUpdateForm($Id_Article)
     {
         $article = new Article();
         $article->setIdArticle(isset($_GET['id']) ? (int) $_GET['id'] : null);
 
-        // Afficher une erreur si pas entier ou si existe pas
-        $idArticle = $article->getIdArticle();
-        if (empty($idArticle) || filter_var($idArticle, FILTER_VALIDATE_INT) === false) {
-            throw new Exception("L'ID de l'article est manquant ou invalide.");
-        }
+        
+    
+        // // Afficher une erreur si pas entier ou si existe pas
+        // $idArticle = $article->getIdArticle();
+        // if (empty($idArticle) || filter_var($idArticle, FILTER_VALIDATE_INT) === false) {
+        //     throw new Exception("L'ID de l'article est manquant ou invalide.");
+        // }
 
-        if (!empty($article->getIdArticle())) {
-            $article = $this->articleRepository->getArticleById($Id_Article);
-            if (!$article) {
-                throw new Exception("Article non trouvé.");
-            }
+        $article = $this->articleRepository->getArticleById($Id_Article);
 
-            // Inclure la vue du formulaire de mise à jour
-            include __DIR__ . '/../Views/DashboardAdmin/ArticleAdmin/updateArticle.php';
-        } else {
-            $error = "Mauvais Id d'article";
-            include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
+        if (!$article) {
+            throw new Exception("Article non trouvé.");
         }
+    
+        // Inclure la vue du formulaire de mise à jour
+        include __DIR__ . '/../Views/DashboardAdmin/ArticleAdmin/updateArticle.php';
     }
+    
 
     public function saveUpdateArticle()
     {
@@ -106,6 +105,8 @@ class ArticleController
             $article->setTitre(isset($_POST['titre']) ? htmlspecialchars($_POST['titre']) : null);
             $article->setTexte(isset($_POST['texte']) ? htmlspecialchars($_POST['texte']) : null);
             $dateString = isset($_POST['date']) ? $_POST['date'] : null;
+            $article->setImage(isset($_POST['image']) ? htmlspecialchars($_POST['image']) : null);
+            $article->setIdCategorie(isset($_POST['categories']) ? (int) $_POST['categories'] : null);
 
             if ($dateString) {
                 try {
@@ -116,10 +117,6 @@ class ArticleController
                 }
             }
 
-            $article->setImage(isset($_POST['image']) ? htmlspecialchars($_POST['image']) : null);
-            $article->setIdCategorie(isset($_POST['categories']) ? (int) $_POST['categories'] : null);
-
-            // Vérification que tous les champs sont remplis
             if (
                 empty($article->getTitre()) ||
                 empty($article->getTexte()) ||
