@@ -4,12 +4,14 @@ include __DIR__ . '/../../Includes/header.php';
 include __DIR__ . '/../../Includes/navbar.php';
 
 use src\Models\Article;
+use src\Models\Categorie;
 use src\Repositories\CategorieRepository;
 
 $categorieRepository = new CategorieRepository();
 $categories = $categorieRepository->getAllCategories();
 
 $article = new Article();
+$categories = new Categorie();
 
 ?>
 
@@ -46,11 +48,11 @@ $article = new Article();
             </div>
             <div class="mb-3 my-3">
                 <label for="categories" class="form-label">Catégories</label>
-                <select class="form-select" id="categories" name="categories" aria-label="Sélectionner une catégorie">
+                <select class="form-select" id="categories" name="Id_Categorie" aria-label="Sélectionner une catégorie">
                     <option selected disabled>Sélectionner la catégorie</option>
                     <?php foreach ($categories as $categorie): ?>
-                        <option value="<?= htmlspecialchars($categorie['Id_Categorie']) ?>">
-                            <?= htmlspecialchars($categorie['type']) ?>
+                        <option value="<?= htmlspecialchars($categorie->getIdCategorie()) ?>">
+                            <?= htmlspecialchars($categorie->getType()) ?>
                         </option>
                     <?php endforeach; ?>
                 </select>

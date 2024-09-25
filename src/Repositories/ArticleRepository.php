@@ -18,7 +18,7 @@ class ArticleRepository
         require_once __DIR__ . '/../../config.php';
     }
 
-    public function createArticle(Article $article) : Article
+    public function createArticle(Article $article): Article
     {
         $sql = "INSERT INTO article (titre, texte, date, image, Id_Categorie, Id_Utilisateur) 
                 VALUES (:titre, :texte, :date, :image, :Id_categorie, :Id_Utilisateur);";
@@ -36,19 +36,18 @@ class ArticleRepository
 
         $idArticle = $this->DB->lastInsertId();
         $article->setIdArticle($idArticle);
-    
+
         return $article;
     }
 
     public function getAllArticles()
     {
         $sql = "SELECT * FROM article;";
-        $statement = $this->DB->prepare($sql);
-        $statement->execute();
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
+        // $statement = $this->DB->prepare($sql);
+        // $statement->execute();
+        // return $statement->fetchAll(PDO::FETCH_ASSOC);
 
-    // return  $this->DB->query($sql)->fetchAll(PDO::FETCH_CLASS, Article::class);
-
+        return  $this->DB->query($sql)->fetchAll(PDO::FETCH_CLASS, Article::class);
     }
 
     public function updateArticle(Article $article)

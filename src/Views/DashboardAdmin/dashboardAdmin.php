@@ -44,16 +44,16 @@ $articles = $articleRepository->getAllArticles();
                         <?php foreach ($articles as $article): ?>
                             <div class="col-md-4">
                                 <div class="card" style="margin: 20px 0;">
-                                    <?php if (!empty($article['image'])): ?>
-                                        <img src="<?= htmlspecialchars($article['image']) ?>" class="card-img-top" alt="Image de l'article">
+                                    <?php if (!empty($article->getImage())): ?>
+                                        <img src="<?= htmlspecialchars($article->getImage()) ?>" class="card-img-top" alt="Image de l'article">
                                     <?php else: ?>
                                         <img src="placeholder_image.jpg" class="card-img-top" alt="Image placeholder">
                                     <?php endif; ?>
                                     <div class="card-body">
-                                        <h5 class="card-title"><?= htmlspecialchars($article['titre']) ?></h5>
-                                        <p class="card-text"><?= htmlspecialchars(mb_substr($article['texte'], 0, 100)) . (strlen($article['texte']) > 50 ? '...' : '') ?></p>
-                                        <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateArticle?id=' . $article['Id_Article'] ?>">Modifier</a>
-                                        <button type="button" class="btn btn-danger" href="<?= HOME_URL . 'deleteArticle' . $article['Id_Article'] ?>">Supprimer</button>
+                                        <h5 class="card-title"><?= htmlspecialchars($article->getTitre()) ?></h5>
+                                        <p class="card-text"><?= htmlspecialchars(mb_substr($article->getTexte(), 0, 100)) . (strlen($article->getTexte()) > 50 ? '...' : '') ?></p>
+                                        <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateArticle?id=' . $article->getIdArticle() ?>">Modifier</a>
+                                        <button type="button" class="btn btn-danger" href="<?= HOME_URL . 'deleteArticle' . $article->getIdArticle() ?>">Supprimer</button>
                                     </div>
                                 </div>
                             </div>

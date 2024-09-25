@@ -7,6 +7,8 @@ use src\Repositories\CategorieRepository;
 
 $categorieRepository = new CategorieRepository();
 $categories = $categorieRepository->getAllCategories();
+
+
 ?>
 
 <div class="createArticle">
@@ -39,11 +41,11 @@ $categories = $categorieRepository->getAllCategories();
             </div>
             <div class="mb-3 my-3">
                 <label for="categories" class="form-label">Catégories</label>
-                <select class="form-select" id="categories" name="categories" aria-label="Sélectionner une catégorie">
+                <select class="form-select" id="categories" name="Id_Categorie" aria-label="Sélectionner une catégorie">
                     <option selected disabled>Sélectionner la catégorie</option>
                     <?php foreach ($categories as $categorie): ?>
-                        <option value="<?= htmlspecialchars($categorie['Id_Categorie']) ?>">
-                            <?= htmlspecialchars($categorie['type']) ?>
+                        <option value="<?= htmlspecialchars($categorie->getIdCategorie()) ?>">
+                            <?= htmlspecialchars($categorie->getType()) ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
