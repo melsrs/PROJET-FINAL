@@ -24,10 +24,10 @@ class ArticleController
             $article->setDate(new DateTime('now'));
             $article->setImage(isset($_POST['image']) ? htmlspecialchars($_POST['image']) : null);
 
-            if (!isset($_POST['categories']) || $_POST['categories'] === '') {
+            if (!isset($_POST['Id_Categorie']) || $_POST['Id_Categorie'] === '') {
                 throw new Exception("Veuillez remplir le champs catégories.");
             }
-            $article->setIdCategorie(isset($_POST['categories']) ? (int) $_POST['categories'] : null);
+            $article->setIdCategorie(isset($_POST['Id_Categorie']) ? (int) $_POST['Id_Categorie'] : null);
 
             if (
                 empty($article->getTitre()) ||
