@@ -10,7 +10,7 @@ class Article
     private int $Id_Article;
         private string $titre;
         private string $texte;
-        private DateTime $date;
+        private string|DateTime $date;
         private string $image;
         private int $Id_Categorie;
         private int $Id_Utilisateur;
@@ -82,9 +82,15 @@ class Article
         /**
          * Set the value of date
          */
-        public function setDate(DateTime $date): self
+        public function setDate(string|DateTime $date): self
         {
-                $this->date = $date;
+                if ($date instanceof DateTime) {
+                        $this->date = $date;
+                } else {
+                        $this->date = new DateTime($date);
+                }
+
+                // $this->date = $date;
 
                 return $this;
         }

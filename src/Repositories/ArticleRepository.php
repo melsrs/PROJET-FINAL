@@ -2,7 +2,6 @@
 
 namespace src\Repositories;
 
-use Exception;
 use PDO;
 use src\Models\Article;
 use src\Models\Database;

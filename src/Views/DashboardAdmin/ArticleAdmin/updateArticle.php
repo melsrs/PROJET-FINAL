@@ -3,11 +3,13 @@
 include __DIR__ . '/../../Includes/header.php';
 include __DIR__ . '/../../Includes/navbar.php';
 
+use src\Models\Article;
 use src\Repositories\CategorieRepository;
-use src\Repositories\ArticleRepository;
 
 $categorieRepository = new CategorieRepository();
 $categories = $categorieRepository->getAllCategories();
+
+$article = new Article();
 
 ?>
 
@@ -24,23 +26,23 @@ $categories = $categorieRepository->getAllCategories();
     <div class="container d-flex justify-content-center align-items-center">
         <form class="w-50" method="POST" action="<?= HOME_URL . 'dashboardAdmin/updateArticle' ?>">
 
-        <input type="hidden" name="id_article" value="<?= htmlspecialchars($article['Id_Article']) ?>">
+            <input type="hidden" name="id_article" value="<?= htmlspecialchars($article->getIdArticle()) ?>">
 
             <div class="mb-3 my-3">
                 <label for="titre" class="form-label">Titre</label>
-                <input type="text" name="titre" class="form-control" id="titre" required value=" <?= $article['titre']?>">
+                <input type="text" name="titre" class="form-control" id="titre" required value="<?= htmlspecialchars($article->getTitre()) ?>">
             </div>
             <div class="mb-3 my-3">
                 <label for="texte" class="form-label">Texte</label>
-                <textarea class="form-control" name="texte" id="texte" style="height: 100px" required></textarea>
+                <textarea class="form-control" name="texte" id="texte" style="height: 100px" value="<?= htmlspecialchars($article->getTexte()) ?>" required></textarea>
             </div>
-            <div class="mb-3 my-3">
+            <!-- <div class="mb-3 my-3">
                 <label for="date" class="form-label">Date</label>
                 <input type="date" name="date" class="form-control" id="date" required>
-            </div>
+            </div> -->
             <div class="mb-3 my-3">
                 <label for="image" class="form-label">Image</label>
-                <input type="text" name="image" class="form-control" id="image">
+                <input type="text" name="image" class="form-control" id="image" value="<?= htmlspecialchars($article->getImage()) ?>">
             </div>
             <div class="mb-3 my-3">
                 <label for="categories" class="form-label">Catégories</label>

@@ -21,22 +21,13 @@ class ArticleController
             $article = new Article();
             $article->setTitre(isset($_POST['titre']) ? htmlspecialchars($_POST['titre']) : null);
             $article->setTexte(isset($_POST['texte']) ? htmlspecialchars($_POST['texte']) : null);
-            $dateString = isset($_POST['date']) ? $_POST['date'] : null;
+            $article->setDate(new DateTime('now'));
             $article->setImage(isset($_POST['image']) ? htmlspecialchars($_POST['image']) : null);
 
             if (!isset($_POST['categories']) || $_POST['categories'] === '') {
                 throw new Exception("Veuillez remplir le champs catégories.");
             }
             $article->setIdCategorie(isset($_POST['categories']) ? (int) $_POST['categories'] : null);
-
-            if ($dateString) {
-                try {
-                    $date = new DateTime($dateString);  // Convertir la chaîne en objet DateTime
-                    $article->setDate($date);           // Passer l'objet DateTime à la méthode setDate()
-                } catch (Exception $e) {
-                    throw new Exception("La date fournie est invalide.");
-                }
-            }
 
             if (
                 empty($article->getTitre()) ||
@@ -73,27 +64,34 @@ class ArticleController
         include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
     }
 
-    public function showUpdateForm($Id_Article)
+    public function showUpdateForm()
     {
-        $article = new Article();
-        $article->setIdArticle(isset($_GET['id']) ? (int) $_GET['id'] : null);
-
-        
+        try {
+            // Récupération et validation de l'ID
+            $Id_Article = isset($_GET['id']) ? (int)$_GET['id'] : null;
     
-        // // Afficher une erreur si pas entier ou si existe pas
-        // $idArticle = $article->getIdArticle();
-        // if (empty($idArticle) || filter_var($idArticle, FILTER_VALIDATE_INT) === false) {
-        //     throw new Exception("L'ID de l'article est manquant ou invalide.");
-        // }
+            if (empty($Id_Article) || !filter_var($Id_Article, FILTER_VALIDATE_INT) || $Id_Article <= 0) {
+                throw new Exception("L'Id de l'article est manquant ou invalide.");
+            }
+    
+            // Nouvel objet Article et définir l'ID
+            $article = new Article();
+            $article->setIdArticle($Id_Article); 
+    
+            // Passer l'ID d'article à la méthode getArticleById
+            $this->articleRepository->getArticleById($Id_Article);
+    
+            if (!$article) {
+                throw new Exception("Article non trouvé.");
+            }
+    
+            include __DIR__ . '/../Views/DashboardAdmin/ArticleAdmin/updateArticle.php';
 
-        $article = $this->articleRepository->getArticleById($Id_Article);
-
-        if (!$article) {
-            throw new Exception("Article non trouvé.");
+        } catch (Exception $e) {
+            $error = $e->getMessage();
+            include __DIR__ . '/../Views/DashboardAdmin/ArticleAdmin/updateArticle.php';
+            exit;
         }
-    
-        // Inclure la vue du formulaire de mise à jour
-        include __DIR__ . '/../Views/DashboardAdmin/ArticleAdmin/updateArticle.php';
     }
     
 
@@ -104,18 +102,9 @@ class ArticleController
             $article = new Article();
             $article->setTitre(isset($_POST['titre']) ? htmlspecialchars($_POST['titre']) : null);
             $article->setTexte(isset($_POST['texte']) ? htmlspecialchars($_POST['texte']) : null);
-            $dateString = isset($_POST['date']) ? $_POST['date'] : null;
+            $article->setDate(new DateTime('now'));
             $article->setImage(isset($_POST['image']) ? htmlspecialchars($_POST['image']) : null);
             $article->setIdCategorie(isset($_POST['categories']) ? (int) $_POST['categories'] : null);
-
-            if ($dateString) {
-                try {
-                    $date = new DateTime($dateString);  // Convertir la chaîne en objet DateTime
-                    $article->setDate($date);           // Passer l'objet DateTime à la méthode setDate()
-                } catch (Exception $e) {
-                    throw new Exception("La date fournie est invalide.");
-                }
-            }
 
             if (
                 empty($article->getTitre()) ||
