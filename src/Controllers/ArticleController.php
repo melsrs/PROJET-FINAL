@@ -67,18 +67,15 @@ class ArticleController
     public function showUpdateForm()
     {
         try {
-            // Récupération et validation de l'ID
             $Id_Article = isset($_GET['id']) ? (int)$_GET['id'] : null;
     
             if (empty($Id_Article) || !filter_var($Id_Article, FILTER_VALIDATE_INT) || $Id_Article <= 0) {
                 throw new Exception("L'Id de l'article est manquant ou invalide.");
             }
     
-            // Nouvel objet Article et définir l'ID
             $article = new Article();
             $article->setIdArticle($Id_Article); 
     
-            // Passer l'ID d'article à la méthode getArticleById
             $this->articleRepository->getArticleById($Id_Article);
     
             if (!$article) {

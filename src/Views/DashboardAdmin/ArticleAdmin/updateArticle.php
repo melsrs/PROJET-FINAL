@@ -4,14 +4,12 @@ include __DIR__ . '/../../Includes/header.php';
 include __DIR__ . '/../../Includes/navbar.php';
 
 use src\Models\Article;
-use src\Models\Categorie;
 use src\Repositories\CategorieRepository;
+
+$article = new Article();
 
 $categorieRepository = new CategorieRepository();
 $categories = $categorieRepository->getAllCategories();
-
-$article = new Article();
-$categories = new Categorie();
 
 ?>
 

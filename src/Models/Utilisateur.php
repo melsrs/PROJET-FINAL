@@ -11,6 +11,7 @@ class Utilisateur
     private string $nom;
     private string $mail;
     private string $mdp;
+    private int $Id_Role;
 
     use Hydratation;
 
@@ -100,6 +101,24 @@ class Utilisateur
     public function setMdp(string $mdp): self
     {
         $this->mdp = $mdp;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Id_Role
+     */
+    public function getIdRole(): int
+    {
+        return $this->Id_Role;
+    }
+
+    /**
+     * Set the value of Id_Role
+     */
+    public function setIdRole(int $Id_Role): self
+    {
+        $this->Id_Role = $Id_Role;
 
         return $this;
     }

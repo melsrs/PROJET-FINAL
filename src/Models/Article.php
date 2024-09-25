@@ -5,9 +5,9 @@ namespace src\Models;
 use DateTime;
 use src\Services\Hydratation;
 
-class Article 
+class Article
 {
-    private int $Id_Article;
+        private int $Id_Article;
         private string $titre;
         private string $texte;
         private string|DateTime $date;
@@ -15,25 +15,25 @@ class Article
         private int $Id_Categorie;
         private int $Id_Utilisateur;
 
-    use Hydratation; 
+        use Hydratation;
 
-    /**
-     * Get the value of Id_Article
-     */
-    public function getIdArticle(): int
-    {
-        return $this->Id_Article;
-    }
+        /**
+         * Get the value of Id_Article
+         */
+        public function getIdArticle(): int
+        {
+                return $this->Id_Article;
+        }
 
-    /**
-     * Set the value of Id_Article
-     */
-    public function setIdArticle(int $Id_Article): self
-    {
-        $this->Id_Article = $Id_Article;
+        /**
+         * Set the value of Id_Article
+         */
+        public function setIdArticle(int $Id_Article): self
+        {
+                $this->Id_Article = $Id_Article;
 
-        return $this;
-    }
+                return $this;
+        }
 
         /**
          * Get the value of titre

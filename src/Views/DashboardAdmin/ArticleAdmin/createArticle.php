@@ -8,7 +8,6 @@ use src\Repositories\CategorieRepository;
 $categorieRepository = new CategorieRepository();
 $categories = $categorieRepository->getAllCategories();
 
-
 ?>
 
 <div class="createArticle">

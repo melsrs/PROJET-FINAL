@@ -74,8 +74,8 @@ switch ($route) {
         }
         break;
     case HOME_URL . 'dashboardAdmin/updateArticle':
-    if ($methode === 'GET' && isset($_GET['id'])) {
-        $articleController->showUpdateForm((int)$_GET['id']);
+        if ($methode === 'GET' && isset($_GET['id'])) {
+            $articleController->showUpdateForm((int)$_GET['id']);
         } elseif ($methode === 'POST') {
             $articleController->saveUpdateArticle();
         }
