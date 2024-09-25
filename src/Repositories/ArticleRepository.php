@@ -43,10 +43,6 @@ class ArticleRepository
     public function getAllArticles()
     {
         $sql = "SELECT * FROM article;";
-        // $statement = $this->DB->prepare($sql);
-        // $statement->execute();
-        // return $statement->fetchAll(PDO::FETCH_ASSOC);
-
         return  $this->DB->query($sql)->fetchAll(PDO::FETCH_CLASS, Article::class);
     }
 

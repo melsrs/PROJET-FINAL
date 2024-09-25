@@ -29,7 +29,6 @@ $articles = $articleRepository->getAllArticles();
     <?php unset($_SESSION['error']); ?>
 <?php endif; ?>
 
-<!-- Le reste du contenu du dashboard -->
 
 <div class="bg-white dashboard d-flex align-items-start ">
     <div class="navbarDash nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -69,7 +68,6 @@ $articles = $articleRepository->getAllArticles();
                                             <input type="hidden" name="Id_Article" value="<?= $article->getIdArticle() ?>">
                                             <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');">Supprimer</button>
                                         </form>
-
                                     </div>
                                 </div>
                             </div>

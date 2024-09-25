@@ -135,7 +135,6 @@ class ArticleController
         }
     }
 
-
     public function deleteThisArticle($Id_Article)
     {
         try {
@@ -144,29 +143,20 @@ class ArticleController
             if (!$article) {
                 throw new Exception("L'article n'existe pas.");
             }
-    
+
             // Tenter de supprimer l'article
             $success = $this->articleRepository->deleteArticle($Id_Article);
-    
+
             if ($success) {
-                // Si la suppression a réussi
                 $_SESSION['success'] = "L'article a été supprimé avec succès.";
             } else {
-                // Si la suppression a échoué pour une raison quelconque
                 throw new Exception("Une erreur est survenue lors de la suppression de l'article.");
             }
-    
-            // $articles = $this->articleRepository->getAllArticles();
 
             include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
-    
         } catch (Exception $e) {
-
-            $_SESSION['error'] = $e->getMessage();  
-            // $articles = $this->articleRepository->getAllArticles();
+            $error = $e->getMessage();
             include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
         }
     }
-
-
 }
