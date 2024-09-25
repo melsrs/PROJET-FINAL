@@ -84,4 +84,17 @@ class ArticleRepository
         $statement->setFetchMode(PDO::FETCH_CLASS, Article::class);
         return $statement->fetch();
     }
+
+    public function deleteArticle($Id_Article): bool
+    {
+      $sql = "DELETE FROM commenter WHERE Id_Article = :Id_Article;
+              DELETE FROM humain WHERE Id_Article = :Id_Article;
+              DELETE FROM titan WHERE Id_Article = :Id_Article;
+              DELETE FROM likes WHERE Id_Article = :Id_Article;
+              DELETE FROM article WHERE Id_Article = :Id_Article";
+  
+      $statement = $this->DB->prepare($sql);
+  
+      return $statement->execute([':Id_Article' => $Id_Article]);
+    }
 }

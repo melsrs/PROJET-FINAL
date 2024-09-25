@@ -82,6 +82,24 @@ switch ($route) {
         break;
 
 
+    case HOME_URL . 'dashboardAdmin/createArticle':
+        if ($methode === 'POST' && $_SESSION['adminConnecte'] = true) {
+            $articleController->createArticle();
+        } else {
+            $homeController->createArticle();
+        }
+        break;
+
+
+    case HOME_URL . 'dashboardAdmin/deleteArticle':
+        if ($methode === 'POST' && isset($_POST['Id_Article']) && $_SESSION['adminConnecte'] === true) {
+            $articleController->deleteThisArticle((int)$_POST['Id_Article']);
+        } else {
+            $homeController->dashboardAdmin();
+        }
+        break;
+
+
     case HOME_URL . 'deconnexion':
         $homeController->deconnexion();
         break;

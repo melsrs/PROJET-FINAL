@@ -68,29 +68,28 @@ class ArticleController
     {
         try {
             $Id_Article = isset($_GET['id']) ? (int)$_GET['id'] : null;
-    
+
             if (empty($Id_Article) || !filter_var($Id_Article, FILTER_VALIDATE_INT) || $Id_Article <= 0) {
                 throw new Exception("L'Id de l'article est manquant ou invalide.");
             }
-    
+
             $article = new Article();
-            $article->setIdArticle($Id_Article); 
-    
+            $article->setIdArticle($Id_Article);
+
             $this->articleRepository->getArticleById($Id_Article);
-    
+
             if (!$article) {
                 throw new Exception("Article non trouvé.");
             }
-    
-            include __DIR__ . '/../Views/DashboardAdmin/ArticleAdmin/updateArticle.php';
 
+            include __DIR__ . '/../Views/DashboardAdmin/ArticleAdmin/updateArticle.php';
         } catch (Exception $e) {
             $error = $e->getMessage();
             include __DIR__ . '/../Views/DashboardAdmin/ArticleAdmin/updateArticle.php';
             exit;
         }
     }
-    
+
 
     public function saveUpdateArticle()
     {
@@ -135,4 +134,39 @@ class ArticleController
             exit;
         }
     }
+
+
+    public function deleteThisArticle($Id_Article)
+    {
+        try {
+            // Vérifier si l'article existe avant de le supprimer
+            $article = $this->articleRepository->getArticleById($Id_Article);
+            if (!$article) {
+                throw new Exception("L'article n'existe pas.");
+            }
+    
+            // Tenter de supprimer l'article
+            $success = $this->articleRepository->deleteArticle($Id_Article);
+    
+            if ($success) {
+                // Si la suppression a réussi
+                $_SESSION['success'] = "L'article a été supprimé avec succès.";
+            } else {
+                // Si la suppression a échoué pour une raison quelconque
+                throw new Exception("Une erreur est survenue lors de la suppression de l'article.");
+            }
+    
+            // $articles = $this->articleRepository->getAllArticles();
+
+            include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
+    
+        } catch (Exception $e) {
+
+            $_SESSION['error'] = $e->getMessage();  
+            // $articles = $this->articleRepository->getAllArticles();
+            include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
+        }
+    }
+
+
 }

@@ -19,6 +19,18 @@ $articles = $articleRepository->getAllArticles();
     <div class="alert alert-success"><?php echo $success; ?></div>
 <?php endif; ?>
 
+<?php if (isset($_SESSION['success'])): ?>
+    <div class="alert alert-success"><?= htmlspecialchars($_SESSION['success']) ?></div>
+    <?php unset($_SESSION['success']); ?>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['error'])): ?>
+    <div class="alert alert-danger"><?= htmlspecialchars($_SESSION['error']) ?></div>
+    <?php unset($_SESSION['error']); ?>
+<?php endif; ?>
+
+<!-- Le reste du contenu du dashboard -->
+
 <div class="bg-white dashboard d-flex align-items-start ">
     <div class="navbarDash nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
         <a class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Utilisateurs</a>
@@ -53,7 +65,11 @@ $articles = $articleRepository->getAllArticles();
                                         <h5 class="card-title"><?= htmlspecialchars($article->getTitre()) ?></h5>
                                         <p class="card-text"><?= htmlspecialchars(mb_substr($article->getTexte(), 0, 100)) . (strlen($article->getTexte()) > 50 ? '...' : '') ?></p>
                                         <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateArticle?id=' . $article->getIdArticle() ?>">Modifier</a>
-                                        <button type="button" class="btn btn-danger" href="<?= HOME_URL . 'deleteArticle' . $article->getIdArticle() ?>">Supprimer</button>
+                                        <form action="<?= HOME_URL . 'dashboardAdmin/deleteArticle' ?>" method="POST" style="display: inline;">
+                                            <input type="hidden" name="Id_Article" value="<?= $article->getIdArticle() ?>">
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');">Supprimer</button>
+                                        </form>
+
                                     </div>
                                 </div>
                             </div>
