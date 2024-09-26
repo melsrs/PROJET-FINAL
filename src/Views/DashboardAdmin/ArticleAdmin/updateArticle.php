@@ -34,7 +34,7 @@ $categories = $categorieRepository->getAllCategories();
             </div>
             <div class="mb-3 my-3">
                 <label for="texte" class="form-label">Texte</label>
-                <textarea class="form-control" name="texte" id="texte" style="height: 100px" value="<?= htmlspecialchars($article->getTexte()) ?>" required></textarea>
+                <textarea class="form-control" name="texte" id="texte" style="height: 100px" required><?= htmlspecialchars($article->getTexte()) ?></textarea>
             </div>
             <!-- <div class="mb-3 my-3">
                 <label for="date" class="form-label">Date</label>
@@ -47,13 +47,15 @@ $categories = $categorieRepository->getAllCategories();
             <div class="mb-3 my-3">
                 <label for="categories" class="form-label">Catégories</label>
                 <select class="form-select" id="categories" name="Id_Categorie" aria-label="Sélectionner une catégorie">
-                    <option selected disabled>Sélectionner la catégorie</option>
+                    <option disabled>Sélectionner la catégorie</option>
                     <?php foreach ($categories as $categorie): ?>
-                        <option value="<?= htmlspecialchars($categorie->getIdCategorie()) ?>">
+                        <option value="<?= htmlspecialchars($categorie->getIdCategorie()) ?>"
+                            <?= $categorie->getIdCategorie() == $article->getIdCategorie() ? 'selected' : '' ?>>
                             <?= htmlspecialchars($categorie->getType()) ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
+
             </div>
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary my-3">Modifier l'article</button>

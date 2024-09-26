@@ -48,14 +48,6 @@ class UtilisateurRepository
     
   }
 
-  // public function getUtilisateurByMail($mail)
-  // {
-  //     $sql = "SELECT * FROM utilisateur WHERE mail = :mail;";
-  //     $statement = $this->DB->prepare($sql);
-  //     $statement->execute([':mail' => $mail]);
-  //     return $statement->fetch(PDO::FETCH_ASSOC);
-  // }
-
   public function getUtilisateurByMail($mail)
   {
       $sql = "SELECT * FROM utilisateur WHERE mail = :mail;";
@@ -64,16 +56,7 @@ class UtilisateurRepository
       $statement->setFetchMode(PDO::FETCH_CLASS, Utilisateur::class);
       $user = $statement->fetch();
       return $user;
-
   }
-
-  // public function getRoleType($Id_Role)
-  // {
-  //   $sql = "SELECT type FROM role WHERE Id_Role = :id_role;";
-  //   $statement = $this->DB->prepare($sql);
-  //   $statement->execute([':id_role' => $Id_Role]);
-  //   return $statement->fetch(PDO::FETCH_ASSOC)['type'];
-  // }
 
 
   public function getRoleType($Id_Role)
