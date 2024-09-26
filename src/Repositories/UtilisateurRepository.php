@@ -62,7 +62,9 @@ class UtilisateurRepository
       $statement = $this->DB->prepare($sql);
       $statement->execute([':mail' => $mail]);
       $statement->setFetchMode(PDO::FETCH_CLASS, Utilisateur::class);
-      return $statement->fetch();
+      $user = $statement->fetch();
+      return $user;
+
   }
 
   // public function getRoleType($Id_Role)
@@ -79,7 +81,6 @@ class UtilisateurRepository
     $sql = "SELECT type FROM role WHERE Id_Role = :id_role;";
     $statement = $this->DB->prepare($sql);
     $statement->execute([':id_role' => $Id_Role]);
-    $statement->setFetchMode(PDO::FETCH_CLASS, Utilisateur::class);
     return $statement->fetch();
   }
   

@@ -53,21 +53,21 @@ trait Hydratation
    *
    * @return array
    */
-  public function __serialize(): array
-  {
-    $class = new \ReflectionClass(get_class($this));
+  // public function __serialize(): array
+  // {
+  //   $class = new \ReflectionClass(get_class($this));
 
-    $ObjToArray = [];
-    foreach ($class->getMethods(\ReflectionMethod::IS_PUBLIC) as $methode) {
-      $nomMethode = $methode->getName();
-      // Vérifie si le nom de la méthode commence par 'get'
-      if (strpos($nomMethode, 'get') === 0) {
-        // puis on enlève get pour ne garder que le nom de la propriété :
-        $ObjToArray[ltrim($nomMethode, 'get')] = $this->$nomMethode();
-      }
-    }
-    return $ObjToArray;
-  }
+  //   $ObjToArray = [];
+  //   foreach ($class->getMethods(\ReflectionMethod::IS_PUBLIC) as $methode) {
+  //     $nomMethode = $methode->getName();
+  //     // Vérifie si le nom de la méthode commence par 'get'
+  //     if (strpos($nomMethode, 'get') === 0) {
+  //       // puis on enlève get pour ne garder que le nom de la propriété :
+  //       $ObjToArray[ltrim($nomMethode, 'get')] = $this->$nomMethode();
+  //     }
+  //   }
+  //   return $ObjToArray;
+  // }
 
   /**
    * Méthode de réhydratation de l'objet lors de sa déserialisation.
@@ -76,10 +76,10 @@ trait Hydratation
    *
    * @return  void
    */
-  public function __unserialize(array $data): void
-  {
-    $this->hydrate($data);
-  }
+  // public function __unserialize(array $data): void
+  // {
+  //   $this->hydrate($data);
+  // }
 
   /**
    * Méthode qui retourne l'objet sous format tableau. Récupère toutes les propriétés.

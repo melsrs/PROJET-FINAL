@@ -127,18 +127,18 @@ class UtilisateurController
             }
     
             // Stockage des données de l'utilisateur en session
-            $_SESSION['Id_Utilisateur'] = $utilisateur->getIdUtilisateur();
-            $_SESSION['prenom'] = $utilisateur->getPrenom();
-            $_SESSION['nom'] = $utilisateur->getNom();
-            $_SESSION['mail'] = $utilisateur->getMail();
+            $_SESSION['Id_Utilisateur'] = $utilisateurBDD->getIdUtilisateur();
+            $_SESSION['prenom'] = $utilisateurBDD->getPrenom();
+            $_SESSION['nom'] = $utilisateurBDD->getNom();
+            $_SESSION['mail'] = $utilisateurBDD->getMail();
             
-            $role_type = $this->utilisateurRepository->getRoleType($utilisateur->getIdRole());
+            $role_type = $this->utilisateurRepository->getRoleType($utilisateurBDD->getIdRole());
             $_SESSION['role'] = $role_type;
-    
-            if ($role_type === 'admin') {
+
+            if ($role_type[0] === 'admin') {
                 $_SESSION['adminConnecte'] = true;
                 header('Location:' . HOME_URL . 'dashboardAdmin?success=' . urlencode('Vous êtes connecté avec succès.'));
-            } elseif ($role_type === 'utilisateur') {
+            } elseif ($role_type[0] === 'utilisateur') {
                 $_SESSION['connecte'] = true;
                 header('Location:' . HOME_URL . 'dashboard?success=' . urlencode('Vous êtes connecté avec succès.'));
             }
