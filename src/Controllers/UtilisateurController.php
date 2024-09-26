@@ -56,7 +56,6 @@ class UtilisateurController
             $success = "Votre compte a bien été créé.";
             include __DIR__ . '/../Views/Connexion/connexion.php';
             exit;
-
         } catch (Exception $e) {
             $error = $e->getMessage();
             include __DIR__ . '/../Views/Inscription/inscription.php';
@@ -64,88 +63,53 @@ class UtilisateurController
         }
     }
 
-    // public function TraitementConnexion()
-    // {
-    //     try {
-    //         $mail = isset($_POST['mail']) ? htmlspecialchars($_POST['mail']) : null;
-    //         $motDePasse = isset($_POST['motDePasse']) ? htmlspecialchars($_POST['motDePasse']) : null;
-
-    //         if (empty($mail) || empty($motDePasse)) {
-    //             throw new Exception("Veuillez remplir tous les champs.");
-    //         }
-    //         $utilisateurRepository = new UtilisateurRepository;
-    //         $utilisateur = $utilisateurRepository->getUtilisateurByMail($mail);
-
-    //         if (!$utilisateur) {
-    //             throw new Exception("Le mail ou le mot de passe est incorrect.");
-    //         }
-    //         if (!password_verify($motDePasse, $utilisateur['mdp'])) {
-    //             throw new Exception("Le mail ou le mot de passe est incorrect.");
-    //         }
-
-    //         // ici on stocke les données de l'utilisateur en session
-    //         $_SESSION['Id_Utilisateur'] = $utilisateur['Id_Utilisateur'];
-    //         $_SESSION['prenom'] = $utilisateur['prenom'];
-    //         $_SESSION['nom'] = $utilisateur['nom'];
-    //         $_SESSION['mail'] = $utilisateur['mail'];
-    //         $Id_Role =  $utilisateur['Id_Role'];
-    //         $role_type =  $utilisateurRepository->getRoleType($Id_Role);
-    //         $_SESSION['role'] = $role_type;
-
-    //         if ($role_type === 'admin') {
-    //             $_SESSION['adminConnecte'] = true;
-    //             header('Location:' . HOME_URL . 'dashboardAdmin?success=Vous êtes connecté avec succès.');
-    //         } elseif ($role_type === 'utilisateur') {
-    //             $_SESSION['connecte'] = true;
-    //             header('Location:' . HOME_URL . 'dashboard?success=Vous êtes connecté avec succès.');
-    //         }
-    //     } catch (Exception $e) {
-    //         header('Location:' . HOME_URL . 'connexion?error=' . $e->getMessage());
-    //     }
-    // }
-
-
     public function TraitementConnexion()
     {
         try {
             $utilisateur = new Utilisateur();
             $utilisateur->setMail(isset($_POST['mail']) ? htmlspecialchars($_POST['mail']) : null);
             $utilisateur->setMdp(isset($_POST['motDePasse']) ? $_POST['motDePasse'] : null);
-    
+
             if (empty($utilisateur->getMail()) || empty($utilisateur->getMdp())) {
                 throw new Exception("Veuillez remplir tous les champs.");
             }
-            
+
             $utilisateurBDD = $this->utilisateurRepository->getUtilisateurByMail($utilisateur->getMail());
-    
+
             if (!$utilisateurBDD) {
                 throw new Exception("Le mail ou le mot de passe est incorrect.");
             }
-    
+
             if (!password_verify($utilisateur->getMdp(), $utilisateurBDD->getMdp())) {
                 throw new Exception("Le mail ou le mot de passe est incorrect.");
             }
-    
+
             // Stockage des données de l'utilisateur en session
             $_SESSION['Id_Utilisateur'] = $utilisateurBDD->getIdUtilisateur();
             $_SESSION['prenom'] = $utilisateurBDD->getPrenom();
             $_SESSION['nom'] = $utilisateurBDD->getNom();
             $_SESSION['mail'] = $utilisateurBDD->getMail();
-            
+
             $role_type = $this->utilisateurRepository->getRoleType($utilisateurBDD->getIdRole());
             $_SESSION['role'] = $role_type;
 
             if ($role_type[0] === 'admin') {
                 $_SESSION['adminConnecte'] = true;
-                header('Location:' . HOME_URL . 'dashboardAdmin?success=' . urlencode('Vous êtes connecté avec succès.'));
+
+                $success = "Vous êtes connecté avec succès.";
+                include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
+
             } elseif ($role_type[0] === 'utilisateur') {
                 $_SESSION['connecte'] = true;
-                header('Location:' . HOME_URL . 'dashboard?success=' . urlencode('Vous êtes connecté avec succès.'));
+                $success = "Vous êtes connecté avec succès.";
+                include __DIR__ . '/../Views/DashboardUtilisateur/dashboardUtilisateur.php';
+                exit;
             }
-            exit();
+
         } catch (Exception $e) {
-            header('Location:' . HOME_URL . 'connexion?error=' . urlencode($e->getMessage()));
-            exit();
+            $error = $e->getMessage();
+            include __DIR__ . '/../Views/Connexion/connexion.php';
+            exit;
         }
     }
 }
