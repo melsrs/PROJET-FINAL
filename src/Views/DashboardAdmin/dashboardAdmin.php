@@ -3,10 +3,15 @@
 include __DIR__ . '/../Includes/header.php';
 include __DIR__ . '/../Includes/navbar.php';
 
+use src\Models\Utilisateur;
 use src\Repositories\ArticleRepository;
+use src\Repositories\UtilisateurRepository;
 
 $articleRepository = new ArticleRepository();
 $articles = $articleRepository->getAllArticles();
+
+$utilisateurRepository = new UtilisateurRepository();
+$utilisateurs = $utilisateurRepository->getAllUtilisateur();
 
 ?>
 
@@ -38,9 +43,7 @@ $articles = $articleRepository->getAllArticles();
         <a class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Commentaires</a>
     </div>
     <div class="tab-content" id="v-pills-tabContent">
-        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0">
-
-            jljh
+        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0" style="color: black;">
 
         </div>
 

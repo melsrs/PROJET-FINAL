@@ -66,5 +66,12 @@ class UtilisateurRepository
     $statement->execute([':id_role' => $Id_Role]);
     return $statement->fetch();
   }
+
+  public function getAllUtilisateur()
+  {
+      $sql = "SELECT * FROM utilisateur;";
+      return  $this->DB->query($sql)->fetchAll(PDO::FETCH_CLASS, Utilisateur::class);
+  }
+
   
 }

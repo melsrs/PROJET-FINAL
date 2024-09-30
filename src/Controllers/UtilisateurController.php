@@ -112,4 +112,11 @@ class UtilisateurController
             exit;
         }
     }
+
+    public function showAllUtilisateur()
+    {
+        $this->utilisateurRepository->getAllUtilisateur();
+
+        include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
+    }
 }

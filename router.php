@@ -51,14 +51,14 @@ switch ($route) {
         break;
 
     case HOME_URL . 'dashboardAdmin':
-        if ($_SESSION['adminConnecte'] = true) {
+        if ($_SESSION['adminConnecte'] === true) {
             $homeController->dashboardAdmin();
         } else {
             header('Location: ' . HOME_URL . 'connexion');
         }
         break;
     case HOME_URL . 'dashboard':
-        if ($_SESSION['connecte'] = true) {
+        if ($_SESSION['connecte'] === true) {
             $homeController->dashboard();
         } else {
             header('Location: ' . HOME_URL . 'connexion');
@@ -67,37 +67,30 @@ switch ($route) {
 
 
     case HOME_URL . 'dashboardAdmin/createArticle':
-        if ($methode === 'POST' && $_SESSION['adminConnecte'] = true) {
+        if ($methode === 'POST' && $_SESSION['adminConnecte'] === true) {
             $articleController->createArticle();
         } else {
-            $homeController->createArticle();
+            $homeController->afficherLaPageConnexion();
         }
         break;
     case HOME_URL . 'dashboardAdmin/updateArticle':
-        if ($methode === 'GET' && isset($_GET['id'])) {
+        if ($methode === 'GET' && isset($_GET['id']) && $_SESSION['adminConnecte'] === true) {
             $articleController->showUpdateForm((int)$_GET['id']);
-        } elseif ($methode === 'POST') {
+        } elseif ($methode === 'POST' && $_SESSION['adminConnecte'] === true) {
             $articleController->saveUpdateArticle();
-        }
-        break;
-    case HOME_URL . 'dashboardAdmin/createArticle':
-        if ($methode === 'POST' && $_SESSION['adminConnecte'] = true) {
-            $articleController->createArticle();
         } else {
-            $homeController->createArticle();
+            $homeController->afficherLaPageConnexion();
         }
         break;
-
-
     case HOME_URL . 'dashboardAdmin/deleteArticle':
-        if ($methode === 'POST' && isset($_POST['Id_Article']) && $_SESSION['adminConnecte'] = true) {
+        if ($methode === 'POST' && isset($_POST['Id_Article']) && $_SESSION['adminConnecte'] === true) {
             $articleController->deleteThisArticle((int)$_POST['Id_Article']);
         } else {
-            $homeController->dashboardAdmin();
+            $homeController->afficherLaPageConnexion();
         }
         break;
 
-
+        
     case HOME_URL . 'deconnexion':
         $homeController->deconnexion();
         break;
