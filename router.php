@@ -80,8 +80,6 @@ switch ($route) {
             $articleController->saveUpdateArticle();
         }
         break;
-
-
     case HOME_URL . 'dashboardAdmin/createArticle':
         if ($methode === 'POST' && $_SESSION['adminConnecte'] = true) {
             $articleController->createArticle();

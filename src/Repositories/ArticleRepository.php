@@ -53,7 +53,7 @@ class ArticleRepository
                     texte = :texte, 
                     date = :date, 
                     image = :image, 
-                    Id_Categorie = :Id_categorie, 
+                    Id_Categorie = :Id_Categorie, 
                     Id_Utilisateur = :Id_Utilisateur 
                 WHERE Id_Article = :Id_Article;";
 
@@ -63,7 +63,7 @@ class ArticleRepository
             ':Id_Article'           => $article->getIdArticle(),
             ':titre'                => $article->getTitre(),
             ':texte'                => $article->getTexte(),
-            ':date'                 => $article->getDate(),
+            ':date'                 => $article->getDate()->format('Y-m-d H:i:s'),
             ':image'                => $article->getImage(),
             ':Id_Categorie'         => $article->getIdCategorie(),
             ':Id_Utilisateur'       => $article->getIdUtilisateur()

@@ -100,8 +100,11 @@ class ArticleController
             $article->setTexte(isset($_POST['texte']) ? htmlspecialchars($_POST['texte']) : null);
             $article->setDate(new DateTime('now'));
             $article->setImage(isset($_POST['image']) ? htmlspecialchars($_POST['image']) : null);
-            $article->setIdCategorie(isset($_POST['categories']) ? (int) $_POST['categories'] : null);
-
+            
+            // Utiliser 'Id_Categorie' pour correspondre au nom du champ dans la vue
+            $article->setIdCategorie(isset($_POST['Id_Categorie']) ? (int) $_POST['Id_Categorie'] : null);
+    
+            // Vérifications des champs
             if (
                 empty($article->getTitre()) ||
                 empty($article->getTexte()) ||
@@ -111,20 +114,21 @@ class ArticleController
             ) {
                 throw new Exception("Veuillez remplir tous les champs.");
             }
-
+    
             $article->setIdUtilisateur(isset($_SESSION['Id_Utilisateur']) ? $_SESSION['Id_Utilisateur'] : null);
-
+    
             if (empty($article->getIdUtilisateur())) {
-                throw new Exception("Veuillez vous authentifier");
+                throw new Exception("Veuillez vous authentifier.");
             }
-
+    
             $article->setIdArticle(isset($_POST['id_article']) ? (int) $_POST['id_article'] : null);
             if (empty($article->getIdArticle())) {
                 throw new Exception("L'ID de l'article est manquant.");
             }
-
+    
+            // Mise à jour de l'article
             $this->articleRepository->updateArticle($article);
-
+    
             $success = "L'article a bien été modifié";
             include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
             exit;
@@ -134,6 +138,7 @@ class ArticleController
             exit;
         }
     }
+    
 
     public function deleteThisArticle($Id_Article)
     {

@@ -90,8 +90,6 @@ class Article
                         $this->date = new DateTime($date);
                 }
 
-                // $this->date = $date;
-
                 return $this;
         }
 
