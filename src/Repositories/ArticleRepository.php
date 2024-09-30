@@ -78,9 +78,9 @@ class ArticleRepository
         $statement = $this->DB->prepare($sql);
         $statement->execute([':Id_Article' => $Id_Article]);
         $statement->setFetchMode(PDO::FETCH_CLASS, Article::class);
-        return $statement->fetch();
-        // $article = $statement->fetch();
-        // var_dump($article);
+        $article = $statement->fetch();
+        return $article;
+
     }
 
     public function deleteArticle($Id_Article): bool

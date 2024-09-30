@@ -72,7 +72,7 @@ class ArticleController
             if (empty($Id_Article) || !filter_var($Id_Article, FILTER_VALIDATE_INT) || $Id_Article <= 0) {
                 throw new Exception("L'ID de l'article est manquant ou invalide.");
             }
-    
+
             // Récupérer l'article à partir du repository
             $article = $this->articleRepository->getArticleById($Id_Article);  
     
@@ -80,8 +80,6 @@ class ArticleController
                 throw new Exception("Article non trouvé.");
             }
 
-            var_dump($Id_Article);    
-            
             // Passer l'objet $article à la vue
             include __DIR__ . '/../Views/DashboardAdmin/ArticleAdmin/updateArticle.php';
     
@@ -92,8 +90,6 @@ class ArticleController
         }
     }
     
-    
-
 
     public function saveUpdateArticle()
     {
