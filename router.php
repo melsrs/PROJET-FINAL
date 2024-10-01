@@ -54,14 +54,14 @@ switch ($route) {
         if ($_SESSION['adminConnecte'] === true) {
             $homeController->dashboardAdmin();
         } else {
-            header('Location: ' . HOME_URL . 'connexion');
+            $homeController->afficherLaPageConnexion();
         }
         break;
     case HOME_URL . 'dashboard':
         if ($_SESSION['connecte'] === true) {
             $homeController->dashboard();
         } else {
-            header('Location: ' . HOME_URL . 'connexion');
+            $homeController->afficherLaPageConnexion();
         }
         break;
 
@@ -90,9 +90,9 @@ switch ($route) {
         }
         break;
 
-        
+
     case HOME_URL . 'deconnexion':
-        $homeController->deconnexion();
+        $utlisateurController->deconnexion();
         break;
     default:
         echo "Page non trouvée";

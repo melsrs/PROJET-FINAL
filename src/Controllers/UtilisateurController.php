@@ -98,14 +98,12 @@ class UtilisateurController
 
                 $success = "Vous êtes connecté avec succès.";
                 include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
-
             } elseif ($role_type[0] === 'utilisateur') {
                 $_SESSION['connecte'] = true;
                 $success = "Vous êtes connecté avec succès.";
                 include __DIR__ . '/../Views/DashboardUtilisateur/dashboardUtilisateur.php';
                 exit;
             }
-
         } catch (Exception $e) {
             $error = $e->getMessage();
             include __DIR__ . '/../Views/Connexion/connexion.php';
@@ -118,5 +116,20 @@ class UtilisateurController
         $this->utilisateurRepository->getAllUtilisateur();
 
         include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
+    }
+
+    public function deconnexion()
+    {
+        try {
+            session_destroy();
+
+            $success = "Vous êtes déconnecté avec succès.";
+            include __DIR__. '/../Views/Connexion/connexion.php';
+            exit;
+
+        } catch (Exception $e) {
+            $error = $e->getMessage();
+            throw new Exception("Une erreur est survenue lors de la déconnexion : " . $error);
+        }
     }
 }

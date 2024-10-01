@@ -63,9 +63,4 @@ class HomeController
         include __DIR__. '/../Views/DashboardAdmin/ArticleAdmin/updateArticle.php';
     }
     
-    public function deconnexion()
-    {
-        session_destroy();
-        header('Location: '.HOME_URL .'connexion?success=Déconnexion réussie');
-    }
 }
