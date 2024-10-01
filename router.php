@@ -51,14 +51,14 @@ switch ($route) {
         break;
 
     case HOME_URL . 'dashboardAdmin':
-        if ($_SESSION['adminConnecte'] === true) {
+        if (isset($_SESSION['adminConnecte']) && $_SESSION['adminConnecte'] === true) {
             $homeController->dashboardAdmin();
         } else {
             $homeController->afficherLaPageConnexion();
         }
         break;
     case HOME_URL . 'dashboard':
-        if ($_SESSION['connecte'] === true) {
+        if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true) {
             $homeController->dashboard();
         } else {
             $homeController->afficherLaPageConnexion();
