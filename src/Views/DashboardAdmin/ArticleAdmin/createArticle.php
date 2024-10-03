@@ -30,10 +30,6 @@ $categories = $categorieRepository->getAllCategories();
                 <label for="texte" class="form-label">Texte</label>
                 <textarea class="form-control" name="texte" id="texte" style="height: 100px" required></textarea>
             </div>
-            <!-- <div class="mb-3 my-3">
-                <label for="date" class="form-label">Date</label>
-                <input type="date" name="date" class="form-control" id="date" required>
-            </div> -->
             <div class="mb-3 my-3">
                 <label for="image" class="form-label">Image</label>
                 <input type="text" name="image" class="form-control" id="image">

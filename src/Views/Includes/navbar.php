@@ -27,7 +27,7 @@
                 <?php elseif (isset($_SESSION['adminConnecte']) && $_SESSION['adminConnecte'] === true): ?>
                     <!-- Si un admin est connecté -->
                     <li class="nav-item">
-                        <a class="nav-link" style="color: #ff8fc3;" href="<?= HOME_URL . 'dashboardAdmin' ?>">Dashboard admin</a>
+                        <a class="nav-link" style="color: #ff8fc3;" href="<?= HOME_URL . 'dashboardAdmin' ?>">Admin</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" style="color: #ff8fc3;" href="<?= HOME_URL . 'deconnexion' ?>">Déconnexion</a>

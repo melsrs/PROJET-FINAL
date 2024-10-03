@@ -67,7 +67,7 @@ switch ($route) {
 
 
     case HOME_URL . 'dashboardAdmin/createArticle':
-        if ($methode === 'POST' && $_SESSION['adminConnecte'] === true) {
+        if ($methode === 'POST' && isset($_SESSION['adminConnecte']) && $_SESSION['adminConnecte'] === true) {
             $articleController->createArticle();
         } else {
             $homeController->afficherLaPageConnexion();

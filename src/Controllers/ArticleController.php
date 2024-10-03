@@ -39,13 +39,13 @@ class ArticleController
                 throw new Exception("Veuillez remplir tous les champs.");
             }
 
-            $article->setIdUtilisateur(isset($_SESSION['Id_Utilisateur']) ? $_SESSION['Id_Utilisateur'] : null);
+            $article->setIdUtilisateur(isset($_SESSION['adminConnecte']) ? $_SESSION['adminConnecte'] : null);
 
             if (empty($article->getIdUtilisateur())) {
                 throw new Exception("L'utilisateur n'est pas connecté.");
             }
 
-            $this->articleRepository->createArticle($article);
+            $this->articleRepository->newArticle($article);
 
             $success = "L'article a bien été créé.";
             include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
@@ -73,14 +73,12 @@ class ArticleController
                 throw new Exception("L'ID de l'article est manquant ou invalide.");
             }
 
-            // Récupérer l'article à partir du repository
             $article = $this->articleRepository->getArticleById($Id_Article);
 
             if (!$article) {
                 throw new Exception("Article non trouvé.");
             }
 
-            // Passer l'objet $article à la vue
             include __DIR__ . '/../Views/DashboardAdmin/ArticleAdmin/updateArticle.php';
         } catch (Exception $e) {
             $error = $e->getMessage();

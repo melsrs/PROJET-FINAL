@@ -26,7 +26,7 @@ class UtilisateurController
 
             $motDePasseConfirme = isset($_POST['motDePasseConfirme']) ? $_POST['motDePasseConfirme'] : null;
 
-            if (
+           if (
                 empty($utilisateur->getPrenom()) ||
                 empty($utilisateur->getNom()) ||
                 empty($utilisateur->getMail()) ||
@@ -51,7 +51,7 @@ class UtilisateurController
             $motDePasseHash = password_hash($utilisateur->getMdp(), PASSWORD_DEFAULT);
             $utilisateur->setMdp($motDePasseHash);
 
-            $utilisateurRepository->createUtilisateur($utilisateur);
+            $utilisateurRepository->newUtilisateur($utilisateur);
 
             $success = "Votre compte a bien été créé.";
             include __DIR__ . '/../Views/Connexion/connexion.php';
@@ -98,12 +98,14 @@ class UtilisateurController
 
                 $success = "Vous êtes connecté avec succès.";
                 include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
+
             } elseif ($role_type[0] === 'utilisateur') {
                 $_SESSION['connecte'] = true;
                 $success = "Vous êtes connecté avec succès.";
                 include __DIR__ . '/../Views/DashboardUtilisateur/dashboardUtilisateur.php';
                 exit;
             }
+
         } catch (Exception $e) {
             $error = $e->getMessage();
             include __DIR__ . '/../Views/Connexion/connexion.php';
