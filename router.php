@@ -3,10 +3,12 @@
 use src\Controllers\HomeController;
 use src\Controllers\UtilisateurController;
 use src\Controllers\ArticleController;
+use src\Controllers\CategorieController;
 
 $homeController = new HomeController();
 $utlisateurController = new UtilisateurController();
 $articleController = new ArticleController();
+$categorieController = new CategorieController();
 
 $route = $_SERVER['REDIRECT_URL'];
 $methode = $_SERVER['REQUEST_METHOD'];
@@ -17,9 +19,9 @@ switch ($route) {
         break;
     case HOME_URL . 'accueil':
         $homeController->accueil();
-        break;
+        break; 
     case HOME_URL . 'categorie':
-        $homeController->categorie();
+        $categorieController->showAllCategories();
         break;
     case HOME_URL . 'aPropos':
         $homeController->aPropos();
