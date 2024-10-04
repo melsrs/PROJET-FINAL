@@ -14,7 +14,6 @@ $categories = $categorieRepository->getCategories();
   <div class="row justify-content-center">
     <?php if (!empty($categories)) : ?>
       <?php foreach ($categories as $categorie): ?>
-        <!-- Lien autour de la carte avec l'URL de la catégorie -->
         <a href="<?= HOME_URL . ('categorie/actualite?id=' . urlencode($categorie->getIdCategorie())) ?>" class="col-md-4 d-flex justify-content-center" style="text-decoration: none; color: inherit; margin-top: 20px; margin-bottom: 50px;">
           <div class="card" style="max-width: 60%; margin: 0 10px;">
             <?php if (!empty($categorie->getImage())): ?>

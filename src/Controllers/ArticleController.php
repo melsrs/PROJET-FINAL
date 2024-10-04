@@ -157,4 +157,29 @@ class ArticleController
             include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
         }
     }
+
+
+    public function showArticleByCategorie($Id_Categorie)
+    {
+        try {
+
+            $Id_Categorie = isset($_GET['id']) ? (int)$_GET['id'] : null;
+
+            if (empty($Id_Categorie) || !filter_var($Id_Categorie, FILTER_VALIDATE_INT) || $Id_Categorie <= 0) {
+                throw new Exception("L'ID de l'article est manquant ou invalide.");
+            }
+
+            $article = $this->articleRepository->findArticleByCategorie($Id_Categorie);
+
+            if (!$article) {
+                throw new Exception("Articles de la catégorie non trouvés.");
+            }
+
+            include __DIR__ . '/../Views/Categorie/detailCategorie.php';
+        } catch (Exception $e) {
+            $error = $e->getMessage();
+            include __DIR__. '/../Views/Categorie/categorie.php';
+            exit;
+        }
+    }
 }

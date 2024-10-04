@@ -103,6 +103,6 @@ class ArticleRepository
         $article = $statement->fetchAll();
 
         return $article;
-
+        
     }
 }
