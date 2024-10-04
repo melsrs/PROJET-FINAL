@@ -30,8 +30,5 @@ class CategorieRepository
         return  $this->DB->query($sql)->fetchAll(PDO::FETCH_CLASS, Categorie::class);
 
     }
-
-    
-
     
 }

@@ -14,6 +14,7 @@ class ArticleController
     {
         $this->articleRepository = new ArticleRepository();
     }
+
     public function createArticle()
     {
         try {

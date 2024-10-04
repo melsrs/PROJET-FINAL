@@ -11,27 +11,29 @@ $categories = $categorieRepository->getCategories();
 ?>
 
 <div class="container" style="color: black;">
-  <div class="row">
-    <?php if (!empty($categories) && !empty($categories)) : ?>
+  <div class="row justify-content-center">
+    <?php if (!empty($categories)) : ?>
       <?php foreach ($categories as $categorie): ?>
-        <div class="col-md-4">
-        <?php if (!empty($categorie->getImage())): ?>
+        <!-- Lien autour de la carte avec l'URL de la catégorie -->
+        <a href="<?= HOME_URL . ('categorie/actualite?id=' . urlencode($categorie->getIdCategorie())) ?>" class="col-md-4 d-flex justify-content-center" style="text-decoration: none; color: inherit; margin-top: 20px; margin-bottom: 50px;">
+          <div class="card" style="max-width: 60%; margin: 0 10px;">
+            <?php if (!empty($categorie->getImage())): ?>
               <img src="<?= htmlspecialchars($categorie->getImage()) ?>" class="card-img-top" alt="Image de la catégorie">
             <?php else: ?>
-          <div class="card" style="margin: 20px 0;">
               <img src="placeholder_image.jpg" class="card-img-top" alt="Image placeholder">
             <?php endif; ?>
             <div class="card-body">
               <?= htmlspecialchars($categorie->getType()) ?>
             </div>
           </div>
-        </div>
+        </a>
       <?php endforeach; ?>
     <?php else: ?>
       <p>Aucune catégorie trouvée.</p>
     <?php endif; ?>
   </div>
 </div>
+
 
 
 <?php

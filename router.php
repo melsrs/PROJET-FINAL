@@ -19,9 +19,6 @@ switch ($route) {
         break;
     case HOME_URL . 'accueil':
         $homeController->accueil();
-        break; 
-    case HOME_URL . 'categorie':
-        $categorieController->showAllCategories();
         break;
     case HOME_URL . 'aPropos':
         $homeController->aPropos();
@@ -35,6 +32,20 @@ switch ($route) {
     case HOME_URL . 'conditionsGenerales':
         $homeController->conditionsGenerales();
         break;
+
+    case HOME_URL . 'categorie':
+        $homeController->categorie();
+        break;
+    case HOME_URL . 'categorie/actualite':
+        if ($methode === 'GET' && isset($_GET['id'])) {
+            $articleController->showAllArticle();
+        } else {
+            $homeController->categorie();
+        }
+        break;
+
+
+
 
 
     case HOME_URL . 'connexion':

@@ -94,4 +94,15 @@ class ArticleRepository
   
       return $statement->execute([':Id_Article' => $Id_Article]);
     }
+
+    public function findArticleByCategorie($Id_Categorie) {
+        $sql = "SELECT * FROM article WHERE Id_Categorie = :Id_Categorie";
+        $statement = $this->DB->prepare($sql);
+        $statement->execute([':Id_Categorie' => $Id_Categorie]);
+        $statement->setFetchMode(PDO::FETCH_CLASS, Article::class);
+        $article = $statement->fetchAll();
+
+        return $article;
+
+    }
 }
