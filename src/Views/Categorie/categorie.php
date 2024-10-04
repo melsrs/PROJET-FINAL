@@ -10,15 +10,25 @@ $categories = $categorieRepository->getAllCategories();
 
 ?>
 
-<?php if (!empty($categories)) : ?>
-    <ul>
-        <?php foreach ($categories as $categorie) : ?>
-            <li><?= htmlspecialchars($categorie->getType()) ?></li>
-        <?php endforeach; ?>
-    </ul>
-<?php else : ?>
-    <p>Aucune catégorie trouvée.</p>
-<?php endif; ?>
+<div class="container" style="color: black;">
+  <div class="row">
+    <?php if (!empty($categories)) : ?>
+      <?php foreach ($categories as $categorie): ?>
+        <div class="col-md-4">
+          <div class="card" style="margin: 20px 0;">
+            <img src="placeholder_image.jpg" class="card-img-top" alt="Image placeholder">
+            <div class="card-body">
+              <?= htmlspecialchars($categorie->getType()) ?>
+            </div>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    <?php else: ?>
+      <p>Aucune catégorie trouvée.</p>
+    <?php endif; ?>
+  </div>
+</div>
+
 
 <?php
 

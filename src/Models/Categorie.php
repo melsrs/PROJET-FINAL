@@ -8,6 +8,7 @@ class Categorie
 {
     private int $Id_Categorie;
         private string $type;
+        private string $image;
 
     use Hydratation; 
 
@@ -43,6 +44,24 @@ class Categorie
         public function setType(string $type): self
         {
                 $this->type = $type;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of image
+         */
+        public function getImage(): string
+        {
+                return $this->image;
+        }
+
+        /**
+         * Set the value of image
+         */
+        public function setImage(string $image): self
+        {
+                $this->image = $image;
 
                 return $this;
         }

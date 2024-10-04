@@ -16,8 +16,9 @@ ALTER TABLE Article
 
 CREATE TABLE Categorie
 (
-  Id_Categorie INT         NOT NULL AUTO_INCREMENT,
-  type         VARCHAR(50) NOT NULL,
+  Id_Categorie INT          NOT NULL AUTO_INCREMENT,
+  type         VARCHAR(50)  NOT NULL,
+  image        VARCHAR(255) NULL    ,
   PRIMARY KEY (Id_Categorie)
 );
 
