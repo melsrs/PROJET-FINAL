@@ -43,6 +43,13 @@ switch ($route) {
             $homeController->categorie();
         }
         break;
+    case HOME_URL . 'categorie/actualite/article':
+        if ($methode === 'GET' && isset($_GET['id'])) {
+            $articleController->showOneArticleByCategorie((int)$_GET['id']);
+        } else {
+            $homeController->categorie();
+        }
+        break;
 
 
 

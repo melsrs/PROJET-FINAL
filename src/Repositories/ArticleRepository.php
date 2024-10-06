@@ -80,6 +80,8 @@ class ArticleRepository
         $statement->setFetchMode(PDO::FETCH_CLASS, Article::class);
         $article = $statement->fetch();
         return $article;
+
+
     }
 
     public function deleteArticle($Id_Article): bool
@@ -103,6 +105,6 @@ class ArticleRepository
         $article = $statement->fetchAll();
 
         return $article;
-        
+
     }
 }

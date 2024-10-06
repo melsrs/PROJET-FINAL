@@ -10,6 +10,8 @@ $categories = $categorieRepository->getCategories();
 
 ?>
 
+<h2>Catégorie</Canvas></h2>
+
 <div class="container" style="color: black;">
   <div class="row justify-content-center">
     <?php if (!empty($categories)) : ?>
