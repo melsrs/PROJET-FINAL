@@ -163,26 +163,31 @@ class ArticleController
     public function showArticleByCategorie($Id_Categorie)
     {
         try {
-
+            // Vérifier et valider l'ID de la catégorie à partir de $_GET
             $Id_Categorie = isset($_GET['id']) ? (int)$_GET['id'] : null;
-
+    
             if (empty($Id_Categorie) || !filter_var($Id_Categorie, FILTER_VALIDATE_INT) || $Id_Categorie <= 0) {
-                throw new Exception("L'ID de l'article est manquant ou invalide.");
+                throw new Exception("L'ID de la catégorie est manquant ou invalide.");
             }
-
-            $article = $this->articleRepository->findArticleByCategorie($Id_Categorie);
-
-            if (!$article) {
-                throw new Exception("Articles de la catégorie non trouvés.");
+    
+            // Récupérer les articles via le repository
+            $articleRepository = new ArticleRepository();
+            $articles = $articleRepository->findArticleByCategorie($Id_Categorie);
+    
+            if (empty($articles)) {
+                throw new Exception("Aucun article trouvé pour cette catégorie.");
             }
-
+    
+            // Inclure la vue et passer les articles à la vue
             include __DIR__ . '/../Views/Categorie/allArticlesByCategorie.php';
         } catch (Exception $e) {
+            // Gérer les erreurs en incluant une vue d'erreur ou en affichant un message
             $error = $e->getMessage();
-            include __DIR__. '/../Views/Categorie/categorie.php';
+            include __DIR__ . '/../Views/Categorie/categorie.php';
             exit;
         }
     }
+    
 
     public function showOneArticleByCategorie($Id_Article)
     {
@@ -208,9 +213,8 @@ class ArticleController
             include __DIR__ . '/../Views/Categorie/articleDetailByCategorie.php';
         } catch (Exception $e) {
             $error = $e->getMessage();
-            include __DIR__. '/../Views/Categorie/categorie.php';
+            include __DIR__ . '/../Views/Categorie/categorie.php';
             exit;
         }
     }
-
 }

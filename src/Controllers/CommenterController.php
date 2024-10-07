@@ -57,13 +57,13 @@ class CommenterController
     
             $this->commenterRepository->newCommentaire($commentaire);
     
-            $success = "Votre commentaire a bien été pris en compte.";
-            include __DIR__ . '/../Views/Categorie/articleDetailByCategorie.php';
+            $_SESSION['success'] = "Votre commentaire a bien été pris en compte.";
+            header('Location: ' . HOME_URL . 'categorie/actualite/article?id=' . urlencode($article->getIdArticle()));
             exit;
     
         } catch (Exception $e) {
-            $error = $e->getMessage();
-            include __DIR__ . '/../Views/Categorie/articleDetailByCategorie.php';
+            $_SESSION['error'] = $e->getMessage();
+            header('Location: ' . HOME_URL . 'categorie/actualite/article?id=' . urlencode($article->getIdArticle()));
             exit;
         }
     }

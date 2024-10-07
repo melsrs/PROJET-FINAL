@@ -3,11 +3,6 @@
 include __DIR__ . '/../Includes/header.php';
 include __DIR__ . '/../Includes/navbar.php';
 
-use src\Repositories\ArticleRepository;
-
-$articleRepository = new ArticleRepository();
-$articles = $articleRepository->findArticleByCategorie($Id_Categorie);
-
 ?>
 
 <h2>Actualité</h2>

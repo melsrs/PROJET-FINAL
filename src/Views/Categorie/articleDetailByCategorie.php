@@ -7,6 +7,16 @@ include __DIR__ . '/../Includes/navbar.php';
 
 <h2>Actualité</h2>
 
+<?php if (isset($_SESSION['success'])): ?>
+    <div class="alert alert-success"><?= htmlspecialchars($_SESSION['success']) ?></div>
+    <?php unset($_SESSION['success']); ?>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['error'])): ?>
+    <div class="alert alert-danger"><?= htmlspecialchars($_SESSION['error']) ?></div>
+    <?php unset($_SESSION['error']); ?>
+<?php endif; ?>
+
 <div class="container">
     <div class="row justify-content-center">
         <?php if (!empty($article)) : ?>
