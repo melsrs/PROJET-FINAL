@@ -6,6 +6,7 @@ use DateTime;
 use Exception;
 use src\Models\Article;
 use src\Repositories\ArticleRepository;
+use src\Repositories\UtilisateurRepository;
 
 class ArticleController
 {
@@ -199,6 +200,11 @@ class ArticleController
 
             if (!$article) {
                 throw new Exception("Article de la catégorie non trouvé.");
+            }
+
+            if (isset($_SESSION['connecte']) && isset($_SESSION['Id_Utilisateur'])) {
+                $utilisateurRepository = new UtilisateurRepository();
+                $utilisateur = $utilisateurRepository->getUtilisateurById($_SESSION['Id_Utilisateur']);
             }
 
             include __DIR__ . '/../Views/Categorie/articleDetailByCategorie.php';

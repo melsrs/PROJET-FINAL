@@ -36,7 +36,6 @@ use src\Repositories\UtilisateurRepository;
     <div class="tab-content" id="v-pills-tabContent">
         <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0" style="color: black;">
 
-
             <div class="container">
                 <div class="row">
                     <?php if (!empty($utilisateur)): ?>
@@ -60,8 +59,6 @@ use src\Repositories\UtilisateurRepository;
                     <?php endif; ?>
                 </div>
             </div>
-
-
 
 
             <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0" style="color: black;">

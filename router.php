@@ -4,11 +4,13 @@ use src\Controllers\HomeController;
 use src\Controllers\UtilisateurController;
 use src\Controllers\ArticleController;
 use src\Controllers\CategorieController;
+use src\Controllers\CommenterController;
 
 $homeController = new HomeController();
 $utilisateurController = new UtilisateurController();
 $articleController = new ArticleController();
 $categorieController = new CategorieController();
+$commenterController = new CommenterController;
 
 $route = $_SERVER['REDIRECT_URL'];
 $methode = $_SERVER['REQUEST_METHOD'];
@@ -43,9 +45,12 @@ switch ($route) {
             $homeController->categorie();
         }
         break;
+
     case HOME_URL . 'categorie/actualite/article':
         if ($methode === 'GET' && isset($_GET['id'])) {
             $articleController->showOneArticleByCategorie((int)$_GET['id']);
+        } elseif ($methode === 'POST') {
+            $commenterController->createCommentaire();
         } else {
             $homeController->categorie();
         }

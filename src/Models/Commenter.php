@@ -10,7 +10,7 @@ class Commenter
     private int $Id_Article;
     private int $Id_Utilisateur;
     private string $message;
-    private DateTime $date_commentaire;
+    private string|DateTime $date_commentaire;
     private bool $valide;
 
     use Hydratation;
@@ -80,9 +80,13 @@ class Commenter
     /**
      * Set the value of date_commentaire
      */
-    public function setDateCommentaire(DateTime $date_commentaire): self
+    public function setDateCommentaire(string|DateTime $date_commentaire): self
     {
-        $this->date_commentaire = $date_commentaire;
+        if ($date_commentaire instanceof DateTime) {
+            $this->date_commentaire = $date_commentaire;
+        } else {
+            $this->date_commentaire = new DateTime($date_commentaire);
+        }
 
         return $this;
     }
