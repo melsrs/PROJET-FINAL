@@ -38,14 +38,44 @@ switch ($route) {
     case HOME_URL . 'categorie':
         $homeController->categorie();
         break;
-        
-    case HOME_URL . 'categorie/actualite':
+
+    case HOME_URL . 'categorie/ACTUALITÉ':
         if ($methode === 'GET' && isset($_GET['id'])) {
             $articleController->showArticleByCategorie((int)$_GET['id']);
         } else {
             $homeController->categorie();
         }
         break;
+
+    case HOME_URL . 'categorie/HISTOIRE':
+        if ($methode === 'GET' && isset($_GET['id'])) {
+            $articleController->showArticleByCategorie((int)$_GET['id']);
+        } else {
+            $homeController->categorie();
+        }
+        break;
+    case HOME_URL . 'categorie/PERSONNAGE':
+        if ($methode === 'GET' && isset($_GET['id'])) {
+            $articleController->showArticleByCategorie((int)$_GET['id']);
+        } else {
+            $homeController->categorie();
+        }
+        break;
+    case HOME_URL . 'categorie/LIEU+MYTHIQUE':
+        if ($methode === 'GET' && isset($_GET['id'])) {
+            $articleController->showArticleByCategorie((int)$_GET['id']);
+        } else {
+            $homeController->categorie();
+        }
+        break;
+    case HOME_URL . 'categorie/INFORMATION':
+        if ($methode === 'GET' && isset($_GET['id'])) {
+            $articleController->showArticleByCategorie((int)$_GET['id']);
+        } else {
+            $homeController->categorie();
+        }
+        break;
+
 
     case HOME_URL . 'categorie/actualite/article':
         if ($methode === 'GET' && isset($_GET['id'])) {

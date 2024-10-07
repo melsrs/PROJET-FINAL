@@ -16,7 +16,9 @@ $categories = $categorieRepository->getCategories();
   <div class="row justify-content-center">
     <?php if (!empty($categories)) : ?>
       <?php foreach ($categories as $categorie): ?>
-        <a href="<?= HOME_URL . ('categorie/actualite?id=' . urlencode($categorie->getIdCategorie())) ?>" class="col-md-4 d-flex justify-content-center" style="text-decoration: none; color: inherit; margin-top: 20px; margin-bottom: 50px;">
+        <a href="<?= HOME_URL . 'categorie/' . urlencode($categorie->getType()) . '?id=' . urlencode($categorie->getIdCategorie()) ?>" 
+           class="col-md-4 d-flex justify-content-center" 
+           style="text-decoration: none; color: inherit; margin-top: 20px; margin-bottom: 50px;">
           <div class="card" style="max-width: 60%; margin: 0 10px;">
             <?php if (!empty($categorie->getImage())): ?>
               <img src="<?= htmlspecialchars($categorie->getImage()) ?>" class="card-img-top" alt="Image de la catégorie">
@@ -34,6 +36,7 @@ $categories = $categorieRepository->getCategories();
     <?php endif; ?>
   </div>
 </div>
+
 
 
 
