@@ -34,7 +34,7 @@ include __DIR__ . '/../Includes/navbar.php';
                     <h4 style="margin-bottom: 15px">
                         <?= htmlspecialchars($article->getTitre()) ?>
                     </h4>
-                    <p>
+                    <p style="margin: 0 0 60px 0">
                         <?= htmlspecialchars($article->getTexte()) ?>
                     </p>
                 </div>
@@ -44,55 +44,61 @@ include __DIR__ . '/../Includes/navbar.php';
         <?php endif; ?>
     </div>
 
-    <div style="margin: 60px 0 30px 0">
-    <h4>Commentaires</h4>
-    <?php if (isset($utilisateur)) { ?>
-        <form action="<?= HOME_URL . 'categorie/actualite/article?id=' . $article->getIdArticle(); ?>" method="POST">
-            <div class="mb-3 my-3">
-                <label for="texte" class="form-label">Ajoutez un commentaire</label>
-                <textarea class="form-control" name="commentaire" id="commentaire" style="height: 80px;"></textarea>
+    <div class="d-flex justify-content-center">
+        <div class="bar">
+            <p>____________________________________________________________________</p>
+        </div>
+    </div>
 
-                <input type="hidden" name="Id_Utilisateur" value="<?= isset($utilisateur) ? $utilisateur->getIdUtilisateur() : null; ?>">
-                <input type="hidden" name="Id_Article" value="<?= $article->getIdArticle(); ?>">
 
-                <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary my-3 boutonConnexion">Publier</button>
-                </div>
-            </div>
-        </form>
-    <?php } else { ?>
-        <p>Pour laisser un commentaire, vous devez vous connecter.</p>
-    <?php } ?>
 
-    <?php if (!empty($commentairesAvecUtilisateurs)): ?>
-        <div class="mt-4">
-            <?php foreach ($commentairesAvecUtilisateurs as $item): ?>
-                <?php $commentaire = $item['commentaire']; ?>
-                <?php $utilisateur = $item['utilisateur']; ?>
-                
-                <div class="card mb-3" style="background-color: black; color: white;">
-                    <div class="card-body">
-                        <!-- Affichage du nom et prénom de l'utilisateur -->
-                        <p class="card-title" style="font-weight: bold">
-                            <?= htmlspecialchars($utilisateur->getPrenom()) . ' ' . htmlspecialchars($utilisateur->getNom()) ?>
-                        </p>
-                        <!-- Affichage du message du commentaire -->
-                        <p class="card-text"><?= htmlspecialchars($commentaire->getMessage()) ?></p>
+    <div style="margin: 30px 0 30px 0">
+        <h4>Commentaires</h4>
+        <?php if (isset($utilisateur)) { ?>
+            <form action="<?= HOME_URL . 'categorie/actualite/article?id=' . $article->getIdArticle(); ?>" method="POST">
+                <div class="mb-3 my-3">
+                    <label for="texte" class="form-label">Ajoutez un commentaire</label>
+                    <textarea class="form-control" name="commentaire" id="commentaire" style="height: 80px;"></textarea>
+
+                    <input type="hidden" name="Id_Utilisateur" value="<?= isset($utilisateur) ? $utilisateur->getIdUtilisateur() : null; ?>">
+                    <input type="hidden" name="Id_Article" value="<?= $article->getIdArticle(); ?>">
+
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary my-3 boutonConnexion">Publier</button>
                     </div>
                 </div>
-            <?php endforeach; ?>
-        </div>
-    <?php else: ?>
-        <p>Aucun commentaire trouvé pour cet article.</p>
-    <?php endif; ?>
-</div>
+            </form>
+        <?php } else { ?>
+            <p>Pour laisser un commentaire, vous devez vous connecter.</p>
+        <?php } ?>
+
+        <?php if (!empty($commentairesAvecUtilisateurs)): ?>
+            <div class="mt-4">
+                <?php foreach ($commentairesAvecUtilisateurs as $item): ?>
+                    <?php $commentaire = $item['commentaire']; ?>
+                    <?php $utilisateur = $item['utilisateur']; ?>
+
+                    <div class="card mb-3" style="background-color: black; color: white;">
+                        <div class="mb-3 my-3">
+                            <p class="card-title" style="font-weight: bold">
+                                <?= htmlspecialchars($utilisateur->getPrenom()) . ' ' . htmlspecialchars($utilisateur->getNom()) ?>
+                            </p>
+                            <p class="card-text"><?= htmlspecialchars($commentaire->getMessage()) ?></p>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <p>Aucun commentaire trouvé pour cet article.</p>
+        <?php endif; ?>
+    </div>
 
 
 
 
 
-<?php
+    <?php
 
-include __DIR__ . '/../Includes/footer.php';
+    include __DIR__ . '/../Includes/footer.php';
 
-?>
+    ?>
