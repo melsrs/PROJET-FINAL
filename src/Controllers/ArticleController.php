@@ -194,15 +194,13 @@ class ArticleController
                 throw new Exception("L'ID de l'article est manquant ou invalide.");
             }
 
-            // $article = $this->articleRepository->findArticleByCategorie($Id_Categorie);
             $article = $this->articleRepository->getArticleById($Id_Article);
-
 
             if (!$article) {
                 throw new Exception("Article de la catégorie non trouvé.");
             }
 
-            if (isset($_SESSION['connecte']) && isset($_SESSION['Id_Utilisateur'])) {
+            if (isset($_SESSION['connecte']) && isset($_SESSION['Id_Utilisateur']) || isset($_SESSION['adminConnecte']) && isset($_SESSION['Id_Utilisateur'])) {
                 $utilisateurRepository = new UtilisateurRepository();
                 $utilisateur = $utilisateurRepository->getUtilisateurById($_SESSION['Id_Utilisateur']);
             }

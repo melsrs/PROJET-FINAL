@@ -57,7 +57,6 @@ class CommenterController
     
             $this->commenterRepository->newCommentaire($commentaire);
     
-            echo "test";
             $success = "Votre commentaire a bien été pris en compte.";
             include __DIR__ . '/../Views/Categorie/articleDetailByCategorie.php';
             exit;

@@ -21,11 +21,11 @@ class CommenterRepository
     public function newCommentaire(Commenter $commentaire){
 
         $sql = "INSERT INTO commenter (Id_Article, Id_Utilisateur, message, date_commentaire, valide) 
-                VALUES (:id_article, :id_utilisateur, :message, :date_commentaire, 2);";
+                VALUES (:id_article, :id_utilisateur, :message, :date_commentaire, 1);";
 
         $statement = $this->DB->prepare($sql);
 
-        $statement->$statement->execute([
+        $statement->execute([
             ':id_article'            => $commentaire->getIdArticle(),
             ':id_utilisateur'        => $commentaire->getIdUtilisateur(),
             ':message'               => $commentaire->getMessage(),
