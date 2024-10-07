@@ -166,28 +166,27 @@ class ArticleController
         try {
             // Vérifier et valider l'ID de la catégorie à partir de $_GET
             $Id_Categorie = isset($_GET['id']) ? (int)$_GET['id'] : null;
-    
+
             if (empty($Id_Categorie) || !filter_var($Id_Categorie, FILTER_VALIDATE_INT) || $Id_Categorie <= 0) {
                 throw new Exception("L'ID de la catégorie est manquant ou invalide.");
             }
-    
+
             // Récupérer les articles via le repository
             $articleRepository = new ArticleRepository();
             $articles = $articleRepository->findArticleByCategorie($Id_Categorie);
-    
+
             if (empty($articles)) {
                 throw new Exception("Aucun article trouvé pour cette catégorie.");
             }
-    
+
             include __DIR__ . '/../Views/Categorie/allArticlesByCategorie.php';
-            
         } catch (Exception $e) {
             $error = $e->getMessage();
             include __DIR__ . '/../Views/Categorie/categorie.php';
             exit;
         }
     }
-    
+
 
     public function showOneArticleByCategorie($Id_Article)
     {
@@ -219,6 +218,28 @@ class ArticleController
                 throw new Exception("Pas de commentaires trouvés.");
             }
 
+            // Associons les utilisateurs à leurs commentaires
+            $commentairesAvecUtilisateurs = [];
+            if ($commentaires) {
+                $utilisateurRepository = new UtilisateurRepository();
+
+                foreach ($commentaires as $commentaire) {
+                    // Récupérer l'utilisateur lié au commentaire
+                    $utilisateurInfo = $utilisateurRepository->getUtilisateurById($commentaire->getIdUtilisateur());
+
+                    // Stocker le commentaire et l'utilisateur dans un tableau associatif
+                    $commentairesAvecUtilisateurs[] = [
+                        'commentaire' => $commentaire,
+                        'utilisateur' => $utilisateurInfo,
+                    ];
+                }
+            }
+
+            if (empty($commentaires)) {
+                throw new Exception("Pas de commentaires trouvés.");
+            }
+
+            // Inclure la vue avec les données
             include __DIR__ . '/../Views/Categorie/articleDetailByCategorie.php';
         } catch (Exception $e) {
             $error = $e->getMessage();

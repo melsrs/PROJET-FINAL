@@ -64,12 +64,19 @@ include __DIR__ . '/../Includes/navbar.php';
         <p>Pour laisser un commentaire, vous devez vous connecter.</p>
     <?php } ?>
 
-    <?php if (!empty($commentaires)): ?>
+    <?php if (!empty($commentairesAvecUtilisateurs)): ?>
         <div class="mt-4">
-            <?php foreach ($commentaires as $commentaire): ?>
+            <?php foreach ($commentairesAvecUtilisateurs as $item): ?>
+                <?php $commentaire = $item['commentaire']; ?>
+                <?php $utilisateur = $item['utilisateur']; ?>
+                
                 <div class="card mb-3" style="background-color: black; color: white;">
                     <div class="card-body">
-                        <p class="card-title" style= "font-weight: bold"><?= htmlspecialchars($commentaire->getIdUtilisateur()) ?></p>
+                        <!-- Affichage du nom et prénom de l'utilisateur -->
+                        <p class="card-title" style="font-weight: bold">
+                            <?= htmlspecialchars($utilisateur->getPrenom()) . ' ' . htmlspecialchars($utilisateur->getNom()) ?>
+                        </p>
+                        <!-- Affichage du message du commentaire -->
                         <p class="card-text"><?= htmlspecialchars($commentaire->getMessage()) ?></p>
                     </div>
                 </div>
@@ -79,6 +86,7 @@ include __DIR__ . '/../Includes/navbar.php';
         <p>Aucun commentaire trouvé pour cet article.</p>
     <?php endif; ?>
 </div>
+
 
 
 
