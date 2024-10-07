@@ -91,6 +91,17 @@ class Commenter
         return $this;
     }
 
+    public function setDate(string|DateTime $date): self
+    {
+            if ($date instanceof DateTime) {
+                    $this->date = $date;
+            } else {
+                    $this->date = new DateTime($date);
+            }
+
+            return $this;
+    }
+
     /**
      * Get the value of valide
      */

@@ -6,6 +6,7 @@ use DateTime;
 use Exception;
 use src\Models\Article;
 use src\Repositories\ArticleRepository;
+use src\Repositories\CommenterRepository;
 use src\Repositories\UtilisateurRepository;
 
 class ArticleController
@@ -178,10 +179,9 @@ class ArticleController
                 throw new Exception("Aucun article trouvé pour cette catégorie.");
             }
     
-            // Inclure la vue et passer les articles à la vue
             include __DIR__ . '/../Views/Categorie/allArticlesByCategorie.php';
+            
         } catch (Exception $e) {
-            // Gérer les erreurs en incluant une vue d'erreur ou en affichant un message
             $error = $e->getMessage();
             include __DIR__ . '/../Views/Categorie/categorie.php';
             exit;
@@ -208,6 +208,15 @@ class ArticleController
             if (isset($_SESSION['connecte']) && isset($_SESSION['Id_Utilisateur']) || isset($_SESSION['adminConnecte']) && isset($_SESSION['Id_Utilisateur'])) {
                 $utilisateurRepository = new UtilisateurRepository();
                 $utilisateur = $utilisateurRepository->getUtilisateurById($_SESSION['Id_Utilisateur']);
+            }
+
+            $commenterRepository = new CommenterRepository;
+            $commentaires = $commenterRepository->getCommentairesByArticleId($Id_Article);
+
+            $utilisateurRepository = new UtilisateurRepository();
+
+            if (!$commentaires) {
+                throw new Exception("Pas de commentaires trouvés.");
             }
 
             include __DIR__ . '/../Views/Categorie/articleDetailByCategorie.php';

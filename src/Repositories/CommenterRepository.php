@@ -18,7 +18,8 @@ class CommenterRepository
         require_once __DIR__ . '/../../config.php';
     }
 
-    public function newCommentaire(Commenter $commentaire){
+    public function newCommentaire(Commenter $commentaire)
+    {
 
         $sql = "INSERT INTO commenter (Id_Article, Id_Utilisateur, message, date_commentaire, valide) 
                 VALUES (:id_article, :id_utilisateur, :message, :date_commentaire, 1);";
@@ -37,4 +38,22 @@ class CommenterRepository
 
         return $commentaire;
     }
+
+    public function getAllCommentaires()
+    {
+        $sql = "SELECT * FROM commenter;";
+        return  $this->DB->query($sql)->fetchAll(PDO::FETCH_CLASS, Commenter::class);
+    }
+
+    public function getCommentairesByArticleId($Id_Article)
+    {
+        $sql = "SELECT * FROM commenter WHERE Id_Article = :id_article";
+        $statement = $this->DB->prepare($sql);
+        $statement->execute([':id_article' => $Id_Article]);
+        $statement->setFetchMode(PDO::FETCH_CLASS, Commenter::class);
+        $commentaire = $statement->fetchAll();
+
+        return $commentaire;
+    }
+
 }

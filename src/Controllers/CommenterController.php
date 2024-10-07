@@ -37,7 +37,7 @@ class CommenterController
             $article = new Article();
             $article->setIdArticle(isset($_POST['Id_Article']) ? (int)$_POST['Id_Article'] : null);
     
-            // Vérifier si l'ID de l'article est valide
+            // Vérifier si l'Id de l'article est valide
             if (empty($article->getIdArticle())) {
                 throw new Exception("Id de l'article manquant ou invalide.");
             }
