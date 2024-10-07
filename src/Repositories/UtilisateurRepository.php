@@ -58,6 +58,15 @@ class UtilisateurRepository
       return $user;
   }
 
+  public function getUtilisateurById($Id_Utilisateur)
+  {
+      $sql = "SELECT * FROM utilisateur WHERE Id_Utilisateur = :Id_Utilisateur;";
+      $statement = $this->DB->prepare($sql);
+      $statement->execute([':Id_Utilisateur' => $Id_Utilisateur]);
+      $statement->setFetchMode(PDO::FETCH_CLASS, Utilisateur::class);
+      $user = $statement->fetch();
+      return $user;
+  }
 
   public function getRoleType($Id_Role)
   {

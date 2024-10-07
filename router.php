@@ -6,7 +6,7 @@ use src\Controllers\ArticleController;
 use src\Controllers\CategorieController;
 
 $homeController = new HomeController();
-$utlisateurController = new UtilisateurController();
+$utilisateurController = new UtilisateurController();
 $articleController = new ArticleController();
 $categorieController = new CategorieController();
 
@@ -51,20 +51,16 @@ switch ($route) {
         }
         break;
 
-
-
-
-
     case HOME_URL . 'connexion':
         if ($methode === 'POST') {
-            $utlisateurController->TraitementConnexion();
+            $utilisateurController->TraitementConnexion();
         } else {
             $homeController->afficherLaPageConnexion();
         }
         break;
     case HOME_URL . 'inscription':
         if ($methode === 'POST') {
-            $utlisateurController->createUtilisateur();
+            $utilisateurController->createUtilisateur();
         } else {
             $homeController->afficherLaPageInscription();
         }
@@ -79,7 +75,7 @@ switch ($route) {
         break;
     case HOME_URL . 'dashboard':
         if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true) {
-            $homeController->dashboard();
+            $utilisateurController->showUtilisateurbyId();
         } else {
             $homeController->afficherLaPageConnexion();
         }
@@ -112,7 +108,7 @@ switch ($route) {
 
 
     case HOME_URL . 'deconnexion':
-        $utlisateurController->deconnexion();
+        $utilisateurController->deconnexion();
         break;
     default:
         echo "Page non trouvée";

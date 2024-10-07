@@ -26,7 +26,7 @@ class UtilisateurController
 
             $motDePasseConfirme = isset($_POST['motDePasseConfirme']) ? $_POST['motDePasseConfirme'] : null;
 
-           if (
+            if (
                 empty($utilisateur->getPrenom()) ||
                 empty($utilisateur->getNom()) ||
                 empty($utilisateur->getMail()) ||
@@ -98,14 +98,12 @@ class UtilisateurController
 
                 $success = "Vous êtes connecté avec succès.";
                 include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
-
             } elseif ($role_type[0] === 'utilisateur') {
                 $_SESSION['connecte'] = true;
                 $success = "Vous êtes connecté avec succès.";
                 include __DIR__ . '/../Views/DashboardUtilisateur/dashboardUtilisateur.php';
                 exit;
             }
-
         } catch (Exception $e) {
             $error = $e->getMessage();
             include __DIR__ . '/../Views/Connexion/connexion.php';
@@ -120,15 +118,39 @@ class UtilisateurController
         include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
     }
 
+    public function showUtilisateurbyId()
+    {
+        try {
+            if (!isset($_SESSION['Id_Utilisateur'])) {
+                throw new Exception("Vous devez être connecté pour accéder à cette page.");
+            }
+    
+            // Récupération de l'ID utilisateur depuis la session
+            $Id_Utilisateur = $_SESSION['Id_Utilisateur'];
+    
+            // Récupération des informations utilisateur via le repository
+            $utilisateur = $this->utilisateurRepository->getUtilisateurById($Id_Utilisateur);
+    
+            if (!$utilisateur) {
+                throw new Exception("Utilisateur non trouvé.");
+            }
+    
+            include __DIR__ . '/../Views/DashboardUtilisateur/dashboardUtilisateur.php';
+        } catch (Exception $e) {
+            $error = $e->getMessage();
+            include __DIR__ . '/../Views/Connexion/connexion.php';
+            exit;
+        }
+    }
+    
     public function deconnexion()
     {
         try {
             session_destroy();
 
             $success = "Vous êtes déconnecté avec succès.";
-            include __DIR__. '/../Views/Connexion/connexion.php';
+            include __DIR__ . '/../Views/Connexion/connexion.php';
             exit;
-
         } catch (Exception $e) {
             $error = $e->getMessage();
             throw new Exception("Une erreur est survenue lors de la déconnexion : " . $error);

@@ -81,7 +81,6 @@ class ArticleRepository
         $article = $statement->fetch();
         return $article;
 
-
     }
 
     public function deleteArticle($Id_Article): bool
