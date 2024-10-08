@@ -36,14 +36,14 @@ switch ($route) {
         break;
 
     case HOME_URL . 'categorie':
-        $homeController->categorie();
+        $categorieController->showAllCategories();
         break;
 
     case HOME_URL . 'categorie/ACTUALITÉ':
         if ($methode === 'GET' && isset($_GET['id'])) {
             $articleController->showArticleByCategorie((int)$_GET['id']);
         } else {
-            $homeController->categorie();
+            $homeController->AfficherCategories();
         }
         break;
 
@@ -51,28 +51,28 @@ switch ($route) {
         if ($methode === 'GET' && isset($_GET['id'])) {
             $articleController->showArticleByCategorie((int)$_GET['id']);
         } else {
-            $homeController->categorie();
+            $homeController->AfficherCategories();
         }
         break;
     case HOME_URL . 'categorie/PERSONNAGE':
         if ($methode === 'GET' && isset($_GET['id'])) {
             $articleController->showArticleByCategorie((int)$_GET['id']);
         } else {
-            $homeController->categorie();
+            $homeController->AfficherCategories();
         }
         break;
     case HOME_URL . 'categorie/LIEU+MYTHIQUE':
         if ($methode === 'GET' && isset($_GET['id'])) {
             $articleController->showArticleByCategorie((int)$_GET['id']);
         } else {
-            $homeController->categorie();
+            $homeController->AfficherCategories();
         }
         break;
     case HOME_URL . 'categorie/INFORMATION':
         if ($methode === 'GET' && isset($_GET['id'])) {
             $articleController->showArticleByCategorie((int)$_GET['id']);
         } else {
-            $homeController->categorie();
+            $homeController->AfficherCategories();
         }
         break;
 
@@ -83,7 +83,7 @@ switch ($route) {
         } elseif ($methode === 'POST') {
             $commenterController->createCommentaire();
         } else {
-            $homeController->categorie();
+            $homeController->AfficherCategories();
         }
         break;
 
@@ -104,7 +104,7 @@ switch ($route) {
 
     case HOME_URL . 'dashboardAdmin':
         if (isset($_SESSION['adminConnecte']) && $_SESSION['adminConnecte'] === true) {
-            $homeController->dashboardAdmin();
+            $articleController->showAllArticle();
         } else {
             $homeController->afficherLaPageConnexion();
         }

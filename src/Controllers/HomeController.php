@@ -9,7 +9,7 @@ class HomeController
         include __DIR__. '/../Views/Accueil/accueil.php';
     }
 
-    public function categorie()
+    public function AfficherCategories()
     {
         include __DIR__ . '/../Views/Categorie/categorie.php';
     }

@@ -3,15 +3,6 @@
 include __DIR__ . '/../Includes/header.php';
 include __DIR__ . '/../Includes/navbar.php';
 
-use src\Repositories\ArticleRepository;
-use src\Repositories\UtilisateurRepository;
-
-$articleRepository = new ArticleRepository();
-$articles = $articleRepository->getAllArticles();
-
-$utilisateurRepository = new UtilisateurRepository();
-$utilisateurs = $utilisateurRepository->getAllUtilisateur();
-
 ?>
 
 <h2>Mon compte</h2>

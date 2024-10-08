@@ -62,7 +62,7 @@ class ArticleController
 
     public function showAllArticle()
     {
-        $this->articleRepository->getAllArticles();
+        $articles = $this->articleRepository->getAllArticles();
 
         include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
     }
