@@ -29,13 +29,14 @@ include __DIR__ . '/../Includes/navbar.php';
     <div class="navbarDash nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
         <a class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Utilisateurs</a>
         <a class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Articles</a>
-        <a class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Catégories</a>
+        <a class="nav-link" id="v-pills-categories-tab" data-bs-toggle="pill" data-bs-target="#v-pills-categories" type="button" role="tab" aria-controls="v-pills-categories" aria-selected="false">Catégories</a>
         <a class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Commentaires</a>
     </div>
+
+    <!-- Contenu des onglets -->
     <div class="tab-content" id="v-pills-tabContent">
 
         <!-- Utilisateurs -->
-
         <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0" style="color: black;">
             <div class="container">
                 <div class="row">
@@ -47,7 +48,7 @@ include __DIR__ . '/../Includes/navbar.php';
                                         <h5 class="card-title"><?= htmlspecialchars($utilisateur->getPrenom() . ' ' . $utilisateur->getNom()) ?></h5>
                                         <p class="card-text">Email : <?= htmlspecialchars($utilisateur->getMail()) ?></p>
                                         <!-- <p class="card-text">Mot de Passe : <?= htmlspecialchars($utilisateur->getMdp()) ?></p> -->
-                                        <p class="card-text">Role : <?= htmlspecialchars($utilisateur->getIdRole()) ?></p>
+                                        <p class="card-text">Rôle : <?= htmlspecialchars($utilisateur->getIdRole()) ?></p>
                                         <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateUtilisateur?id=' . $utilisateur->getIdUtilisateur() ?>">Modifier</a>
                                         <form action="<?= HOME_URL . 'dashboardAdmin/deleteUtilisateur' ?>" method="POST" style="display: inline;">
                                             <input type="hidden" name="Id_Utilisateur" value="<?= $utilisateur->getIdUtilisateur() ?>">
@@ -64,9 +65,7 @@ include __DIR__ . '/../Includes/navbar.php';
             </div>
         </div>
 
-
         <!-- Articles -->
-
         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0" style="color: black;">
             <div class="d-flex justify-content-center">
                 <a href="<?= HOME_URL . 'dashboardAdmin/createArticle' ?>" class="btn btn-success">Ajouter un article</a>
@@ -84,7 +83,7 @@ include __DIR__ . '/../Includes/navbar.php';
                                     <?php endif; ?>
                                     <div class="card-body">
                                         <h5 class="card-title"><?= htmlspecialchars($article->getTitre()) ?></h5>
-                                        <p class="card-text"><?= htmlspecialchars(mb_substr($article->getTexte(), 0, 100)) . (strlen($article->getTexte()) > 50 ? '...' : '') ?></p>
+                                        <p class="card-text"><?= htmlspecialchars(mb_substr($article->getTexte(), 0, 100)) . (strlen($article->getTexte()) > 100 ? '...' : '') ?></p>
                                         <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateArticle?id=' . $article->getIdArticle() ?>">Modifier</a>
                                         <form action="<?= HOME_URL . 'dashboardAdmin/deleteArticle' ?>" method="POST" style="display: inline;">
                                             <input type="hidden" name="Id_Article" value="<?= $article->getIdArticle() ?>">
@@ -99,11 +98,73 @@ include __DIR__ . '/../Includes/navbar.php';
                     <?php endif; ?>
                 </div>
             </div>
-
-
         </div>
-        <div class="tab-pane fade" id="v-pills-disabled" role="tabpanel" aria-labelledby="v-pills-disabled-tab" tabindex="0">...</div>
-        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0">...</div>
-        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0">...</div>
+
+        <!-- Catégories -->
+        <div class="tab-pane fade" id="v-pills-categories" role="tabpanel" aria-labelledby="v-pills-categories-tab" tabindex="0" style="color: black;">
+            <div class="d-flex justify-content-center">
+                <a href="<?= HOME_URL . 'dashboardAdmin/createCategorie' ?>" class="btn btn-success">Ajouter une catégorie</a>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <?php if (isset($categories) && !empty($categories)): ?>
+                        <?php foreach ($categories as $categorie): ?>
+                            <div class="col-md-4">
+                                <div class="card" style="margin: 20px 0;">
+                                    <?php if (!empty($categorie->getImage())): ?>
+                                        <img src="<?= htmlspecialchars($categorie->getImage()) ?>" class="card-img-top" alt="Image de la catégorie">
+                                    <?php else: ?>
+                                        <img src="placeholder_image.jpg" class="card-img-top" alt="Image placeholder">
+                                    <?php endif; ?>
+                                    <div class="card-body">
+                                        <p class="card-title"><?= htmlspecialchars($categorie->getType()) ?></p>
+                                        <!-- <p class="card-text">ID Catégorie : <?= htmlspecialchars($categorie->getIdCategorie()) ?></p> -->
+                                        <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateCategorie?id=' . $categorie->getIdCategorie() ?>">Modifier</a>
+                                        <form action="<?= HOME_URL . 'dashboardAdmin/deleteCategorie' ?>" method="POST" style="display: inline;">
+                                            <input type="hidden" name="Id_Categorie" value="<?= $categorie->getIdCategorie() ?>">
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?');">Supprimer</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>Aucune catégorie trouvée.</p>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+
+        <!-- Commentaires -->
+
+<div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0" style="color: black;">
+    <div class="container">
+        <div class="row">
+            <?php if (isset($commentaires) && !empty($commentaires)): ?>
+                <?php foreach ($commentaires as $commentaire): ?>
+                    <div class="col-md-4">
+                        <div class="card" style="margin: 20px 0;">
+                            <div class="card-body">
+                                <h5 class="card-title">Commentaire</h5>
+                                <p class="card-text">Message : <?= htmlspecialchars($commentaire->getMessage()) ?></p>
+                                <p class="card-text">
+                                
+                                <!-- <form action="<?= HOME_URL . 'dashboardAdmin/deleteCommentaire' ?>" method="POST" style="display: inline;">
+                                    <input type="hidden" name="Id_Commentaire" value="<?= $commentaire->getIdCommentaire() ?>">
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');">Supprimer</button>
+                                </form> -->
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Aucun commentaire trouvé.</p>
+            <?php endif; ?>
+        </div>
     </div>
 </div>
+
+    </div>
+</div>
+
+

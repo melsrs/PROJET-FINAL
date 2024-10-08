@@ -17,7 +17,7 @@ class CategorieController
 
     public function showAllCategories() {
 
-        $categories = $this->categorieRepository->getCategories();
+        $categories = $this->categorieRepository->getAllCategories();
 
         include __DIR__ . '/../Views/Categorie/categorie.php';
 

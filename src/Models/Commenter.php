@@ -74,6 +74,9 @@ class Commenter
      */
     public function getDateCommentaire(): DateTime
     {
+        if (!$this->date_commentaire instanceof DateTime) {
+            $this->date_commentaire = new DateTime($this->date_commentaire);
+        }
         return $this->date_commentaire;
     }
 
@@ -93,13 +96,13 @@ class Commenter
 
     public function setDate(string|DateTime $date): self
     {
-            if ($date instanceof DateTime) {
-                    $this->date = $date;
-            } else {
-                    $this->date = new DateTime($date);
-            }
+        if ($date instanceof DateTime) {
+            $this->date = $date;
+        } else {
+            $this->date = new DateTime($date);
+        }
 
-            return $this;
+        return $this;
     }
 
     /**

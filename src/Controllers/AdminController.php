@@ -30,6 +30,8 @@ class AdminController
     {
         $articles = $this->articleRepository->getAllArticles();
         $utilisateurs = $this->utilisateurRepository->getAllUtilisateur();
+        $categories = $this->categorieRepository->getAllCategories();
+        $commentaires = $this->commenterRepository->getAllCommentaires();
         
         include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
 

@@ -6,7 +6,7 @@ include __DIR__ . '/../../Includes/navbar.php';
 use src\Repositories\CategorieRepository;
 
 $categorieRepository = new CategorieRepository();
-$categories = $categorieRepository->getAllCategories();
+$categories = $categorieRepository->getCategoriById();
 
 ?>
 

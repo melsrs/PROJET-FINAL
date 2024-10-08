@@ -18,13 +18,13 @@ class CategorieRepository
         require_once __DIR__ . '/../../config.php';
     }
 
-    public function getCategories()
+    public function getAllCategories()
     {
         $sql = "SELECT * FROM categorie;";
         return  $this->DB->query($sql)->fetchAll(PDO::FETCH_CLASS, Categorie::class);
     }
 
-    public function getAllCategories()
+    public function getCategoriById()
     {
         $sql = "SELECT Id_Categorie, type FROM categorie;";
         return  $this->DB->query($sql)->fetchAll(PDO::FETCH_CLASS, Categorie::class);
