@@ -5,7 +5,7 @@ include __DIR__ . '/../Includes/navbar.php';
 
 ?>
 
-<h2>Catégorie</Canvas></h2>
+<h2>Catégorie</h2>
 
 <div class="container" style="color: black;">
   <div class="row justify-content-center">

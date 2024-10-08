@@ -50,8 +50,6 @@ include __DIR__ . '/../Includes/navbar.php';
         </div>
     </div>
 
-
-
     <div style="margin: 30px 0 30px 0">
         <h4>Commentaires</h4>
         <?php if (isset($utilisateur)) { ?>
@@ -69,7 +67,7 @@ include __DIR__ . '/../Includes/navbar.php';
                 </div>
             </form>
         <?php } else { ?>
-            <p>Pour laisser un commentaire, vous devez vous connecter.</p>
+            <p>Pour laisser un commentaire, vous devez vous <a href="<?= HOME_URL . 'connexion' ?>" class="lien">connecter</a>.</p>
         <?php } ?>
 
         <?php if (!empty($commentairesAvecUtilisateurs)): ?>
@@ -89,7 +87,7 @@ include __DIR__ . '/../Includes/navbar.php';
                 <?php endforeach; ?>
             </div>
         <?php else: ?>
-            <p>Aucun commentaire trouvé pour cet article.</p>
+            <p></p>
         <?php endif; ?>
     </div>
 

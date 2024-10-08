@@ -80,7 +80,7 @@ switch ($route) {
         break;
 
 
-    case HOME_URL . 'categorie/actualite/article':
+    case HOME_URL . 'categorie/ACTUALITÉ/article':
         if ($methode === 'GET' && isset($_GET['id'])) {
             $articleController->showOneArticleByCategorie((int)$_GET['id']);
         } elseif ($methode === 'POST') {
