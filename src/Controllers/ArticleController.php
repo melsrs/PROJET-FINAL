@@ -6,6 +6,7 @@ use DateTime;
 use Exception;
 use src\Models\Article;
 use src\Repositories\ArticleRepository;
+use src\Repositories\CategorieRepository;
 use src\Repositories\CommenterRepository;
 use src\Repositories\UtilisateurRepository;
 
@@ -176,6 +177,9 @@ class ArticleController
             $articleRepository = new ArticleRepository();
             $articles = $articleRepository->findArticleByCategorie($Id_Categorie);
 
+            $categorieRepository = new CategorieRepository();
+            $categorie = $categorieRepository->getCategorieById($Id_Categorie);
+
             if (empty($articles)) {
                 throw new Exception("Aucun article trouvé pour cette catégorie.");
             }
@@ -201,6 +205,9 @@ class ArticleController
             if (!$article) {
                 throw new Exception("Article non trouvé.");
             }
+
+            $categorieRepository = new CategorieRepository();
+            $categorie = $categorieRepository->getCategorieById($article->getIdCategorie());
     
             if (isset($_SESSION['connecte']) && isset($_SESSION['Id_Utilisateur']) || isset($_SESSION['adminConnecte']) && isset($_SESSION['Id_Utilisateur'])) {
                 $utilisateurRepository = new UtilisateurRepository();

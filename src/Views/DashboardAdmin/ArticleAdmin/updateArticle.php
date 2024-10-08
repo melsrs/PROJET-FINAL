@@ -7,7 +7,7 @@ use src\Models\Article;
 use src\Repositories\CategorieRepository;
 
 $categorieRepository = new CategorieRepository();
-$categories = $categorieRepository->getCategoriById();
+$categories = $categorieRepository->getCategorieById();
 
 ?>
 

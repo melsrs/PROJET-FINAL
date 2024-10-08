@@ -6,7 +6,7 @@ include __DIR__ . '/../Includes/navbar.php';
 ?>
 
 <h2>Actualité</h2>
-
+zezaez
 <div class="container" style="color: black;">
     <div class="row justify-content-center">
         <?php if (!empty($articles)) : ?>

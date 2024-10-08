@@ -24,7 +24,7 @@ class CategorieRepository
         return  $this->DB->query($sql)->fetchAll(PDO::FETCH_CLASS, Categorie::class);
     }
 
-    public function getCategoriById()
+    public function getCategorieById()
     {
         $sql = "SELECT Id_Categorie, type FROM categorie;";
         return  $this->DB->query($sql)->fetchAll(PDO::FETCH_CLASS, Categorie::class);

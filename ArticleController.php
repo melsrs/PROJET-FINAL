@@ -192,59 +192,42 @@ class ArticleController
     public function showOneArticleByCategorie($Id_Article)
     {
         try {
-
-            $Id_Categorie = isset($_GET['id']) ? (int)$_GET['id'] : null;
-
-            if (empty($Id_Categorie) || !filter_var($Id_Categorie, FILTER_VALIDATE_INT) || $Id_Categorie <= 0) {
-                throw new Exception("L'ID de l'article est manquant ou invalide.");
+            if (empty($Id_Article) || !filter_var($Id_Article, FILTER_VALIDATE_INT) || $Id_Article <= 0) {
+                throw new Exception("L'Id de l'article est manquant ou invalide.");
             }
-
+    
             $article = $this->articleRepository->getArticleById($Id_Article);
-
+    
             if (!$article) {
-                throw new Exception("Article de la catégorie non trouvé.");
+                throw new Exception("Article non trouvé.");
             }
-
+    
             if (isset($_SESSION['connecte']) && isset($_SESSION['Id_Utilisateur']) || isset($_SESSION['adminConnecte']) && isset($_SESSION['Id_Utilisateur'])) {
                 $utilisateurRepository = new UtilisateurRepository();
                 $utilisateur = $utilisateurRepository->getUtilisateurById($_SESSION['Id_Utilisateur']);
             }
-
+    
             $commenterRepository = new CommenterRepository;
             $commentaires = $commenterRepository->getCommentairesByArticleId($Id_Article);
-
-            $utilisateurRepository = new UtilisateurRepository();
-
-            if (!$commentaires) {
-                throw new Exception("Pas de commentaires trouvés.");
-            }
-
-            // Associons les utilisateurs à leurs commentaires
+    
             $commentairesAvecUtilisateurs = [];
             if ($commentaires) {
                 $utilisateurRepository = new UtilisateurRepository();
-
+    
                 foreach ($commentaires as $commentaire) {
-                    // Récupérer l'utilisateur lié au commentaire
                     $utilisateurInfo = $utilisateurRepository->getUtilisateurById($commentaire->getIdUtilisateur());
-
-                    // Stocker le commentaire et l'utilisateur dans un tableau associatif
                     $commentairesAvecUtilisateurs[] = [
                         'commentaire' => $commentaire,
                         'utilisateur' => $utilisateurInfo,
                     ];
                 }
             }
-
-            if (empty($commentaires)) {
-                throw new Exception("Pas de commentaires trouvés.");
-            }
-
+    
             // Inclure la vue avec les données
             include __DIR__ . '/../Views/Categorie/articleDetailByCategorie.php';
         } catch (Exception $e) {
             $error = $e->getMessage();
-            include __DIR__ . '/../Views/Categorie/categorie.php';
+            include __DIR__ . '/../Views/Categorie/allArticlesByCategorie.php'; 
             exit;
         }
     }

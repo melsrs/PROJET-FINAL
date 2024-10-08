@@ -49,6 +49,15 @@ switch ($route) {
             $homeController->AfficherCategories();
         }
         break;
+    case HOME_URL . 'categorie/ACTUALITÉ/article':
+        if ($methode === 'GET' && isset($_GET['id'])) {
+            $articleController->showOneArticleByCategorie((int)$_GET['id']);
+        } elseif ($methode === 'POST') {
+            $commenterController->createCommentaire();
+        } else {
+            $homeController->AfficherCategories();
+        }
+        break;
 
     case HOME_URL . 'categorie/HISTOIRE':
         if ($methode === 'GET' && isset($_GET['id'])) {
@@ -57,6 +66,18 @@ switch ($route) {
             $homeController->AfficherCategories();
         }
         break;
+    case HOME_URL . 'categorie/HISTOIRE/article':
+        if ($methode === 'GET' && isset($_GET['id'])) {
+            $articleController->showOneArticleByCategorie((int)$_GET['id']);
+        } elseif ($methode === 'POST') {
+            $commenterController->createCommentaire();
+        } else {
+            $homeController->AfficherCategories();
+        }
+        break;
+
+
+
     case HOME_URL . 'categorie/PERSONNAGE':
         if ($methode === 'GET' && isset($_GET['id'])) {
             $articleController->showArticleByCategorie((int)$_GET['id']);
@@ -80,15 +101,6 @@ switch ($route) {
         break;
 
 
-    case HOME_URL . 'categorie/ACTUALITÉ/article':
-        if ($methode === 'GET' && isset($_GET['id'])) {
-            $articleController->showOneArticleByCategorie((int)$_GET['id']);
-        } elseif ($methode === 'POST') {
-            $commenterController->createCommentaire();
-        } else {
-            $homeController->AfficherCategories();
-        }
-        break;
 
     case HOME_URL . 'connexion':
         if ($methode === 'POST') {
@@ -114,7 +126,7 @@ switch ($route) {
         break;
 
 
-        
+
     case HOME_URL . 'dashboard':
         if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true) {
             $utilisateurController->showUtilisateurbyId();
