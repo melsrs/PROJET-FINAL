@@ -95,13 +95,13 @@ class UtilisateurController
 
             if ($role_type[0] === 'admin') {
                 $_SESSION['adminConnecte'] = true;
+                $_SESSION['success'] = "Vous êtes connecté avec succès.";
+                header('Location: ' . HOME_URL . 'dashboardAdmin');
 
-                $success = "Vous êtes connecté avec succès.";
-                include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
             } elseif ($role_type[0] === 'utilisateur') {
                 $_SESSION['connecte'] = true;
-                $success = "Vous êtes connecté avec succès.";
-                include __DIR__ . '/../Views/DashboardUtilisateur/dashboardUtilisateur.php';
+                $_SESSION['success'] = "Vous êtes connecté avec succès.";
+                header('Location: ' . HOME_URL . 'dashboard');
                 exit;
             }
         } catch (Exception $e) {

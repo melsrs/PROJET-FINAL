@@ -3,9 +3,6 @@
 include __DIR__ . '/../Includes/header.php';
 include __DIR__ . '/../Includes/navbar.php';
 
-use src\Repositories\ArticleRepository;
-use src\Repositories\UtilisateurRepository;
-
 ?>
 
 <h2>Mon compte</h2>
