@@ -5,12 +5,15 @@ use src\Controllers\UtilisateurController;
 use src\Controllers\ArticleController;
 use src\Controllers\CategorieController;
 use src\Controllers\CommenterController;
+use src\Controllers\AdminController;
+
 
 $homeController = new HomeController();
 $utilisateurController = new UtilisateurController();
 $articleController = new ArticleController();
 $categorieController = new CategorieController();
 $commenterController = new CommenterController;
+$adminController = new AdminController();
 
 $route = $_SERVER['REDIRECT_URL'];
 $methode = $_SERVER['REQUEST_METHOD'];
@@ -104,11 +107,14 @@ switch ($route) {
 
     case HOME_URL . 'dashboardAdmin':
         if (isset($_SESSION['adminConnecte']) && $_SESSION['adminConnecte'] === true) {
-            $articleController->showAllArticle();
+            $adminController->showAll();
         } else {
             $homeController->afficherLaPageConnexion();
         }
         break;
+
+
+        
     case HOME_URL . 'dashboard':
         if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true) {
             $utilisateurController->showUtilisateurbyId();

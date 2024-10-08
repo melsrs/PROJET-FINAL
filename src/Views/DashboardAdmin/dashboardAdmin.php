@@ -33,10 +33,39 @@ include __DIR__ . '/../Includes/navbar.php';
         <a class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Commentaires</a>
     </div>
     <div class="tab-content" id="v-pills-tabContent">
-        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0" style="color: black;">
 
+        <!-- Utilisateurs -->
+
+        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0" style="color: black;">
+            <div class="container">
+                <div class="row">
+                    <?php if (isset($utilisateurs) && !empty($utilisateurs)): ?>
+                        <?php foreach ($utilisateurs as $utilisateur): ?>
+                            <div class="col-md-4">
+                                <div class="card" style="margin: 20px 0;">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?= htmlspecialchars($utilisateur->getPrenom() . ' ' . $utilisateur->getNom()) ?></h5>
+                                        <p class="card-text">Email : <?= htmlspecialchars($utilisateur->getMail()) ?></p>
+                                        <!-- <p class="card-text">Mot de Passe : <?= htmlspecialchars($utilisateur->getMdp()) ?></p> -->
+                                        <p class="card-text">Role : <?= htmlspecialchars($utilisateur->getIdRole()) ?></p>
+                                        <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateUtilisateur?id=' . $utilisateur->getIdUtilisateur() ?>">Modifier</a>
+                                        <form action="<?= HOME_URL . 'dashboardAdmin/deleteUtilisateur' ?>" method="POST" style="display: inline;">
+                                            <input type="hidden" name="Id_Utilisateur" value="<?= $utilisateur->getIdUtilisateur() ?>">
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">Supprimer</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>Aucun utilisateur trouvé.</p>
+                    <?php endif; ?>
+                </div>
+            </div>
         </div>
 
+
+        <!-- Articles -->
 
         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0" style="color: black;">
             <div class="d-flex justify-content-center">

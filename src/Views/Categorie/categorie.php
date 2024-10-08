@@ -3,11 +3,6 @@
 include __DIR__ . '/../Includes/header.php';
 include __DIR__ . '/../Includes/navbar.php';
 
-use src\Repositories\CategorieRepository;
-
-$categorieRepository = new CategorieRepository();
-$categories = $categorieRepository->getCategories();
-
 ?>
 
 <h2>Catégorie</Canvas></h2>

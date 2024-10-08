@@ -65,6 +65,7 @@ class ArticleController
         $articles = $this->articleRepository->getAllArticles();
 
         include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
+        
     }
 
     public function showUpdateForm()

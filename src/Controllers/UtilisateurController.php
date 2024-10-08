@@ -113,7 +113,7 @@ class UtilisateurController
 
     public function showAllUtilisateur()
     {
-        $this->utilisateurRepository->getAllUtilisateur();
+        $utilisateurs = $this->utilisateurRepository->getAllUtilisateur();
 
         include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
     }
@@ -156,4 +156,5 @@ class UtilisateurController
             throw new Exception("Une erreur est survenue lors de la déconnexion : " . $error);
         }
     }
+    
 }
