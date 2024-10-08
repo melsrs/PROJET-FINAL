@@ -54,7 +54,7 @@ class HomeController
         include __DIR__ . '/../Views/DashboardUtilisateur/dashboardUtilisateur.php';
     }
 
-    public function createArticle()
+    public function afficherFormulaireCreationArticle()
     {
         include __DIR__ . '/../Views/DashboardAdmin/ArticleAdmin/createArticle.php';
     }

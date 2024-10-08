@@ -117,14 +117,19 @@ switch ($route) {
         }
         break;
 
-
     case HOME_URL . 'dashboardAdmin/createArticle':
-        if ($methode === 'POST' && isset($_SESSION['adminConnecte']) && $_SESSION['adminConnecte'] === true) {
-            $articleController->createArticle();
+        if (isset($_SESSION['adminConnecte']) && $_SESSION['adminConnecte'] === true) {
+            if ($methode === 'GET') {
+                $homeController->afficherFormulaireCreationArticle();  // Affiche le formulaire vide
+            } elseif ($methode === 'POST') {
+                $articleController->createArticle();
+            }
         } else {
             $homeController->afficherLaPageConnexion();
         }
         break;
+
+
     case HOME_URL . 'dashboardAdmin/updateArticle':
         if ($methode === 'GET' && isset($_GET['id']) && $_SESSION['adminConnecte'] === true) {
             $articleController->showUpdateForm((int)$_GET['id']);
