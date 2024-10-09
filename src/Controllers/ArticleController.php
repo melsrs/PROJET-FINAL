@@ -66,7 +66,6 @@ class ArticleController
         $articles = $this->articleRepository->getAllArticles();
 
         include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
-        
     }
 
     public function showUpdateForm()
@@ -168,23 +167,23 @@ class ArticleController
         try {
             // Vérifier et valider l'ID de la catégorie à partir de $_GET
             $Id_Categorie = isset($_GET['id']) ? (int)$_GET['id'] : null;
-    
+
             if (empty($Id_Categorie) || !filter_var($Id_Categorie, FILTER_VALIDATE_INT) || $Id_Categorie <= 0) {
                 throw new Exception("L'ID de la catégorie est manquant ou invalide.");
             }
-    
+
             // Récupérer les articles via le repository
             $articleRepository = new ArticleRepository();
             $articles = $articleRepository->findArticleByCategorie($Id_Categorie);
-    
+
             // Récupérer la catégorie par son type
             $categorieRepository = new CategorieRepository();
             $categorie = $categorieRepository->getCategorieByType($type);
-    
+
             if (empty($articles)) {
                 throw new Exception("Aucun article trouvé pour cette catégorie.");
             }
-    
+
             // Inclure la vue et passer les articles et la catégorie
             include __DIR__ . '/../Views/Categorie/allArticlesByCategorie.php';
         } catch (Exception $e) {
@@ -194,36 +193,40 @@ class ArticleController
             exit;
         }
     }
-    
 
-    public function showOneArticleByCategorie($Id_Article)
+
+    public function showOneArticleByCategorie($Id_Article, $type)
     {
         try {
             if (empty($Id_Article) || !filter_var($Id_Article, FILTER_VALIDATE_INT) || $Id_Article <= 0) {
                 throw new Exception("L'Id de l'article est manquant ou invalide.");
             }
-    
+
             $article = $this->articleRepository->getArticleById($Id_Article);
-    
+
             if (!$article) {
                 throw new Exception("Article non trouvé.");
             }
 
+            // $categorieRepository = new CategorieRepository();
+            // $categorie = $categorieRepository->getCategorieById($article->getIdCategorie());
+
+            // Récupérer la catégorie par son type
             $categorieRepository = new CategorieRepository();
-            $categorie = $categorieRepository->getCategorieById($article->getIdCategorie());
-    
+            $categorie = $categorieRepository->getCategorieByType($type);
+
             if (isset($_SESSION['connecte']) && isset($_SESSION['Id_Utilisateur']) || isset($_SESSION['adminConnecte']) && isset($_SESSION['Id_Utilisateur'])) {
                 $utilisateurRepository = new UtilisateurRepository();
                 $utilisateur = $utilisateurRepository->getUtilisateurById($_SESSION['Id_Utilisateur']);
             }
-    
+
             $commenterRepository = new CommenterRepository;
             $commentaires = $commenterRepository->getCommentairesByArticleId($Id_Article);
-    
+
             $commentairesAvecUtilisateurs = [];
             if ($commentaires) {
                 $utilisateurRepository = new UtilisateurRepository();
-    
+
                 foreach ($commentaires as $commentaire) {
                     $utilisateurInfo = $utilisateurRepository->getUtilisateurById($commentaire->getIdUtilisateur());
                     $commentairesAvecUtilisateurs[] = [
@@ -232,7 +235,7 @@ class ArticleController
                     ];
                 }
             }
-    
+
             include __DIR__ . '/../Views/Categorie/articleDetailByCategorie.php';
         } catch (Exception $e) {
             $error = $e->getMessage();

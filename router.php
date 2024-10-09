@@ -77,50 +77,47 @@ switch ($route) {
             $homeController->AfficherCategories();
         }
         break;
-
     case HOME_URL . 'categorie/ACTUALITÉ/article':
         if ($methode === 'GET' && isset($_GET['id'])) {
-            $articleController->showOneArticleByCategorie((int)$_GET['id']);
+            $articleController->showOneArticleByCategorie((int)$_GET['id'], "ACTUALITÉ");
         } elseif ($methode === 'POST') {
-            $commenterController->createCommentaire();
+            $commenterController->createCommentaire("ACTUALITÉ");
         } else {
             $homeController->AfficherCategories();
         }
         break;
-
-
     case HOME_URL . 'categorie/HISTOIRE/article':
         if ($methode === 'GET' && isset($_GET['id'])) {
-            $articleController->showOneArticleByCategorie((int)$_GET['id']);
+            $articleController->showOneArticleByCategorie((int)$_GET['id'], "HISTOIRE");
         } elseif ($methode === 'POST') {
-            $commenterController->createCommentaire();
+            $commenterController->createCommentaire("HISTOIRE");
         } else {
             $homeController->AfficherCategories();
         }
         break;
     case HOME_URL . 'categorie/PERSONNAGE/article':
         if ($methode === 'GET' && isset($_GET['id'])) {
-            $articleController->showOneArticleByCategorie((int)$_GET['id']);
+            $articleController->showOneArticleByCategorie((int)$_GET['id'], "PERSONNAGE");
         } elseif ($methode === 'POST') {
-            $commenterController->createCommentaire();
+            $commenterController->createCommentaire("PERSONNAGE");
         } else {
             $homeController->AfficherCategories();
         }
         break;
     case HOME_URL . 'categorie/LIEU+MYTHIQUE/article':
         if ($methode === 'GET' && isset($_GET['id'])) {
-            $articleController->showOneArticleByCategorie((int)$_GET['id']);
+            $articleController->showOneArticleByCategorie((int)$_GET['id'], "LIEU MYTHIQUE");
         } elseif ($methode === 'POST') {
-            $commenterController->createCommentaire();
+            $commenterController->createCommentaire("LIEU MYTHIQUE");
         } else {
             $homeController->AfficherCategories();
         }
         break;
     case HOME_URL . 'categorie/INFORMATION/article':
         if ($methode === 'GET' && isset($_GET['id'])) {
-            $articleController->showOneArticleByCategorie((int)$_GET['id']);
+            $articleController->showOneArticleByCategorie((int)$_GET['id'],"INFORMATION");
         } elseif ($methode === 'POST') {
-            $commenterController->createCommentaire();
+            $commenterController->createCommentaire("INFORMATION");
         } else {
             $homeController->AfficherCategories();
         }
@@ -148,8 +145,6 @@ switch ($route) {
             $homeController->afficherLaPageConnexion();
         }
         break;
-
-
 
     case HOME_URL . 'dashboard':
         if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true) {

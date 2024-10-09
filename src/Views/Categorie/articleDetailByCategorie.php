@@ -5,7 +5,8 @@ include __DIR__ . '/../Includes/navbar.php';
 
 ?>
 
-<h2>Actualité</h2>
+<h2><?= htmlspecialchars($categorie->getType()) ?></h2>
+
 
 <?php if (isset($_SESSION['success'])): ?>
     <div class="alert alert-success"><?= htmlspecialchars($_SESSION['success']) ?></div>
@@ -53,7 +54,7 @@ include __DIR__ . '/../Includes/navbar.php';
     <div style="margin: 30px 0 30px 0">
         <h4>Commentaires</h4>
         <?php if (isset($utilisateur)) { ?>
-            <form action="<?= HOME_URL . 'categorie/actualite/article?id=' . $article->getIdArticle(); ?>" method="POST">
+            <form action="<?= HOME_URL . 'categorie/' . urlencode($categorie->getType()) . '/article?id=' . $article->getIdArticle(); ?>" method="POST">
                 <div class="mb-3 my-3">
                     <label for="texte" class="form-label">Ajoutez un commentaire</label>
                     <textarea class="form-control" name="commentaire" id="commentaire" style="height: 80px;"></textarea>
@@ -90,8 +91,6 @@ include __DIR__ . '/../Includes/navbar.php';
             <p></p>
         <?php endif; ?>
     </div>
-
-
 
 
 

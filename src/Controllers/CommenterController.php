@@ -6,6 +6,7 @@ use DateTime;
 use Exception;
 use src\Models\Article;
 use src\Models\Commenter;
+use src\Repositories\CategorieRepository;
 use src\Repositories\CommenterRepository;
 use src\Repositories\UtilisateurRepository;
 
@@ -17,7 +18,7 @@ class CommenterController
         $this->commenterRepository = new CommenterRepository();
     }
 
-    public function createCommentaire()
+    public function createCommentaire($type)
     {
         try {
             if (!isset($_SESSION['Id_Utilisateur'])) {
@@ -41,6 +42,9 @@ class CommenterController
             if (empty($article->getIdArticle())) {
                 throw new Exception("Id de l'article manquant ou invalide.");
             }
+
+            $categorieRepository = new CategorieRepository();
+            $categorie = $categorieRepository->getCategorieByType($type);
     
             // Création du commentaire
             $commentaire = new Commenter();
@@ -58,12 +62,12 @@ class CommenterController
             $this->commenterRepository->newCommentaire($commentaire);
     
             $_SESSION['success'] = "Votre commentaire a bien été pris en compte.";
-            header('Location: ' . HOME_URL . 'categorie/actualite/article?id=' . urlencode($article->getIdArticle()));
+            header('Location: ' . HOME_URL . 'categorie/' . urlencode($categorie->getType()) . '/article?id=' . $article->getIdArticle());
             exit;
     
         } catch (Exception $e) {
             $_SESSION['error'] = $e->getMessage();
-            header('Location: ' . HOME_URL . 'categorie/actualite/article?id=' . urlencode($article->getIdArticle()));
+            header('Location: ' . HOME_URL . 'categorie/' . urlencode($categorie->getType()) . '/article?id=' . $article->getIdArticle());
             exit;
         }
     }
