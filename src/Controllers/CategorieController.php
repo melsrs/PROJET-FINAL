@@ -22,4 +22,6 @@ class CategorieController
         include __DIR__ . '/../Views/Categorie/categorie.php';
 
     }
+
+    
 }

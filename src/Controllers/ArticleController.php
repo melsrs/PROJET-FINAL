@@ -163,35 +163,38 @@ class ArticleController
     }
 
 
-    public function showArticleByCategorie($Id_Categorie)
+    public function showArticleByCategorie($Id_Categorie, $type)
     {
         try {
             // Vérifier et valider l'ID de la catégorie à partir de $_GET
             $Id_Categorie = isset($_GET['id']) ? (int)$_GET['id'] : null;
-
+    
             if (empty($Id_Categorie) || !filter_var($Id_Categorie, FILTER_VALIDATE_INT) || $Id_Categorie <= 0) {
                 throw new Exception("L'ID de la catégorie est manquant ou invalide.");
             }
-
+    
             // Récupérer les articles via le repository
             $articleRepository = new ArticleRepository();
             $articles = $articleRepository->findArticleByCategorie($Id_Categorie);
-
+    
+            // Récupérer la catégorie par son type
             $categorieRepository = new CategorieRepository();
-            $categorie = $categorieRepository->getCategorieById($Id_Categorie);
-
+            $categorie = $categorieRepository->getCategorieByType($type);
+    
             if (empty($articles)) {
                 throw new Exception("Aucun article trouvé pour cette catégorie.");
             }
-
+    
+            // Inclure la vue et passer les articles et la catégorie
             include __DIR__ . '/../Views/Categorie/allArticlesByCategorie.php';
         } catch (Exception $e) {
+            // En cas d'erreur, afficher un message d'erreur
             $error = $e->getMessage();
             include __DIR__ . '/../Views/Categorie/categorie.php';
             exit;
         }
     }
-
+    
 
     public function showOneArticleByCategorie($Id_Article)
     {
@@ -230,12 +233,10 @@ class ArticleController
                 }
             }
     
-            // Inclure la vue avec les données
             include __DIR__ . '/../Views/Categorie/articleDetailByCategorie.php';
         } catch (Exception $e) {
-            // Afficher un message d'erreur spécifique
             $error = $e->getMessage();
-            include __DIR__ . '/../Views/error.php'; // Créez une vue d'erreur générique
+            include __DIR__ . '/../Views/error.php';
             exit;
         }
     }

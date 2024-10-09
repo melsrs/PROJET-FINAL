@@ -5,13 +5,14 @@ include __DIR__ . '/../Includes/navbar.php';
 
 ?>
 
-<h2>Actualité</h2>
-zezaez
+<h2><?= htmlspecialchars($categorie->getType()) ?></h2>
+
+
 <div class="container" style="color: black;">
     <div class="row justify-content-center">
         <?php if (!empty($articles)) : ?>
             <?php foreach ($articles as $article): ?>
-                <a href="<?= HOME_URL . ('categorie/ACTUALITÉ/article?id=' . urlencode($article->getIdArticle())) ?>" class="col-md-4 d-flex justify-content-center" style="text-decoration: none; color: inherit; margin-top: 10px; margin-bottom: 30px;">
+                <a href="<?= HOME_URL . 'categorie/' . urlencode($categorie->getType()) . '/article?id=' . urlencode($article->getIdArticle()) ?>" class="col-md-4 d-flex justify-content-center" style="text-decoration: none; color: inherit; margin-top: 10px; margin-bottom: 30px;">
                     <div class="card" style="width: 100%; margin: 0 5px;"> 
                         <?php if (!empty($article->getImage())): ?>
                             <img src="<?= htmlspecialchars($article->getImage()) ?>" class="card-img-top" alt="Image de l'article" style="height: 180px; object-fit: cover;">

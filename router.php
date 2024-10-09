@@ -44,7 +44,7 @@ switch ($route) {
 
     case HOME_URL . 'categorie/ACTUALITÉ':
         if ($methode === 'GET' && isset($_GET['id'])) {
-            $articleController->showArticleByCategorie((int)$_GET['id']);
+            $articleController->showArticleByCategorie((int)$_GET['id'], 'ACTUALITÉ');
         } else {
             $homeController->AfficherCategories();
         }
@@ -61,7 +61,7 @@ switch ($route) {
 
     case HOME_URL . 'categorie/HISTOIRE':
         if ($methode === 'GET' && isset($_GET['id'])) {
-            $articleController->showArticleByCategorie((int)$_GET['id']);
+            $articleController->showArticleByCategorie((int)$_GET['id'], "HISTOIRE");
         } else {
             $homeController->AfficherCategories();
         }
@@ -80,21 +80,43 @@ switch ($route) {
 
     case HOME_URL . 'categorie/PERSONNAGE':
         if ($methode === 'GET' && isset($_GET['id'])) {
-            $articleController->showArticleByCategorie((int)$_GET['id']);
+            $articleController->showArticleByCategorie((int)$_GET['id'], "PERSONNAGE");
         } else {
             $homeController->AfficherCategories();
         }
         break;
+    case HOME_URL . 'categorie/PERSONNAGE/article':
+        if ($methode === 'GET' && isset($_GET['id'])) {
+            $articleController->showOneArticleByCategorie((int)$_GET['id']);
+        } elseif ($methode === 'POST') {
+            $commenterController->createCommentaire();
+        } else {
+            $homeController->AfficherCategories();
+        }
+        break;
+
+
     case HOME_URL . 'categorie/LIEU+MYTHIQUE':
         if ($methode === 'GET' && isset($_GET['id'])) {
-            $articleController->showArticleByCategorie((int)$_GET['id']);
+            $articleController->showArticleByCategorie((int)$_GET['id'], "LIEU+MYTHIQUE");
         } else {
             $homeController->AfficherCategories();
         }
         break;
+
+
     case HOME_URL . 'categorie/INFORMATION':
         if ($methode === 'GET' && isset($_GET['id'])) {
-            $articleController->showArticleByCategorie((int)$_GET['id']);
+            $articleController->showArticleByCategorie((int)$_GET['id'], "INFORMATION");
+        } else {
+            $homeController->AfficherCategories();
+        }
+        break;
+    case HOME_URL . 'categorie/INFORMAION/article':
+        if ($methode === 'GET' && isset($_GET['id'])) {
+            $articleController->showOneArticleByCategorie((int)$_GET['id']);
+        } elseif ($methode === 'POST') {
+            $commenterController->createCommentaire();
         } else {
             $homeController->AfficherCategories();
         }

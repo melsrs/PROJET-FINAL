@@ -28,7 +28,15 @@ class CategorieRepository
     {
         $sql = "SELECT Id_Categorie, type FROM categorie;";
         return  $this->DB->query($sql)->fetchAll(PDO::FETCH_CLASS, Categorie::class);
-
     }
-    
+
+    public function getCategorieByType($type)
+    {
+        $sql = "SELECT * FROM categorie WHERE type = :type;";
+        $statement = $this->DB->prepare($sql);
+        $statement->execute([':type' => $type]);
+        $statement->setFetchMode(PDO::FETCH_CLASS, Categorie::class);
+        $categorie = $statement->fetch();
+        return $categorie;
+    }
 }
