@@ -77,7 +77,7 @@ include __DIR__ . '/../Includes/navbar.php';
                             <div class="col-md-4">
                                 <div class="card" style="margin: 20px 0;">
                                     <?php if (!empty($article->getImage())): ?>
-                                        <img src="<?= htmlspecialchars($article->getImage()) ?>" class="card-img-top" alt="Image de l'article">
+                                        <img src="<?= htmlspecialchars($article->getImage()) ?>" class="card-img-top" style= "height: 500%"alt="Image de l'article" >
                                     <?php else: ?>
                                         <img src="placeholder_image.jpg" class="card-img-top" alt="Image placeholder">
                                     <?php endif; ?>

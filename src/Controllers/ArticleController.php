@@ -140,32 +140,31 @@ class ArticleController
     public function deleteThisArticle($Id_Article)
     {
         try {
-            // Vérifier si l'article existe avant de le supprimer
             $article = $this->articleRepository->getArticleById($Id_Article);
             if (!$article) {
                 throw new Exception("L'article n'existe pas.");
             }
-
+    
             $success = $this->articleRepository->deleteArticle($Id_Article);
-
+    
             if ($success) {
                 $_SESSION['success'] = "L'article a été supprimé avec succès.";
             } else {
                 throw new Exception("Une erreur est survenue lors de la suppression de l'article.");
             }
-
-            include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
+    
+            header('Location: ' . HOME_URL . 'dashboardAdmin');
         } catch (Exception $e) {
-            $error = $e->getMessage();
-            include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
+            $_SESSION['error'] = $e->getMessage();
+            header('Location: ' . HOME_URL . 'dashboardAdmin');
+            exit(); // Stopper le script
         }
     }
-
+    
 
     public function showArticleByCategorie($Id_Categorie, $type)
     {
         try {
-            // Vérifier et valider l'ID de la catégorie à partir de $_GET
             $Id_Categorie = isset($_GET['id']) ? (int)$_GET['id'] : null;
 
             if (empty($Id_Categorie) || !filter_var($Id_Categorie, FILTER_VALIDATE_INT) || $Id_Categorie <= 0) {
@@ -184,10 +183,8 @@ class ArticleController
                 throw new Exception("Aucun article trouvé pour cette catégorie.");
             }
 
-            // Inclure la vue et passer les articles et la catégorie
             include __DIR__ . '/../Views/Categorie/allArticlesByCategorie.php';
         } catch (Exception $e) {
-            // En cas d'erreur, afficher un message d'erreur
             $error = $e->getMessage();
             include __DIR__ . '/../Views/Categorie/categorie.php';
             exit;
@@ -208,10 +205,6 @@ class ArticleController
                 throw new Exception("Article non trouvé.");
             }
 
-            // $categorieRepository = new CategorieRepository();
-            // $categorie = $categorieRepository->getCategorieById($article->getIdCategorie());
-
-            // Récupérer la catégorie par son type
             $categorieRepository = new CategorieRepository();
             $categorie = $categorieRepository->getCategorieByType($type);
 
