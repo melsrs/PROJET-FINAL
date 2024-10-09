@@ -165,8 +165,6 @@ switch ($route) {
             $homeController->afficherLaPageConnexion();
         }
         break;
-
-
     case HOME_URL . 'dashboardAdmin/updateArticle':
         if ($methode === 'GET' && isset($_GET['id']) && $_SESSION['adminConnecte'] === true) {
             $articleController->showUpdateForm((int)$_GET['id']);
@@ -176,13 +174,15 @@ switch ($route) {
             $homeController->afficherLaPageConnexion();
         }
         break;
-    case HOME_URL . 'dashboardAdmin/deleteArticle':
-        if ($methode === 'POST' && isset($_POST['Id_Article']) && $_SESSION['adminConnecte'] === true) {
-            $articleController->deleteThisArticle((int)$_POST['Id_Article']);
-        } else {
-            $homeController->afficherLaPageConnexion();
-        }
-        break;
+
+
+    // case HOME_URL . 'dashboardAdmin/deleteArticle':
+    //     if ($methode === 'POST' && isset($_POST['Id_Article']) && $_SESSION['adminConnecte'] === true) {
+    //         $articleController->deleteThisArticle((int)$_POST['Id_Article']);
+    //     } else {
+    //         $homeController->afficherLaPageConnexion();
+    //     }
+    //     break;
 
 
     case HOME_URL . 'deconnexion':

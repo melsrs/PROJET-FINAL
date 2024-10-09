@@ -51,12 +51,12 @@ class ArticleController
 
             $this->articleRepository->newArticle($article);
 
-            $success = "L'article a bien été créé.";
-            include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
+            $_SESSION['success'] = "L'article a bien été créé.";
+            header('Location: ' . HOME_URL . 'dashboardAdmin');
             exit;
-        } catch (Exception $e) {
-            $error = $e->getMessage();
-            include __DIR__ . '/../Views/DashboardAdmin/ArticleAdmin/createArticle.php';
+        } catch (Exception $e) {            
+            $_SESSION['error'] = $e->getMessage();
+                    header('Location: ' . HOME_URL . 'dashboardAdmin/createArticle');
             exit;
         }
     }
@@ -126,12 +126,14 @@ class ArticleController
 
             $this->articleRepository->updateArticle($article);
 
-            $success = "L'article a bien été modifié";
-            include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
+            $_SESSION['success'] = "L'article a bien été modifié.";
+
+            header('Location: ' . HOME_URL . 'dashboardAdmin');
             exit;
         } catch (\Exception $e) {
-            $error = $e->getMessage();
-            include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
+            $Id_Article = isset($_POST['id_article']) ? (int)$_POST['id_article'] : null;
+            $_SESSION['error'] = $e->getMessage();
+            header('Location: ' . HOME_URL . 'dashboardAdmin/updateArticle?id=' . $Id_Article);
             exit;
         }
     }
@@ -157,7 +159,7 @@ class ArticleController
         } catch (Exception $e) {
             $_SESSION['error'] = $e->getMessage();
             header('Location: ' . HOME_URL . 'dashboardAdmin');
-            exit(); // Stopper le script
+            exit(); 
         }
     }
     
