@@ -6,7 +6,7 @@ use src\Controllers\ArticleController;
 use src\Controllers\CategorieController;
 use src\Controllers\CommenterController;
 use src\Controllers\AdminController;
-
+use src\Controllers\DashboardController;
 
 $homeController = new HomeController();
 $utilisateurController = new UtilisateurController();
@@ -14,6 +14,7 @@ $articleController = new ArticleController();
 $categorieController = new CategorieController();
 $commenterController = new CommenterController;
 $adminController = new AdminController();
+$dashboardController = new DashboardController();
 
 $route = $_SERVER['REDIRECT_URL'];
 $methode = $_SERVER['REQUEST_METHOD'];
@@ -205,12 +206,11 @@ switch ($route) {
 
     case HOME_URL . 'dashboard':
         if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true) {
-            $utilisateurController->showUtilisateurbyId();
+            $dashboardController->showUtilisateurAndCommentaire();
         } else {
             $homeController->afficherLaPageConnexion();
         }
         break;
-
     case HOME_URL . 'dashboard/updateUtilisateur':
         if ($methode === 'GET' && isset($_GET['id']) && $_SESSION['connecte'] === true) {
             $utilisateurController->showUpdateForm((int)$_GET['id']);
@@ -227,6 +227,17 @@ switch ($route) {
             $homeController->afficherLaPageConnexion();
         }
         break;
+
+    case HOME_URL . 'dashboard/updateCommentaire':
+        if ($methode === 'GET' && isset($_GET['Id_Utilisateur']) && isset($_GET['Id_Article']) && $_SESSION['connecte'] === true) {
+            $dashboardController->showUpdateForm((int)$_GET['Id_Utilisateur'], (int)$_GET['Id_Article']);
+        } elseif ($methode === 'POST' && $_SESSION['connecte'] === true) {
+            $dashboardController->saveUpdateCommentaire();
+        } else {
+            $homeController->afficherLaPageConnexion();
+        }
+        break;
+
 
     case HOME_URL . 'deconnexion':
         $utilisateurController->deconnexion();

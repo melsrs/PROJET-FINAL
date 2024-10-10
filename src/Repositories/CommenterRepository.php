@@ -56,4 +56,29 @@ class CommenterRepository
         return $commentaire;
     }
 
+    public function getCommentairesByUtilisateurId($Id_Utilisateur)
+    {
+        $sql = "SELECT * FROM commenter WHERE Id_Utilisateur = :Id_Utilisateur";
+        $statement = $this->DB->prepare($sql);
+        $statement->execute([':Id_Utilisateur' => $Id_Utilisateur]);
+        $statement->setFetchMode(PDO::FETCH_CLASS, Commenter::class);
+        $commentaire = $statement->fetchAll();
+
+        return $commentaire;
+    }
+
+    public function getCommentaireByUtilisateurAndArticle($Id_Utilisateur, $Id_Article)
+    {
+        $sql = "SELECT * FROM commenter WHERE Id_Utilisateur = :Id_Utilisateur AND Id_Article = :Id_Article";
+        $statement = $this->DB->prepare($sql);
+
+        $statement->execute([
+            ':Id_Utilisateur'   => $Id_Utilisateur,
+            ':Id_Article'       => $Id_Article
+        ]);
+
+        $statement->setFetchMode(PDO::FETCH_CLASS, Commenter::class);
+        $commentaire = $statement->fetch();
+        return $commentaire;
+    }
 }
