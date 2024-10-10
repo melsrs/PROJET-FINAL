@@ -5,7 +5,6 @@ namespace src\Controllers;
 use Exception;
 use src\Models\Utilisateur;
 use src\Repositories\UtilisateurRepository;
-use src\Repositories\RoleRepository;
 
 class UtilisateurController
 {
@@ -98,7 +97,6 @@ class UtilisateurController
                 $_SESSION['adminConnecte'] = true;
                 $_SESSION['success'] = "Vous êtes connecté avec succès.";
                 header('Location: ' . HOME_URL . 'dashboardAdmin');
-
             } elseif ($role_type[0] === 'utilisateur') {
                 $_SESSION['connecte'] = true;
                 $_SESSION['success'] = "Vous êtes connecté avec succès.";
@@ -125,17 +123,17 @@ class UtilisateurController
             if (!isset($_SESSION['Id_Utilisateur'])) {
                 throw new Exception("Vous devez être connecté pour accéder à cette page.");
             }
-    
+
             // Récupération de l'ID utilisateur depuis la session
             $Id_Utilisateur = $_SESSION['Id_Utilisateur'];
-    
+
             // Récupération des informations utilisateur via le repository
             $utilisateur = $this->utilisateurRepository->getUtilisateurById($Id_Utilisateur);
-    
+
             if (!$utilisateur) {
                 throw new Exception("Utilisateur non trouvé.");
             }
-    
+
             include __DIR__ . '/../Views/DashboardUtilisateur/dashboardUtilisateur.php';
         } catch (Exception $e) {
             $error = $e->getMessage();
@@ -143,8 +141,6 @@ class UtilisateurController
             exit;
         }
     }
-
-
 
     public function showUpdateForm()
     {
@@ -161,17 +157,13 @@ class UtilisateurController
                 throw new Exception("Utilisateur non trouvé.");
             }
 
-            $roleRepository = new RoleRepository();
-            $roles = $roleRepository->getRoleById();
-
-            include __DIR__ . '/../Views/DashboardAdmin/UtilisateurAdmin/updateUtilisateur.php';
+            include __DIR__ . '/../Views/DashboardUtilisateur/updateUtilisateur.php';
         } catch (Exception $e) {
             $error = $e->getMessage();
-            include __DIR__ . '/../Views/DashboardAdmin/UtilisateurAdmin/updateUtilisateur.php';
+            include __DIR__ . '/../Views/DashboardUtilisateur/updateUtilisateur.php';
             exit;
         }
     }
-
 
     public function saveUpdateUtilisateur()
     {
@@ -180,18 +172,29 @@ class UtilisateurController
             $utilisateur->setPrenom(isset($_POST['prenom']) ? htmlspecialchars($_POST['prenom']) : null);
             $utilisateur->setNom(isset($_POST['nom']) ? htmlspecialchars($_POST['nom']) : null);
             $utilisateur->setMail(isset($_POST['mail']) ? htmlspecialchars($_POST['mail']) : null);
-            $utilisateur->setMdp(isset($_POST['motDePasse']) ? htmlspecialchars($_POST['motDePasse']) : null);
 
-            $utilisateur->setIdRole(isset($_POST['Id_Role']) ? (int) $_POST['Id_Role'] : null);
+            $utilisateur->setMdp(isset($_POST['motDePasse']) ? htmlspecialchars($_POST['motDePasse']) : null);
+            $motDePasseConfirme = isset($_POST['motDePasseConfirme']) ? htmlspecialchars($_POST['motDePasseConfirme']) : null;
+
+            if (!empty($utilisateur->getMdp()) || !empty($motDePasseConfirme)) {
+                if ($utilisateur->getMdp() !== $motDePasseConfirme) {
+                    throw new Exception("Les mots de passe ne correspondent pas.");
+                }
+
+                $motDePasseHash = password_hash($utilisateur->getMdp(), PASSWORD_DEFAULT);
+                $utilisateur->setMdp($motDePasseHash);
+            }
+
+            $utilisateur->setIdRole(isset($_POST['role']) ? (int) $_POST['role'] : null);
 
             if (
                 empty($utilisateur->getPrenom()) ||
                 empty($utilisateur->getNom()) ||
-                empty($utilisateur->getMail())  ||
-                empty($utilisateur->getMdp()) ||
+                empty($utilisateur->getMail()) ||
+                (empty($utilisateur->getMdp()) && empty($motDePasseConfirme)) || // Assurez-vous que le mot de passe est fourni ou déjà présent
                 empty($utilisateur->getIdRole())
             ) {
-                throw new Exception("Veuillez remplir tous les champs.");
+                throw new Exception("Veuillez remplir tous les champs obligatoires.");
             }
 
             $utilisateur->setIdUtilisateur(isset($_SESSION['Id_Utilisateur']) ? $_SESSION['Id_Utilisateur'] : null);
@@ -208,13 +211,12 @@ class UtilisateurController
             $this->utilisateurRepository->updateUtilisateur($utilisateur);
 
             $_SESSION['success'] = "L'utilisateur a bien été modifié.";
-
-            header('Location: ' . HOME_URL . 'dashboardAdmin');
+            header('Location: ' . HOME_URL . 'dashboard');
             exit;
         } catch (\Exception $e) {
             $Id_Utilisateur = isset($_POST['Id_Utilisateur']) ? (int)$_POST['Id_Utilisateur'] : null;
             $_SESSION['error'] = $e->getMessage();
-            header('Location: ' . HOME_URL . 'dashboardAdmin/updateUtilisateur?id=' . $Id_Utilisateur);
+            header('Location: ' . HOME_URL . 'dashboard/updateUtilisateur?id=' . $Id_Utilisateur);
             exit;
         }
     }
@@ -244,7 +246,7 @@ class UtilisateurController
             exit();
         }
     }
-    
+
     public function deconnexion()
     {
         try {
@@ -258,5 +260,4 @@ class UtilisateurController
             throw new Exception("Une erreur est survenue lors de la déconnexion : " . $error);
         }
     }
-    
 }

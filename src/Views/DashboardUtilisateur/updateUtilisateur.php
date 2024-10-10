@@ -1,12 +1,12 @@
 <?php
 
-include __DIR__ . '/../../Includes/header.php';
-include __DIR__ . '/../../Includes/navbar.php';
+include __DIR__ . '/../Includes/header.php';
+include __DIR__ . '/../Includes/navbar.php';
 
 ?>
 
 <div class="createArticle">
-    <h2> Modifier l'utilisateur</h2>
+    <h2> Modifier mes informations</h2>
 
     <?php if (isset($_SESSION['error'])): ?>
         <div class="alert alert-danger"><?php echo $_SESSION['error']; ?></div>
@@ -21,7 +21,7 @@ include __DIR__ . '/../../Includes/navbar.php';
     <?php endif; ?>
 
     <div class="container d-flex justify-content-center align-items-center">
-        <form class="w-50" method="POST" action="<?= HOME_URL . 'dashboardAdmin/updateUtilisateur' ?>">
+        <form class="w-50" method="POST" action="<?= HOME_URL . 'dashboard/updateUtilisateur' ?>">
             <input type="hidden" name="Id_Utilisateur" value="<?= htmlspecialchars($utilisateur->getIdUtilisateur()) ?>">
 
             <div class="mb-3 my-3">
@@ -41,19 +41,14 @@ include __DIR__ . '/../../Includes/navbar.php';
                 <input type="password" name="motDePasse" class="form-control" id="motDePasse" value="<?= htmlspecialchars($utilisateur->getMdp()) ?>">
             </div>
             <div class="mb-3 my-3">
-                <label for="roles" class="form-label">Role</label>
-                <select class="form-select" id="Id_Role" name="Id_Role" aria-label="Sélectionner un rôle">
-                    <option disabled>Sélectionner le rôle</option>
-                    <?php foreach ($roles as $role): ?>
-                        <option value="<?= htmlspecialchars($role->getIdRole()) ?>"
-                            <?= $role->getIdRole() == $utilisateur->getIdRole() ? 'selected' : '' ?>>
-                            <?= htmlspecialchars($role->getType()) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+                <label for="motDePasseConfirme" class="form-label">Confirmation de mot de passe</label>
+                <input type="password" name="motDePasseConfirme" class="form-control" id="motDePasseConfirme" required>
+            </div>
+            <div class="mb-3 my-3">
+                <input type="hidden" name="role" class="form-control" id="role" value="<?= htmlspecialchars($utilisateur->getIdRole()) ?>">
             </div>
             <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary my-3">Modifier l'utilisateur</button>
+                <button type="submit" class="btn btn-primary my-3">Enregistrer</button>
             </div>
         </form>
     </div>

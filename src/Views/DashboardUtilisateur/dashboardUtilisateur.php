@@ -37,13 +37,12 @@ include __DIR__ . '/../Includes/navbar.php';
                 <div class="row">
                     <?php if (!empty($utilisateur)): ?>
                         <div class="col-md-8">
-                            <div class="card" style="margin: 20px 0;">
+                            <div class="card" style="margin: 20px 0; width: 200%;">
                                 <div class="card-body">
                                     <h5 class="card-title">Prénom : <?= htmlspecialchars($utilisateur->getPrenom()) ?></h5>
                                     <p class="card-text">Nom : <?= htmlspecialchars($utilisateur->getNom()) ?></p>
                                     <p class="card-text">Email : <?= htmlspecialchars($utilisateur->getMail()) ?></p>
-                                    <p class="card-text">Mot de passe : <?= htmlspecialchars($utilisateur->getMdp()) ?></p>
-                                    <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateUtilisateur?id=' . $utilisateur->getIdUtilisateur() ?>">Modifier</a>
+                                    <a class="btn btn-primary" href="<?= HOME_URL . 'dashboard/updateUtilisateur?id=' . $utilisateur->getIdUtilisateur() ?>">Modifier</a>
                                     <form action="<?= HOME_URL . 'dashboardAdmin/deleteUtilisateur' ?>" method="POST" style="display: inline;">
                                         <input type="hidden" name="Id_Utilisateur" value="<?= $utilisateur->getIdUtilisateur() ?>">
                                         <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ?');">Supprimer</button>
