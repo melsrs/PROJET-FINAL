@@ -82,6 +82,30 @@ class UtilisateurRepository
       return  $this->DB->query($sql)->fetchAll(PDO::FETCH_CLASS, Utilisateur::class);
   }
 
+  public function updateUtilisateur(Utilisateur $utilisateur)
+  {
+      $sql = "UPDATE utilisateur 
+              SET prenom = :prenom, 
+                  nom = :nom, 
+                  mail = :mail, 
+                  mdp = :mdp, 
+                  Id_Role = :Id_Role 
+              WHERE Id_Utilisateur = :Id_Utilisateur;";
+
+      $statement = $this->DB->prepare($sql);
+
+      $success = $statement->execute([
+          ':Id_Utilisateur'       => $utilisateur->getIdUtilisateur(),
+          ':prenom'               => $utilisateur->getPrenom(),
+          ':nom'                  => $utilisateur->getNom(),
+          ':mail'                 => $utilisateur->getMail(),
+          ':mdp'                  => $utilisateur->getMdp(),
+          ':Id_Role'              => $utilisateur->getIdRole(),
+      ]);
+
+      return $success;
+  }
+
   public function deleteUtilisateur($Id_Utilisateur): bool
   {
     $sql = "DELETE FROM commenter WHERE Id_Utilisateur = :Id_Utilisateur;
