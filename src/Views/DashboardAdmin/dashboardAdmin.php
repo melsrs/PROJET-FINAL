@@ -47,7 +47,6 @@ include __DIR__ . '/../Includes/navbar.php';
                                     <div class="card-body">
                                         <h5 class="card-title"><?= htmlspecialchars($utilisateur->getPrenom() . ' ' . $utilisateur->getNom()) ?></h5>
                                         <p class="card-text">Email : <?= htmlspecialchars($utilisateur->getMail()) ?></p>
-                                        <!-- <p class="card-text">Mot de Passe : <?= htmlspecialchars($utilisateur->getMdp()) ?></p> -->
                                         <p class="card-text">Rôle : <?= htmlspecialchars($utilisateur->getIdRole()) ?></p>
                                         <a class="btn btn-secondary" href="<?= HOME_URL . 'dashboardAdmin/readUtilisateur?id=' . $utilisateur->getIdUtilisateur() ?>">Voir</a>
                                         <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateUtilisateur?id=' . $utilisateur->getIdUtilisateur() ?>">Modifier</a>

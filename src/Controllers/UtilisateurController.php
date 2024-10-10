@@ -234,33 +234,35 @@ class UtilisateurController
             $success = $this->utilisateurRepository->deleteUtilisateur($Id_Utilisateur);
 
             if ($success) {
-                $_SESSION['success'] = "L'utilisateur a été supprimé avec succès.";
-            } else {
-                throw new Exception("Une erreur est survenue lors de la suppression de l'utilisateur.");
-            }
+                $success = "Votre compte a bien été supprimé.";
 
-            if (isset($_SESSION['adminConnecte']) && $_SESSION['adminConnecte'] === true) {
-                header('Location: ' . HOME_URL . 'dashboardAdmin');
-            } elseif (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true) {
-                header('Location: ' . HOME_URL . 'connexion');
-            } else {
-                header('Location: ' . HOME_URL . 'connexion');
-            }
-            exit();
+                if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true) {
+                    // Vider toutes les variables de session
+                    $_SESSION = array();
+                    session_destroy();
+                    include __DIR__ . '/../Views/Connexion/connexion.php';
+                    exit();
 
+                } elseif (isset($_SESSION['adminConnecte']) && $_SESSION['adminConnecte'] === true) {
+                    $_SESSION['success'] = "L'utilisateur a été supprimé avec succès.";
+                    header('Location: ' . HOME_URL . 'dashboardAdmin');
+                    exit();
+                }
+            }
         } catch (Exception $e) {
             $_SESSION['error'] = $e->getMessage();
 
             if (isset($_SESSION['adminConnecte']) && $_SESSION['adminConnecte'] === true) {
                 header('Location: ' . HOME_URL . 'dashboardAdmin');
+
             } elseif (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true) {
                 header('Location: ' . HOME_URL . 'dashboard');
-            } else {
-                header('Location: ' . HOME_URL . 'connexion');
             }
             exit();
         }
     }
+
+
 
     public function deconnexion()
     {
