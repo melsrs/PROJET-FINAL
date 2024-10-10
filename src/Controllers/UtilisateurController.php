@@ -239,10 +239,25 @@ class UtilisateurController
                 throw new Exception("Une erreur est survenue lors de la suppression de l'utilisateur.");
             }
 
-            header('Location: ' . HOME_URL . 'dashboardAdmin');
+            if (isset($_SESSION['adminConnecte']) && $_SESSION['adminConnecte'] === true) {
+                header('Location: ' . HOME_URL . 'dashboardAdmin');
+            } elseif (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true) {
+                header('Location: ' . HOME_URL . 'connexion');
+            } else {
+                header('Location: ' . HOME_URL . 'connexion');
+            }
+            exit();
+
         } catch (Exception $e) {
             $_SESSION['error'] = $e->getMessage();
-            header('Location: ' . HOME_URL . 'dashboardAdmin');
+
+            if (isset($_SESSION['adminConnecte']) && $_SESSION['adminConnecte'] === true) {
+                header('Location: ' . HOME_URL . 'dashboardAdmin');
+            } elseif (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true) {
+                header('Location: ' . HOME_URL . 'dashboard');
+            } else {
+                header('Location: ' . HOME_URL . 'connexion');
+            }
             exit();
         }
     }

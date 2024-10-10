@@ -43,7 +43,7 @@ include __DIR__ . '/../Includes/navbar.php';
                                     <p class="card-text">Nom : <?= htmlspecialchars($utilisateur->getNom()) ?></p>
                                     <p class="card-text">Email : <?= htmlspecialchars($utilisateur->getMail()) ?></p>
                                     <a class="btn btn-primary" href="<?= HOME_URL . 'dashboard/updateUtilisateur?id=' . $utilisateur->getIdUtilisateur() ?>">Modifier</a>
-                                    <form action="<?= HOME_URL . 'dashboardAdmin/deleteUtilisateur' ?>" method="POST" style="display: inline;">
+                                    <form action="<?= HOME_URL . 'dashboard/deleteUtilisateur' ?>" method="POST" style="display: inline;">
                                         <input type="hidden" name="Id_Utilisateur" value="<?= $utilisateur->getIdUtilisateur() ?>">
                                         <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ?');">Supprimer</button>
                                     </form>
