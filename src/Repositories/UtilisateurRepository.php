@@ -82,5 +82,17 @@ class UtilisateurRepository
       return  $this->DB->query($sql)->fetchAll(PDO::FETCH_CLASS, Utilisateur::class);
   }
 
+  public function deleteUtilisateur($Id_Utilisateur): bool
+  {
+    $sql = "DELETE FROM commenter WHERE Id_Utilisateur = :Id_Utilisateur;
+            DELETE FROM article WHERE Id_Utilisateur = :Id_Utilisateur;
+            DELETE FROM likes WHERE Id_Utilisateur = :Id_Utilisateur;
+            DELETE FROM utilisateur WHERE Id_Utilisateur = :Id_Utilisateur";
+
+    $statement = $this->DB->prepare($sql);
+
+    return $statement->execute([':Id_Utilisateur' => $Id_Utilisateur]);
+  }
+
   
 }

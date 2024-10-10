@@ -115,7 +115,7 @@ switch ($route) {
         break;
     case HOME_URL . 'categorie/INFORMATION/article':
         if ($methode === 'GET' && isset($_GET['id'])) {
-            $articleController->showOneArticleByCategorie((int)$_GET['id'],"INFORMATION");
+            $articleController->showOneArticleByCategorie((int)$_GET['id'], "INFORMATION");
         } elseif ($methode === 'POST') {
             $commenterController->createCommentaire("INFORMATION");
         } else {
@@ -145,15 +145,13 @@ switch ($route) {
             $homeController->afficherLaPageConnexion();
         }
         break;
-
-    case HOME_URL . 'dashboard':
-        if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true) {
-            $utilisateurController->showUtilisateurbyId();
+    case HOME_URL . 'dashboardAdmin/readArticle':
+        if ($methode === 'GET' && isset($_GET['id']) && $_SESSION['adminConnecte'] === true) {
+            $articleController->readArticle((int)$_GET['id']);
         } else {
-            $homeController->afficherLaPageConnexion();
+            $homeController->dashboardAdmin();
         }
         break;
-
     case HOME_URL . 'dashboardAdmin/createArticle':
         if (isset($_SESSION['adminConnecte']) && $_SESSION['adminConnecte'] === true) {
             if ($methode === 'GET') {
@@ -175,15 +173,30 @@ switch ($route) {
         }
         break;
 
+    case HOME_URL . 'dashboard':
+        if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true) {
+            $utilisateurController->showUtilisateurbyId();
+        } else {
+            $homeController->afficherLaPageConnexion();
+        }
+        break;
 
-    // case HOME_URL . 'dashboardAdmin/deleteArticle':
-    //     if ($methode === 'POST' && isset($_POST['Id_Article']) && $_SESSION['adminConnecte'] === true) {
-    //         $articleController->deleteThisArticle((int)$_POST['Id_Article']);
-    //     } else {
-    //         $homeController->afficherLaPageConnexion();
-    //     }
-    //     break;
 
+    case HOME_URL . 'dashboardAdmin/deleteArticle':
+        if ($methode === 'POST' && isset($_POST['Id_Article']) && $_SESSION['adminConnecte'] === true) {
+            $articleController->deleteThisArticle((int)$_POST['Id_Article']);
+        } else {
+            $homeController->afficherLaPageConnexion();
+        }
+        break;
+
+    case HOME_URL . 'dashboardAdmin/deleteUtilisateur':
+        if ($methode === 'POST' && isset($_POST['Id_Utilisateur']) && $_SESSION['adminConnecte'] === true) {
+            $utilisateurController->deleteThisUtilisateur((int)$_POST['Id_Utilisateur']);
+        } else {
+            $homeController->afficherLaPageConnexion();
+        }
+        break;
 
     case HOME_URL . 'deconnexion':
         $utilisateurController->deconnexion();

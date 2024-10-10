@@ -49,6 +49,7 @@ include __DIR__ . '/../Includes/navbar.php';
                                         <p class="card-text">Email : <?= htmlspecialchars($utilisateur->getMail()) ?></p>
                                         <!-- <p class="card-text">Mot de Passe : <?= htmlspecialchars($utilisateur->getMdp()) ?></p> -->
                                         <p class="card-text">Rôle : <?= htmlspecialchars($utilisateur->getIdRole()) ?></p>
+                                        <a class="btn btn-secondary" href="<?= HOME_URL . 'dashboardAdmin/readUtilisateur?id=' . $utilisateur->getIdUtilisateur() ?>">Voir</a>
                                         <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateUtilisateur?id=' . $utilisateur->getIdUtilisateur() ?>">Modifier</a>
                                         <form action="<?= HOME_URL . 'dashboardAdmin/deleteUtilisateur' ?>" method="POST" style="display: inline;">
                                             <input type="hidden" name="Id_Utilisateur" value="<?= $utilisateur->getIdUtilisateur() ?>">
@@ -84,6 +85,7 @@ include __DIR__ . '/../Includes/navbar.php';
                                     <div class="card-body">
                                         <h5 class="card-title"><?= htmlspecialchars($article->getTitre()) ?></h5>
                                         <p class="card-text"><?= htmlspecialchars(mb_substr($article->getTexte(), 0, 100)) . (strlen($article->getTexte()) > 100 ? '...' : '') ?></p>
+                                        <a class="btn btn-secondary" href="<?= HOME_URL . 'dashboardAdmin/readArticle?id=' . $article->getIdArticle() ?>">Voir</a>
                                         <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateArticle?id=' . $article->getIdArticle() ?>">Modifier</a>
                                         <form action="<?= HOME_URL . 'dashboardAdmin/deleteArticle' ?>" method="POST" style="display: inline;">
                                             <input type="hidden" name="Id_Article" value="<?= $article->getIdArticle() ?>">

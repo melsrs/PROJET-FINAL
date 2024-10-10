@@ -142,6 +142,31 @@ class UtilisateurController
             exit;
         }
     }
+
+    public function deleteThisUtilisateur($Id_Utilisateur)
+    {
+        try {
+            $utilisateur = $this->utilisateurRepository->getUtilisateurById($Id_Utilisateur);
+
+            if (!$utilisateur) {
+                throw new Exception("L'utilisateur n'existe pas.");
+            }
+
+            $success = $this->utilisateurRepository->deleteUtilisateur($Id_Utilisateur);
+
+            if ($success) {
+                $_SESSION['success'] = "L'utilisateur a été supprimé avec succès.";
+            } else {
+                throw new Exception("Une erreur est survenue lors de la suppression de l'utilisateur.");
+            }
+
+            header('Location: ' . HOME_URL . 'dashboardAdmin');
+        } catch (Exception $e) {
+            $_SESSION['error'] = $e->getMessage();
+            header('Location: ' . HOME_URL . 'dashboardAdmin');
+            exit();
+        }
+    }
     
     public function deconnexion()
     {

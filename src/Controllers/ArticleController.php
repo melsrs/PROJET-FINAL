@@ -54,9 +54,9 @@ class ArticleController
             $_SESSION['success'] = "L'article a bien été créé.";
             header('Location: ' . HOME_URL . 'dashboardAdmin');
             exit;
-        } catch (Exception $e) {            
+        } catch (Exception $e) {
             $_SESSION['error'] = $e->getMessage();
-                    header('Location: ' . HOME_URL . 'dashboardAdmin/createArticle');
+            header('Location: ' . HOME_URL . 'dashboardAdmin/createArticle');
             exit;
         }
     }
@@ -68,13 +68,69 @@ class ArticleController
         include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
     }
 
+    // public function readArticle()
+    // {
+    //     try {
+    //         $Id_Article = isset($_GET['id']) ? (int)$_GET['id'] : null;
+
+    //         if (empty($Id_Article) || !filter_var($Id_Article, FILTER_VALIDATE_INT) || $Id_Article <= 0) {
+    //             throw new Exception("L'ID de l'article est manquant ou invalide.");
+    //         }
+
+    //         $article = $this->articleRepository->getArticleById($Id_Article);
+
+    //         if (!$article) {
+    //             throw new Exception("Article non trouvé.");
+    //         }
+
+    //         $categorieRepository = new CategorieRepository();
+    //         $categories = $categorieRepository->getCategorieById();
+
+    //         include __DIR__ . '/../Views/DashboardAdmin/ArticleAdmin/readArticle.php';
+    //     } catch (Exception $e) {
+    //         $error = $e->getMessage();
+    //         include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
+    //         exit;
+    //     }
+    // }
+
+
+    public function readArticle()
+{
+    try {
+        $Id_Article = isset($_GET['id']) ? (int)$_GET['id'] : null;
+
+        if (empty($Id_Article) || !filter_var($Id_Article, FILTER_VALIDATE_INT) || $Id_Article <= 0) {
+            throw new Exception("L'ID de l'article est manquant ou invalide.");
+        }
+
+        $article = $this->articleRepository->getArticleById($Id_Article);
+
+        if (!$article) {
+            throw new Exception("Article non trouvé.");
+        }
+
+        $categorieRepository = new CategorieRepository();
+        $categories = $categorieRepository->getAllCategories(); // Assurez-vous que cette méthode retourne toutes les catégories
+        $categorieId = $article->getIdCategorie();
+        $categorieType = null;
+
+        include __DIR__ . '/../Views/DashboardAdmin/ArticleAdmin/readArticle.php';
+    } catch (Exception $e) {
+        $error = $e->getMessage();
+        include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
+        exit;
+    }
+}
+
+
     public function showUpdateForm()
     {
         try {
             $Id_Article = isset($_GET['id']) ? (int)$_GET['id'] : null;
 
             if (empty($Id_Article) || !filter_var($Id_Article, FILTER_VALIDATE_INT) || $Id_Article <= 0) {
-                throw new Exception("L'ID de l'article est manquant ou invalide.");
+                throw new Exception("L'Id de l'article est manquant ou invalide.");
             }
 
             $article = $this->articleRepository->getArticleById($Id_Article);
@@ -82,6 +138,9 @@ class ArticleController
             if (!$article) {
                 throw new Exception("Article non trouvé.");
             }
+
+            $categorieRepository = new CategorieRepository();
+            $categories = $categorieRepository->getCategorieById();
 
             include __DIR__ . '/../Views/DashboardAdmin/ArticleAdmin/updateArticle.php';
         } catch (Exception $e) {
@@ -146,23 +205,23 @@ class ArticleController
             if (!$article) {
                 throw new Exception("L'article n'existe pas.");
             }
-    
+
             $success = $this->articleRepository->deleteArticle($Id_Article);
-    
+
             if ($success) {
                 $_SESSION['success'] = "L'article a été supprimé avec succès.";
             } else {
                 throw new Exception("Une erreur est survenue lors de la suppression de l'article.");
             }
-    
+
             header('Location: ' . HOME_URL . 'dashboardAdmin');
         } catch (Exception $e) {
             $_SESSION['error'] = $e->getMessage();
             header('Location: ' . HOME_URL . 'dashboardAdmin');
-            exit(); 
+            exit();
         }
     }
-    
+
 
     public function showArticleByCategorie($Id_Categorie, $type)
     {
