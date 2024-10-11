@@ -227,7 +227,6 @@ switch ($route) {
             $homeController->afficherLaPageConnexion();
         }
         break;
-
     case HOME_URL . 'dashboard/updateCommentaire':
         if ($methode === 'GET' && isset($_GET['Id_Utilisateur']) && isset($_GET['Id_Article']) && $_SESSION['connecte'] === true) {
             $dashboardController->showUpdateForm((int)$_GET['Id_Utilisateur'], (int)$_GET['Id_Article']);

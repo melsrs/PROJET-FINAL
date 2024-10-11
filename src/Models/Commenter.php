@@ -94,23 +94,12 @@ class Commenter
         return $this;
     }
 
-    public function setDate(string|DateTime $date): self
-    {
-        if ($date instanceof DateTime) {
-            $this->date = $date;
-        } else {
-            $this->date = new DateTime($date);
-        }
-
-        return $this;
-    }
-
     /**
      * Get the value of valide
      */
     public function isValide(): bool
     {
-        return $this->valide;
+        return $this->valide === 1; // Si la valeur est 1 retourne true 
     }
 
     /**
@@ -118,7 +107,7 @@ class Commenter
      */
     public function setValide(bool $valide): self
     {
-        $this->valide = $valide;
+        $this->valide = $valide ? 1 : 2;  // Si true, stocke 1. Si false, stocke 2
 
         return $this;
     }

@@ -22,7 +22,7 @@ class CommenterRepository
     {
 
         $sql = "INSERT INTO commenter (Id_Article, Id_Utilisateur, message, date_commentaire, valide) 
-                VALUES (:id_article, :id_utilisateur, :message, :date_commentaire, 1);";
+                VALUES (:id_article, :id_utilisateur, :message, :date_commentaire, 2);";
 
         $statement = $this->DB->prepare($sql);
 
@@ -81,4 +81,26 @@ class CommenterRepository
         $commentaire = $statement->fetch();
         return $commentaire;
     }
+
+    public function updateCommentaire(Commenter $commentaire)
+    {
+        $sql = "UPDATE commenter 
+                SET message = :message, 
+                    date_commentaire = :date_commentaire, 
+                    valide = 2
+                WHERE Id_Article = :Id_Article 
+                AND Id_Utilisateur = :Id_Utilisateur;";
+                     
+        $statement = $this->DB->prepare($sql);
+    
+        $success = $statement->execute([
+            ':Id_Article'        => $commentaire->getIdArticle(),
+            ':Id_Utilisateur'    => $commentaire->getIdUtilisateur(),
+            ':message'           => $commentaire->getMessage(),
+            ':date_commentaire'  => $commentaire->getDateCommentaire()->format('Y-m-d H:i:s')
+        ]);
+    
+        return $success;
+    }
+    
 }

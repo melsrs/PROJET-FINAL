@@ -22,14 +22,14 @@ include __DIR__ . '/../Includes/navbar.php';
 
     <div class="container d-flex justify-content-center align-items-center">
         <form class="w-50" method="POST" action="<?= HOME_URL . 'dashboard/updateCommentaire?Id_Utilisateur=' . $commentaire->getIdUtilisateur() . '&Id_Article=' . $commentaire->getIdArticle() ?>">
-            <input type="hidden" name="Id_Utilisateur" value="<?= htmlspecialchars($commentaire->getIdArticle()) ?>">
+            <input type="hidden" name="Id_Article" value="<?= htmlspecialchars($commentaire->getIdArticle()) ?>">
             <input type="hidden" name="Id_Utilisateur" value="<?= htmlspecialchars($commentaire->getIdUtilisateur()) ?>">
+            <input type="hidden" name="valide" value="<?= htmlspecialchars($commentaire->isValide()) ?>">
 
             <div class="mb-3 my-3">
                 <label for="prenom" class="form-label">Commentaire</label>
-                <input type="text" name="commentaire" class="form-control" id="commentaire" required value="<?= htmlspecialchars($commentaire->getMessage()) ?>">
-
-
+                <input type="text" name="message" class="form-control" id="message" required value="<?= htmlspecialchars($commentaire->getMessage()) ?>">
+            </div>
                 <div class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-primary my-3">Enregistrer</button>
                 </div>
