@@ -98,7 +98,7 @@ switch ($route) {
         break;
     case HOME_URL . 'categorie/PERSONNAGE/article':
         if ($methode === 'GET' && isset($_GET['id'])) {
-            $articleController->showOneArticleByCategorie((int)$_GET['id'], "PERSONNAGE");
+            $articleController->showArticlePersoHumainByCategorie((int)$_GET['id'], "PERSONNAGE");
         } elseif ($methode === 'POST') {
             $commenterController->createCommentaire("PERSONNAGE");
         } else {

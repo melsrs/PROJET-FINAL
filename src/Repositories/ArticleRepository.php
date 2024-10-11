@@ -4,6 +4,7 @@ namespace src\Repositories;
 
 use PDO;
 use src\Models\Article;
+use src\Models\Humain;
 use src\Models\Database;
 
 class ArticleRepository
@@ -19,6 +20,28 @@ class ArticleRepository
     }
 
     public function newArticle(Article $article): Article
+    {
+        $sql = "INSERT INTO article (titre, texte, date, image, Id_Categorie, Id_Utilisateur) 
+                VALUES (:titre, :texte, :date, :image, :Id_categorie, :Id_Utilisateur);";
+
+        $statement = $this->DB->prepare($sql);
+
+        $statement->execute([
+            ':titre'               => $article->getTitre(),
+            ':texte'               => $article->getTexte(),
+            ':date'                => $article->getDate()->format('Y-m-d H:i:s'),
+            ':image'               => $article->getImage(),
+            ':Id_categorie'        => $article->getIdCategorie(),
+            ':Id_Utilisateur'      => $article->getIdUtilisateur()
+        ]);
+
+        $idArticle = $this->DB->lastInsertId();
+        $article->setIdArticle($idArticle);
+
+        return $article;
+    }
+
+    public function newArticleHumain(Article $article): Article
     {
         $sql = "INSERT INTO article (titre, texte, date, image, Id_Categorie, Id_Utilisateur) 
                 VALUES (:titre, :texte, :date, :image, :Id_categorie, :Id_Utilisateur);";
@@ -80,23 +103,23 @@ class ArticleRepository
         $statement->setFetchMode(PDO::FETCH_CLASS, Article::class);
         $article = $statement->fetch();
         return $article;
-
     }
 
     public function deleteArticle($Id_Article): bool
     {
-      $sql = "DELETE FROM commenter WHERE Id_Article = :Id_Article;
+        $sql = "DELETE FROM commenter WHERE Id_Article = :Id_Article;
               DELETE FROM humain WHERE Id_Article = :Id_Article;
               DELETE FROM titan WHERE Id_Article = :Id_Article;
               DELETE FROM likes WHERE Id_Article = :Id_Article;
               DELETE FROM article WHERE Id_Article = :Id_Article";
-  
-      $statement = $this->DB->prepare($sql);
-  
-      return $statement->execute([':Id_Article' => $Id_Article]);
+
+        $statement = $this->DB->prepare($sql);
+
+        return $statement->execute([':Id_Article' => $Id_Article]);
     }
 
-    public function findArticleByCategorie($Id_Categorie) {
+    public function findArticleByCategorie($Id_Categorie)
+    {
         $sql = "SELECT * FROM article WHERE Id_Categorie = :Id_Categorie";
         $statement = $this->DB->prepare($sql);
         $statement->execute([':Id_Categorie' => $Id_Categorie]);
@@ -104,6 +127,16 @@ class ArticleRepository
         $article = $statement->fetchAll();
 
         return $article;
-
     }
+
+    public function getArticlesByCategoriePersonnage($Id_Categorie = 3)
+    {
+        $sql = "SELECT * FROM article WHERE Id_Categorie = :Id_Categorie";
+    
+        $statement = $this->DB->prepare($sql);
+        $statement->execute([':Id_Categorie' => $Id_Categorie]);
+
+        return $statement->fetchAll(PDO::FETCH_CLASS, Article::class);
+    }
+    
 }

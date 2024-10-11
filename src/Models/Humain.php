@@ -7,6 +7,7 @@ use src\Services\Hydratation;
 class Humain
 {
     private int $Id_Humain;
+    private int $Id_Article;
     private string $prenom;
     private string $nom;
     private string $age;
@@ -138,6 +139,24 @@ class Humain
     public function setAffiliation(string $affiliation): self
     {
         $this->affiliation = $affiliation;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Id_Article
+     */
+    public function getIdArticle(): int
+    {
+        return $this->Id_Article;
+    }
+
+    /**
+     * Set the value of Id_Article
+     */
+    public function setIdArticle(int $Id_Article): self
+    {
+        $this->Id_Article = $Id_Article;
 
         return $this;
     }

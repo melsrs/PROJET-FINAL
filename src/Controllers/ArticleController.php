@@ -270,4 +270,50 @@ class ArticleController
             exit;
         }
     }
+
+
+    public function showArticlePersoHumainByCategorie($Id_Article, $type)
+    {
+        try {
+            if (empty($Id_Article) || !filter_var($Id_Article, FILTER_VALIDATE_INT) || $Id_Article <= 0) {
+                throw new Exception("L'Id de l'article est manquant ou invalide.");
+            }
+
+            $article = $this->articleRepository->getArticleById($Id_Article);
+
+            if (!$article) {
+                throw new Exception("Article non trouvé.");
+            }
+
+            $categorieRepository = new CategorieRepository();
+            $categorie = $categorieRepository->getCategorieByType($type);
+
+            if (isset($_SESSION['connecte']) && isset($_SESSION['Id_Utilisateur']) || isset($_SESSION['adminConnecte']) && isset($_SESSION['Id_Utilisateur'])) {
+                $utilisateurRepository = new UtilisateurRepository();
+                $utilisateur = $utilisateurRepository->getUtilisateurById($_SESSION['Id_Utilisateur']);
+            }
+
+            $commenterRepository = new CommenterRepository;
+            $commentaires = $commenterRepository->getCommentairesByArticleId($Id_Article);
+
+            $commentairesAvecUtilisateurs = [];
+            if ($commentaires) {
+                $utilisateurRepository = new UtilisateurRepository();
+
+                foreach ($commentaires as $commentaire) {
+                    $utilisateurInfo = $utilisateurRepository->getUtilisateurById($commentaire->getIdUtilisateur());
+                    $commentairesAvecUtilisateurs[] = [
+                        'commentaire' => $commentaire,
+                        'utilisateur' => $utilisateurInfo,
+                    ];
+                }
+            }
+
+            include __DIR__ . '/../Views/Categorie/articlePersoHumain.php';
+        } catch (Exception $e) {
+            $error = $e->getMessage();
+            include __DIR__ . '/../Views/error.php';
+            exit;
+        }
+    }
 }

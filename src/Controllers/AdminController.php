@@ -46,6 +46,8 @@ class AdminController
             $categories = $this->categorieRepository->getAllCategories();
             $commentaires = $this->commenterRepository->getAllCommentaires();
 
+            $articlesPersonnages = $this->articleRepository->getArticlesByCategoriePersonnage();
+
             include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
         } catch (Exception $e) {
             $error = $e->getMessage();
