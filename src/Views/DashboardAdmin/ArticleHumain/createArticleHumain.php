@@ -45,6 +45,30 @@ $categories = $categorieRepository->getCategorieById();
                     <?php endforeach; ?>
                 </select>
             </div>
+            <div class="mb-3 my-3">
+                <label for="image" class="form-label">Prenom</label>
+                <input type="text" name="prenom" class="form-control" id="prenom">
+            </div>
+            <div class="mb-3 my-3">
+                <label for="image" class="form-label">Nom</label>
+                <input type="text" name="nom" class="form-control" id="nom">
+            </div>
+            <div class="mb-3 my-3">
+                <label for="image" class="form-label">Age</label>
+                <input type="text" name="age" class="form-control" id="age">
+            </div>
+            <div class="mb-3 my-3">
+                <label for="image" class="form-label">Anniversaire</label>
+                <input type="text" name="anniversaire" class="form-control" id="anniversaire">
+            </div>
+            <div class="mb-3 my-3">
+                <label for="image" class="form-label">Taille</label>
+                <input type="text" name="taille" class="form-control" id="taille">
+            </div>
+            <div class="mb-3 my-3">
+                <label for="image" class="form-label">Affiliation</label>
+                <input type="text" name="affiliation" class="form-control" id="affiliation">
+            </div>
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary my-3">Créer un article</button>
             </div>

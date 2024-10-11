@@ -5,6 +5,7 @@ namespace src\Controllers;
 use DateTime;
 use Exception;
 use src\Models\Article;
+use src\Models\Humain;
 use src\Repositories\ArticleRepository;
 use src\Repositories\CategorieRepository;
 use src\Repositories\CommenterRepository;
@@ -313,6 +314,57 @@ class ArticleController
         } catch (Exception $e) {
             $error = $e->getMessage();
             include __DIR__ . '/../Views/error.php';
+            exit;
+        }
+    }
+
+    public function createArticleHumain()
+    {
+        try {
+
+            $article = new Article();
+            $article->setTitre(isset($_POST['titre']) ? htmlspecialchars($_POST['titre']) : null);
+            $article->setTexte(isset($_POST['texte']) ? htmlspecialchars($_POST['texte']) : null);
+            $article->setDate(new DateTime('now'));
+            $article->setImage(isset($_POST['image']) ? htmlspecialchars($_POST['image']) : null);
+            
+            $humain = new Humain();
+            $humain->setPrenom(isset($_POST['prenom']) ? htmlspecialchars($_POST['prenom']) : null);
+            $humain->setNom(isset($_POST['nom']) ? htmlspecialchars($_POST['nom']) : null);
+            $humain->setAge(isset($_POST['age']) ? htmlspecialchars($_POST['age']) : null);
+            $humain->setAnniversaire(isset($_POST['anniversaire']) ? htmlspecialchars($_POST['anniversaire']) : null);
+            $humain->setTaille(isset($_POST['taille']) ? htmlspecialchars($_POST['taille']) : null);
+            $humain->setAffiliation(isset($_POST['affiliation']) ? htmlspecialchars($_POST['affiliation']) : null);
+
+            if (!isset($_POST['Id_Categorie']) || $_POST['Id_Categorie'] === '') {
+                throw new Exception("Veuillez remplir le champs catégories.");
+            }
+            $article->setIdCategorie(isset($_POST['Id_Categorie']) ? (int) $_POST['Id_Categorie'] : null);
+
+            if (
+                empty($article->getTitre()) ||
+                empty($article->getTexte()) ||
+                empty($article->getDate())  ||
+                empty($article->getImage()) ||
+                empty($article->getIdCategorie())
+            ) {
+                throw new Exception("Veuillez remplir tous les champs.");
+            }
+
+            $article->setIdUtilisateur(isset($_SESSION['adminConnecte']) ? $_SESSION['adminConnecte'] : null);
+
+            if (empty($article->getIdUtilisateur())) {
+                throw new Exception("L'utilisateur n'est pas connecté.");
+            }
+
+            $this->articleRepository->newArticle($article);
+
+            $_SESSION['success'] = "L'article a bien été créé.";
+            header('Location: ' . HOME_URL . 'dashboardAdmin');
+            exit;
+        } catch (Exception $e) {
+            $_SESSION['error'] = $e->getMessage();
+            header('Location: ' . HOME_URL . 'dashboardAdmin/createArticle');
             exit;
         }
     }

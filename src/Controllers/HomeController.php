@@ -6,7 +6,7 @@ class HomeController
 {
     public function accueil()
     {
-        include __DIR__. '/../Views/Accueil/accueil.php';
+        include __DIR__ . '/../Views/Accueil/accueil.php';
     }
 
     public function AfficherCategories()
@@ -59,8 +59,13 @@ class HomeController
         include __DIR__ . '/../Views/DashboardAdmin/ArticleAdmin/createArticle.php';
     }
 
-    public function updateArticle(){
-        include __DIR__. '/../Views/DashboardAdmin/ArticleAdmin/updateArticle.php';
+    public function updateArticle()
+    {
+        include __DIR__ . '/../Views/DashboardAdmin/ArticleAdmin/updateArticle.php';
     }
-    
+
+    public function afficherFormulaireCreationArticleHumain()
+    {
+        include __DIR__ . '/../Views/DashboardAdmin/ArticleHumain/createArticleHumain.php';
+    }
 }

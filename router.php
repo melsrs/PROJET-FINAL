@@ -196,8 +196,16 @@ switch ($route) {
             $homeController->afficherLaPageConnexion();
         }
         break;
-
-
+    case HOME_URL . 'dashboardAdmin/createArticleHumain':
+        if (isset($_SESSION['adminConnecte']) && $_SESSION['adminConnecte'] === true) {
+            if ($methode === 'GET') {
+                $homeController->afficherFormulaireCreationArticleHumain();
+            } elseif ($methode === 'POST') {
+                $articleController->createArticleHumain();
+            }
+        } else {
+            $homeController->afficherLaPageConnexion();
+        }
 
     case HOME_URL . 'dashboard':
         if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true) {
