@@ -263,7 +263,6 @@ class UtilisateurController
     }
 
 
-
     public function deconnexion()
     {
         try {

@@ -90,17 +90,29 @@ class CommenterRepository
                     valide = 2
                 WHERE Id_Article = :Id_Article 
                 AND Id_Utilisateur = :Id_Utilisateur;";
-                     
+
         $statement = $this->DB->prepare($sql);
-    
+
         $success = $statement->execute([
             ':Id_Article'        => $commentaire->getIdArticle(),
             ':Id_Utilisateur'    => $commentaire->getIdUtilisateur(),
             ':message'           => $commentaire->getMessage(),
             ':date_commentaire'  => $commentaire->getDateCommentaire()->format('Y-m-d H:i:s')
         ]);
-    
+
         return $success;
     }
+
+    public function deleteCommentaire($Id_Article, $Id_Utilisateur): bool
+    {
+        $sql = "DELETE FROM commenter 
+                WHERE Id_Article = :Id_Article AND Id_Utilisateur = :Id_Utilisateur";
     
+        $statement = $this->DB->prepare($sql);
+    
+        return $statement->execute([
+            ':Id_Utilisateur' => $Id_Utilisateur,
+            ':Id_Article' => $Id_Article
+        ]);
+    }
 }

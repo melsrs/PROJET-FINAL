@@ -86,7 +86,6 @@ class DashboardController
         }
     }
 
-
     public function saveUpdateCommentaire()
     {
         try {
@@ -118,6 +117,32 @@ class DashboardController
             header('Location: ' . HOME_URL . 'dashboard/updateCommentaire?Id_Utilisateur=' . $Id_Utilisateur . '&Id_Article=' . $Id_Article);
             exit;
         }
+    }
+
+        public function deleteThisCommentaire($Id_Article, $Id_Utilisateur)
+        {
+            try {
+                if (!isset($_SESSION['connecte']) || $_SESSION['connecte'] !== true) {
+                    throw new Exception("Accès refusé. Vous devez être connecté pour supprimer un commentaire.");
+                }
+
+                $success = $this->commenterRepository->deleteCommentaire($Id_Article, $Id_Utilisateur);
+
+                if ($success) {
+                    $_SESSION['success'] = "Le commentaire a été supprimé avec succès.";
+                } else {
+                    throw new Exception("Erreur lors de la suppression du commentaire.");
+                }
+
+                header('Location: ' . HOME_URL . 'dashboard');
+                exit;
+    
+            } catch (Exception $e) {
+                $_SESSION['error'] = $e->getMessage();
+                header('Location: ' . HOME_URL . 'dashboard');
+                exit;
+            }
+
     }
     
 }

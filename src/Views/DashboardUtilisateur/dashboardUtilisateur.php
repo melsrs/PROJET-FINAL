@@ -54,27 +54,28 @@ include __DIR__ . '/../Includes/navbar.php';
         </div>
 
         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0" style="color: black;">
-    <div class="container">
-        <div class="row">
-            <?php if (!empty($commentaires)): ?>
-                <div class="col-md-8">
-                    <?php foreach ($commentaires as $commentaire): ?>
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <p class="card-text"><?= htmlspecialchars($commentaire->getMessage()) ?></p>
-                                <a href="<?= HOME_URL . 'dashboard/updateCommentaire?Id_Utilisateur=' . $commentaire->getIdUtilisateur() . '&Id_Article=' . $commentaire->getIdArticle() ?>" class="btn btn-sm btn-primary">Modifier</a>
-                                <form action="<?= HOME_URL . 'dashboard/deleteCommentaire' ?>" method="POST" style="display: inline;">
-                                    <input type="hidden" name="Id_Utilisateur" value="<?= $commentaire->getIdUtilisateur() ?>">
-                                    <input type="hidden" name="Id_Article" value="<?= $commentaire->getIdUtilisateur() ?>">
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');">Supprimer</button>
-                                </form>
-                            </div>
+            <div class="container">
+                <div class="row">
+                    <?php if (!empty($commentaires)): ?>
+                        <div class="col-md-8">
+                            <?php foreach ($commentaires as $commentaire): ?>
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <p class="card-text"><?= htmlspecialchars($commentaire->getMessage()) ?></p>
+                                        <a href="<?= HOME_URL . 'dashboard/updateCommentaire?Id_Utilisateur=' . $commentaire->getIdUtilisateur() . '&Id_Article=' . $commentaire->getIdArticle() ?>" class="btn btn-sm btn-primary">Modifier</a>
+                                        <form action="<?= HOME_URL . 'dashboard/deleteCommentaire' ?>" method="POST" style="display: inline;">
+                                            <input type="hidden" name="Id_Article" value="<?= htmlspecialchars($commentaire->getIdArticle()) ?>">
+                                            <input type="hidden" name="Id_Utilisateur" value="<?= htmlspecialchars($commentaire->getIdUtilisateur()) ?>">
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');">Supprimer</button>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
                         </div>
-                    <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>Aucun commentaire trouvé.</p>
+                    <?php endif; ?>
                 </div>
-            <?php else: ?>
-                <p>Aucun commentaire trouvé.</p>
-            <?php endif; ?>
+            </div>
         </div>
-    </div>
-</div>
