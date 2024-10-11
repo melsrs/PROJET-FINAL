@@ -1,7 +1,7 @@
 <?php
 
-include __DIR__ . '/../Includes/header.php';
-include __DIR__ . '/../Includes/navbar.php';
+include __DIR__ . '/../../Includes/header.php';
+include __DIR__ . '/../../Includes/navbar.php';
 
 ?>
 
@@ -21,7 +21,7 @@ include __DIR__ . '/../Includes/navbar.php';
     <?php endif; ?>
 
     <div class="container d-flex justify-content-center align-items-center">
-        <form class="w-50" method="POST" action="<?= HOME_URL . 'dashboard/updateUtilisateur' ?>">
+        <form class="w-50" method="POST" action="<?= HOME_URL . 'dashboardAdmin/updateAdmin' ?>">
             <input type="hidden" name="Id_Utilisateur" value="<?= htmlspecialchars($utilisateur->getIdUtilisateur()) ?>">
 
             <div class="mb-3 my-3">

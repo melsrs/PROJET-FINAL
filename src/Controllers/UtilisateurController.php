@@ -165,6 +165,29 @@ class UtilisateurController
         }
     }
 
+    public function showUpdateFormAdmin()
+    {
+        try {
+            $Id_Utilisateur = isset($_GET['id']) ? (int)$_GET['id'] : null;
+
+            if (empty($Id_Utilisateur) || !filter_var($Id_Utilisateur, FILTER_VALIDATE_INT) || $Id_Utilisateur <= 0) {
+                throw new Exception("L'Id de l'utilisateur est manquant ou invalide.");
+            }
+
+            $utilisateur = $this->utilisateurRepository->getUtilisateurById($Id_Utilisateur);
+
+            if (!$utilisateur) {
+                throw new Exception("Utilisateur non trouvé.");
+            }
+
+            include __DIR__ . '/../Views/DashboardAdmin/UtilisateurAdmin/updateAdmin.php';
+        } catch (Exception $e) {
+            $error = $e->getMessage();
+            include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
+            exit;
+        }
+    }
+
     public function saveUpdateUtilisateur()
     {
         try {
@@ -211,16 +234,25 @@ class UtilisateurController
             $this->utilisateurRepository->updateUtilisateur($utilisateur);
 
             $_SESSION['success'] = "L'utilisateur a bien été modifié.";
-            header('Location: ' . HOME_URL . 'dashboard');
+
+            if (isset($_SESSION['adminConnecte']) && $_SESSION['adminConnecte'] === true) {
+                header('Location: ' . HOME_URL . 'dashboardAdmin');
+            } elseif (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true) {
+                header('Location: ' . HOME_URL . 'dashboard');
+            }
             exit;
         } catch (\Exception $e) {
             $Id_Utilisateur = isset($_POST['Id_Utilisateur']) ? (int)$_POST['Id_Utilisateur'] : null;
             $_SESSION['error'] = $e->getMessage();
-            header('Location: ' . HOME_URL . 'dashboard/updateUtilisateur?id=' . $Id_Utilisateur);
+
+            if (isset($_SESSION['adminConnecte']) && $_SESSION['adminConnecte'] === true) {
+                header('Location: ' . HOME_URL . 'dashboardAdmin/updateAdmin?id=' . $Id_Utilisateur);
+            } elseif (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true) {
+                header('Location: ' . HOME_URL . 'dashboard/updateUtilisateur?id=' . $Id_Utilisateur);
+            }
             exit;
         }
     }
-
 
     public function deleteThisUtilisateur($Id_Utilisateur)
     {

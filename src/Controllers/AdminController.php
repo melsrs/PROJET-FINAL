@@ -28,13 +28,29 @@ class AdminController
 
     public function showAll()
     {
-        $articles = $this->articleRepository->getAllArticles();
-        $utilisateurs = $this->utilisateurRepository->getAllUtilisateur();
-        $categories = $this->categorieRepository->getAllCategories();
-        $commentaires = $this->commenterRepository->getAllCommentaires();
-        
-        include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
+        try {
+            if (!isset($_SESSION['Id_Utilisateur'])) {
+                throw new Exception("Vous devez être connecté pour accéder à cette page.");
+            }
 
+            $Id_Utilisateur = $_SESSION['Id_Utilisateur'];
+
+            $utilisateur = $this->utilisateurRepository->getUtilisateurById($Id_Utilisateur);
+
+            if (!$utilisateur) {
+                throw new Exception("Utilisateur non trouvé.");
+            }
+            
+            $articles = $this->articleRepository->getAllArticles();
+            $utilisateurs = $this->utilisateurRepository->getAllUtilisateur();
+            $categories = $this->categorieRepository->getAllCategories();
+            $commentaires = $this->commenterRepository->getAllCommentaires();
+
+            include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
+        } catch (Exception $e) {
+            $error = $e->getMessage();
+            include __DIR__ . '/../Views/Connexion/connexion.php';
+            exit;
+        }
     }
-
 }
