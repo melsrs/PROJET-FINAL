@@ -230,7 +230,7 @@ switch ($route) {
             if ($methode === 'GET') {
                 $homeController->afficherFormulaireCreationCategorie();
             } elseif ($methode === 'POST') {
-                $humainController->createArticleHumain();
+                $categorieController->createCategorie();
             }
         } else {
             $homeController->afficherLaPageConnexion();
@@ -241,6 +241,13 @@ switch ($route) {
             $categorieController->showUpdateFormCategorie((int)$_GET['id']);
         } elseif ($methode === 'POST' && $_SESSION['adminConnecte'] === true) {
             $categorieController->saveUpdateCategorie();
+        } else {
+            $homeController->afficherLaPageConnexion();
+        }
+        break;
+    case HOME_URL . 'dashboardAdmin/deleteCategorie':
+        if ($methode === 'POST' && isset($_POST['Id_Categorie']) && $_SESSION['adminConnecte'] === true) {
+            $categorieController->deleteThisCategorie((int)$_POST['Id_Categorie']);
         } else {
             $homeController->afficherLaPageConnexion();
         }

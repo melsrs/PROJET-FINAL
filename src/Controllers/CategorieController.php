@@ -15,12 +15,39 @@ class CategorieController
         $this->categorieRepository = new CategorieRepository;
     }
 
-    public function showAllCategories() {
+    public function showAllCategories()
+    {
 
         $categories = $this->categorieRepository->getAllCategories();
 
         include __DIR__ . '/../Views/Categorie/categorie.php';
+    }
 
+    public function createCategorie()
+    {
+        try {
+
+            $categorie = new Categorie();
+            $categorie->setImage(isset($_POST['image']) ? htmlspecialchars($_POST['image']) : null);
+            $categorie->setType(isset($_POST['type']) ? htmlspecialchars($_POST['type']) : null);
+
+            if (
+                empty($categorie->getImage()) ||
+                empty($categorie->getType())
+            ) {
+                throw new Exception("Veuillez remplir tous les champs.");
+            }
+
+            $this->categorieRepository->newCategorie($categorie);
+
+            $_SESSION['success'] = "La catégorie a bien été créée.";
+            header('Location: ' . HOME_URL . 'dashboardAdmin');
+            exit;
+        } catch (Exception $e) {
+            $_SESSION['error'] = $e->getMessage();
+            header('Location: ' . HOME_URL . 'dashboardAdmin/createCategorie');
+            exit;
+        }
     }
 
 
@@ -84,6 +111,27 @@ class CategorieController
         }
     }
 
+    public function deleteThisCategorie($Id_Categorie)
+    {
+        try {
+            $categorie = $this->categorieRepository->getCategorieById($Id_Categorie);
+            if (!$categorie) {
+                throw new Exception("La catégorie n'existe pas.");
+            }
 
-    
+            $success = $this->categorieRepository->deleteCategorie($Id_Categorie);
+
+            if ($success) {
+                $_SESSION['success'] = "La catégorie a été supprimée avec succès.";
+            } else {
+                throw new Exception("Une erreur est survenue lors de la suppression de la catégorie.");
+            }
+
+            header('Location: ' . HOME_URL . 'dashboardAdmin');
+        } catch (Exception $e) {
+            $_SESSION['error'] = $e->getMessage();
+            header('Location: ' . HOME_URL . 'dashboardAdmin');
+            exit();
+        }
+    }
 }

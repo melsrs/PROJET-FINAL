@@ -173,7 +173,6 @@ include __DIR__ . '/../Includes/navbar.php';
                                     <?php endif; ?>
                                     <div class="card-body">
                                         <p class="card-title"><?= htmlspecialchars($categorie->getType()) ?></p>
-                                        <!-- <p class="card-text">ID Catégorie : <?= htmlspecialchars($categorie->getIdCategorie()) ?></p> -->
                                         <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateCategorie?id=' . $categorie->getIdCategorie() ?>">Modifier</a>
                                         <form action="<?= HOME_URL . 'dashboardAdmin/deleteCategorie' ?>" method="POST" style="display: inline;">
                                             <input type="hidden" name="Id_Categorie" value="<?= $categorie->getIdCategorie() ?>">

@@ -24,26 +24,22 @@ class CategorieRepository
         return  $this->DB->query($sql)->fetchAll(PDO::FETCH_CLASS, Categorie::class);
     }
 
-    public function createCategorie(Categorie $categorie)
+    public function newCategorie(Categorie $categorie)
     {
-        $sql = "INSERT INTO categorie (titre, texte, date, image, Id_Categorie, Id_Utilisateur) 
-                VALUES (:titre, :texte, :date, :image, :Id_categorie, :Id_Utilisateur);";
+        $sql = "INSERT INTO categorie (type, image) 
+                VALUES (:type, :image);";
 
         $statement = $this->DB->prepare($sql);
 
         $statement->execute([
-            ':titre'               => $article->getTitre(),
-            ':texte'               => $article->getTexte(),
-            ':date'                => $article->getDate()->format('Y-m-d H:i:s'),
-            ':image'               => $article->getImage(),
-            ':Id_categorie'        => $article->getIdCategorie(),
-            ':Id_Utilisateur'      => $article->getIdUtilisateur()
+            ':type'                => $categorie->getType(),
+            ':image'               => $categorie->getImage(),
         ]);
 
-        $idArticle = $this->DB->lastInsertId();
-        $article->setIdArticle($idArticle);
+        $IdCategorie = $this->DB->lastInsertId();
+        $categorie->setIdCategorie($IdCategorie);
 
-        return $article;
+        return $categorie;
     }
 
     public function getCategorieById($Id_Categorie)
@@ -54,6 +50,12 @@ class CategorieRepository
         $statement->setFetchMode(PDO::FETCH_CLASS, Categorie::class);
         $categorie = $statement->fetch();
         return $categorie;
+    }
+
+    public function getCategorie()
+    {
+        $sql = "SELECT Id_Categorie, type FROM categorie;";
+        return  $this->DB->query($sql)->fetchAll(PDO::FETCH_CLASS, Categorie::class);
     }
 
     public function getCategorieByType($type)
@@ -84,9 +86,15 @@ class CategorieRepository
         return $success;
     }
 
-    public function getCategorie()
+    public function deleteCategorie($Id_Categorie): bool
     {
-        $sql = "SELECT Id_Categorie, type FROM categorie;";
-        return  $this->DB->query($sql)->fetchAll(PDO::FETCH_CLASS, Categorie::class);
+        $sql = "DELETE FROM article WHERE Id_Categorie = :Id_Categorie;
+                DELETE FROM categorie WHERE Id_Categorie = :Id_Categorie";
+
+        $statement = $this->DB->prepare($sql);
+
+        return $statement->execute([':Id_Categorie' => $Id_Categorie]);
     }
+
+
 }

@@ -23,7 +23,7 @@ include __DIR__ . '/../../Includes/navbar.php';
             </div>
             <div class="mb-3 my-3">
                 <label for="image" class="form-label">Nom</label>
-                <input type="text" name="nom" class="form-control" id="nom">
+                <input type="text" name="type" class="form-control" id="type">
             </div>
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary my-3">Créer une catégorie</button>
