@@ -198,20 +198,16 @@ include __DIR__ . '/../Includes/navbar.php';
                             <div class="col-md-4">
                                 <div class="card" style="margin: 20px 0;">
                                     <div class="card-body">
-                                        <h5 class="card-title">Commentaire</h5>
-                                        <p class="card-text">Message : <?= htmlspecialchars($commentaire->getMessage()) ?></p>
-                                        <p class="card-text">
+                                        <p class="card-text"><?= htmlspecialchars(mb_substr($commentaire->getMessage(), 0, 100)) . (strlen($article->getTexte()) > 100 ? '...' : '') ?></p>
+                                        <a class="btn btn-secondary" href="<?= HOME_URL . 'dashboardAdmin/readCommentaire?Id_Utilisateur=' . $commentaire->getIdUtilisateur() . '&Id_Article=' . $commentaire->getIdArticle() ?>">Voir</a>
+                                        <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateCommentaire?Id_Utilisateur=' . $commentaire->getIdUtilisateur() . '&Id_Article=' . $commentaire->getIdArticle() ?>">Modifier</a>
 
-                                            <!-- <form action="<?= HOME_URL . 'dashboardAdmin/deleteCommentaire' ?>" method="POST" style="display: inline;">
-                                    <input type="hidden" name="Id_Commentaire" value="<?= $commentaire->getIdCommentaire() ?>">
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');">Supprimer</button>
-                                </form> -->
                                     </div>
                                 </div>
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <p>Aucun commentaire trouvé.</p>
+                        <p>Aucun article humain trouvé.</p>
                     <?php endif; ?>
                 </div>
             </div>

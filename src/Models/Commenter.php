@@ -99,7 +99,7 @@ class Commenter
      */
     public function isValide(): bool
     {
-        return $this->valide === 1; // Si la valeur est 1 retourne true 
+        return $this->valide;
     }
 
     /**
@@ -107,7 +107,7 @@ class Commenter
      */
     public function setValide(bool $valide): self
     {
-        $this->valide = $valide ? 1 : 2;  // Si true, stocke 1. Si false, stocke 2
+        $this->valide = $valide;
 
         return $this;
     }

@@ -72,7 +72,33 @@ class CommenterController
         }
     }
 
+    public function readCommentaire()
+    {
+        try {
+            $Id_Utilisateur = isset($_GET['Id_Utilisateur']) ? (int)$_GET['Id_Utilisateur'] : null;
+            $Id_Article = isset($_GET['Id_Article']) ? (int)$_GET['Id_Article'] : null;
     
+            if (empty($Id_Utilisateur) || !filter_var($Id_Utilisateur, FILTER_VALIDATE_INT) || $Id_Utilisateur <= 0) {
+                throw new Exception("L'Id de l'utilisateur est manquant ou invalide.");
+            }
+    
+            if (empty($Id_Article) || !filter_var($Id_Article, FILTER_VALIDATE_INT) || $Id_Article <= 0) {
+                throw new Exception("L'Id de l'article est manquant ou invalide.");
+            }
+
+            $commentaire = $this->commenterRepository->getCommentaireByUtilisateurAndArticle($Id_Utilisateur, $Id_Article);
+
+            if (!$commentaire) {
+                throw new Exception("Commentaire non trouvé.");
+            }
+
+            include __DIR__ . '/../Views/DashboardAdmin/CommentaireAdmin/readCommentaireAdmin.php';
+        } catch (Exception $e) {
+            $error = $e->getMessage();
+            include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
+            exit;
+        }
+    }
     
     
 }

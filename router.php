@@ -252,7 +252,22 @@ switch ($route) {
             $homeController->afficherLaPageConnexion();
         }
         break;
-
+    case HOME_URL . 'dashboardAdmin/readCommentaire':
+        if ($methode === 'GET' && isset($_GET['Id_Utilisateur']) && isset($_GET['Id_Article']) && $_SESSION['adminConnecte'] === true) {
+            $commenterController->readCommentaire((int)$_GET['Id_Utilisateur'], (int)$_GET['Id_Article']);
+        } else {
+            $homeController->dashboardAdmin();
+        }
+        break;
+    case HOME_URL . 'dashboardAdmin/updateCommentaire':
+        if ($methode === 'GET' && isset($_GET['Id_Utilisateur']) && isset($_GET['Id_Article']) && $_SESSION['adminConnecte'] === true) {
+            $adminController->showUpdateFormAdmin((int)$_GET['Id_Utilisateur'], (int)$_GET['Id_Article']);
+        } elseif ($methode === 'POST' && $_SESSION['adminConnecte'] === true) {
+            $adminController->saveUpdateCommentaireAdmin();
+        } else {
+            $homeController->afficherLaPageConnexion();
+        }
+        break;
 
 
     case HOME_URL . 'dashboard':
@@ -294,7 +309,6 @@ switch ($route) {
             $homeController->afficherLaPageConnexion();
         }
         break;
-
 
     case HOME_URL . 'deconnexion':
         $utilisateurController->deconnexion();

@@ -81,7 +81,7 @@ class DashboardController
             include __DIR__ . '/../Views/DashboardUtilisateur/updateCommentaire.php';
         } catch (Exception $e) {
             $error = $e->getMessage();
-            include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
+            include __DIR__ . '/../Views/DashboardUtilisateur/dashboardUtilisateur.php';
             exit;
         }
     }
