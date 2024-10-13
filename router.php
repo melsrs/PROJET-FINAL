@@ -7,6 +7,7 @@ use src\Controllers\CategorieController;
 use src\Controllers\CommenterController;
 use src\Controllers\AdminController;
 use src\Controllers\DashboardController;
+use src\Controllers\HumainController;
 
 $homeController = new HomeController();
 $utilisateurController = new UtilisateurController();
@@ -15,6 +16,7 @@ $categorieController = new CategorieController();
 $commenterController = new CommenterController;
 $adminController = new AdminController();
 $dashboardController = new DashboardController();
+$humainController = new HumainController();
 
 $route = $_SERVER['REDIRECT_URL'];
 $methode = $_SERVER['REQUEST_METHOD'];
@@ -194,8 +196,17 @@ switch ($route) {
             if ($methode === 'GET') {
                 $homeController->afficherFormulaireCreationArticleHumain();
             } elseif ($methode === 'POST') {
-                $articleController->createArticleHumain();
+                $humainController->createArticleHumain();
             }
+        } else {
+            $homeController->afficherLaPageConnexion();
+        }
+        break;
+    case HOME_URL . 'dashboardAdmin/updateArticleHumain':
+        if ($methode === 'GET' && isset($_GET['id']) && $_SESSION['adminConnecte'] === true) {
+            $humainController->showUpdateFormHumain((int)$_GET['id']);
+        } elseif ($methode === 'POST' && $_SESSION['adminConnecte'] === true) {
+            $humainController->saveUpdateArticleHumain();
         } else {
             $homeController->afficherLaPageConnexion();
         }

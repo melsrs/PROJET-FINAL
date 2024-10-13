@@ -7,7 +7,7 @@ CREATE TABLE Article
   date            DATETIME     NOT NULL,
   image           VARCHAR(255) NULL    ,
   Id_Categorie    INT          NOT NULL,
-  Id_Utilisateur_ INT          NOT NULL,
+  Id_utilisateur INT          NOT NULL,
   PRIMARY KEY (Id_Article)
 );
 
@@ -109,8 +109,8 @@ ALTER TABLE Article
     REFERENCES Categorie (Id_Categorie);
 
 ALTER TABLE Article
-  ADD CONSTRAINT FK_Utilisateur_TO_Article
-    FOREIGN KEY (Id_Utilisateur_)
+  ADD CONSTRAINT FK_utilisateurTO_Article
+    FOREIGN KEY (Id_utilisateur)
     REFERENCES Utilisateur (Id_Utilisateur);
 
 ALTER TABLE Titan
@@ -129,7 +129,7 @@ ALTER TABLE Likes
     REFERENCES Article (Id_Article);
 
 ALTER TABLE Likes
-  ADD CONSTRAINT FK_Utilisateur_TO_Likes
+  ADD CONSTRAINT FK_utilisateurTO_Likes
     FOREIGN KEY (Id_Utilisateur)
     REFERENCES Utilisateur (Id_Utilisateur);
 
@@ -139,6 +139,6 @@ ALTER TABLE Commenter
     REFERENCES Article (Id_Article);
 
 ALTER TABLE Commenter
-  ADD CONSTRAINT FK_Utilisateur_TO_Commenter
+  ADD CONSTRAINT FK_utilisateurTO_Commenter
     FOREIGN KEY (Id_Utilisateur)
     REFERENCES Utilisateur (Id_Utilisateur);

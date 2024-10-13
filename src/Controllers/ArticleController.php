@@ -311,7 +311,6 @@ class ArticleController
                     ];
                 }
             }
-
             include __DIR__ . '/../Views/Categorie/articlePersoHumain.php';
         } catch (Exception $e) {
             $error = $e->getMessage();
@@ -320,60 +319,4 @@ class ArticleController
         }
     }
 
-    public function createArticleHumain()
-    {
-        try {
-            $article = new Article();
-            $article->setTitre(isset($_POST['titre']) ? htmlspecialchars($_POST['titre']) : null);
-            $article->setTexte(isset($_POST['texte']) ? htmlspecialchars($_POST['texte']) : null);
-            $article->setDate(new DateTime('now'));
-            $article->setImage(isset($_POST['image']) ? htmlspecialchars($_POST['image']) : null);
-            $article->setIdCategorie(isset($_POST['Id_Categorie']) ? (int) $_POST['Id_Categorie'] : null);
-            
-            $humain = new Humain();
-            $humain->setPrenom(isset($_POST['prenom']) ? htmlspecialchars($_POST['prenom']) : null);
-            $humain->setNom(isset($_POST['nom']) ? htmlspecialchars($_POST['nom']) : null);
-            $humain->setAge(isset($_POST['age']) ? htmlspecialchars($_POST['age']) : null);
-            $humain->setAnniversaire(isset($_POST['anniversaire']) ? htmlspecialchars($_POST['anniversaire']) : null);
-            $humain->setTaille(isset($_POST['taille']) ? htmlspecialchars($_POST['taille']) : null);
-            $humain->setAffiliation(isset($_POST['affiliation']) ? htmlspecialchars($_POST['affiliation']) : null);
-
-            if (!isset($_POST['Id_Categorie']) || $_POST['Id_Categorie'] === '') {
-                throw new Exception("Veuillez remplir le champs catégories.");
-            }
-
-            if (
-                empty($article->getTitre()) ||
-                empty($article->getTexte()) ||
-                empty($article->getDate())  ||
-                empty($article->getImage()) ||
-                empty($article->getIdCategorie()) ||
-                empty($humain->getPrenom()) ||
-                empty($humain->getNom()) ||
-                empty($humain->getAge()) ||
-                empty($humain->getAnniversaire()) ||
-                empty($humain->getTaille()) ||
-                empty($humain->getAffiliation())
-            ) {
-                throw new Exception("Veuillez remplir tous les champs.");
-            }
-
-            $article->setIdUtilisateur(isset($_SESSION['adminConnecte']) ? $_SESSION['adminConnecte'] : null);
-
-            if (empty($article->getIdUtilisateur())) {
-                throw new Exception("L'utilisateur n'est pas connecté.");
-            }
-
-            $humainRepository = new HumainRepository();
-            $humainRepo = $humainRepository->createArticleHumain($article, $humain);
-
-            $_SESSION['success'] = "L'article a bien été créé.";
-            header('Location: ' . HOME_URL . 'dashboardAdmin');
-            exit;
-        } catch (Exception $e) {
-            $_SESSION['error'] = $e->getMessage();
-            header('Location: ' . HOME_URL . 'dashboardAdmin/createArticle');
-            exit;
-        }
-    }
 }

@@ -69,6 +69,7 @@ class ArticleRepository
         return  $this->DB->query($sql)->fetchAll(PDO::FETCH_CLASS, Article::class);
     }
 
+
     public function updateArticle(Article $article)
     {
         $sql = "UPDATE article 
@@ -132,11 +133,60 @@ class ArticleRepository
     public function getArticlesByCategoriePersonnage($Id_Categorie = 3)
     {
         $sql = "SELECT * FROM article WHERE Id_Categorie = :Id_Categorie";
-    
+
         $statement = $this->DB->prepare($sql);
         $statement->execute([':Id_Categorie' => $Id_Categorie]);
 
         return $statement->fetchAll(PDO::FETCH_CLASS, Article::class);
     }
-    
+
+
+    public function getArticlesHumain($Id_Humain)
+    {
+        $sql = "SELECT h.Id_Humain,
+                   h.prenom,
+                   h.nom,
+                   h.age,
+                   h.anniversaire,
+                   h.taille,
+                   h.affiliation,
+                   a.Id_Article,
+                   a.titre AS titre_article,
+                   a.texte,
+                   a.date AS date_article,
+                   a.image
+            FROM Article a
+            LEFT JOIN Humain h ON a.Id_Article = h.Id_Article
+            WHERE h.Id_Humain = :Id_Humain
+            ORDER BY h.nom, h.prenom;";
+
+        $statement = $this->DB->prepare($sql);
+        $statement->execute([':Id_Humain' => $Id_Humain]);
+
+        return $statement->fetchAll(PDO::FETCH_CLASS, Article::class);
+    }
+
+    public function getAllArticlesHumain()
+    {
+        $sql = "SELECT h.Id_Humain,
+                   h.prenom,
+                   h.nom,
+                   h.age,
+                   h.anniversaire,
+                   h.taille,
+                   h.affiliation,
+                   a.Id_Article,
+                   a.titre AS titre,
+                   a.texte,
+                   a.date AS date,
+                   a.image
+            FROM Article a
+            INNER JOIN Humain h ON a.Id_Article = h.Id_Article
+            ORDER BY h.nom, h.prenom;";
+
+        $statement = $this->DB->prepare($sql);
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_CLASS, Article::class);
+    }
 }

@@ -9,6 +9,8 @@ use src\Repositories\ArticleRepository;
 use src\Repositories\CommenterRepository;
 use src\Repositories\UtilisateurRepository;
 use src\Repositories\CategorieRepository;
+use src\Repositories\HumainRepository;
+
 
 
 class AdminController
@@ -17,12 +19,16 @@ class AdminController
     private $utilisateurRepository;
     private $commenterRepository;
     private $categorieRepository;
+    private $humainRepository;
+
     public function __construct()
     {
         $this->articleRepository = new ArticleRepository();
         $this->utilisateurRepository = new UtilisateurRepository();
         $this->commenterRepository = new CommenterRepository();
         $this->categorieRepository = new CategorieRepository();
+        $this->humainRepository = new HumainRepository();
+
 
     }
 
@@ -45,8 +51,7 @@ class AdminController
             $utilisateurs = $this->utilisateurRepository->getAllUtilisateur();
             $categories = $this->categorieRepository->getAllCategories();
             $commentaires = $this->commenterRepository->getAllCommentaires();
-
-            $articlesPersonnages = $this->articleRepository->getArticlesByCategoriePersonnage();
+            $humains = $this->humainRepository->gettAllArticlesHumain();
 
             include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
         } catch (Exception $e) {

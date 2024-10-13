@@ -30,7 +30,7 @@ include __DIR__ . '/../Includes/navbar.php';
         <a class="nav-link active" id="v-pills-account-tab" data-bs-toggle="pill" data-bs-target="#v-pills-account" type="button" role="tab" aria-controls="v-pills-account" aria-selected="false">Mon compte</a>
         <a class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Utilisateurs</a>
         <a class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Articles</a>
-        <a class="nav-link" id="v-pills-articles-humain-tab" data-bs-toggle="pill" data-bs-target="#v-pills-articles-humain" type="button" role="tab" aria-controls="v-pills-articles-humain" aria-selected="false">Personnages</a>
+        <a class="nav-link" id="v-pills-articles-humain-tab" data-bs-toggle="pill" data-bs-target="#v-pills-articles-humain" type="button" role="tab" aria-controls="v-pills-articles-humain" aria-selected="false">Articles Humains</a>
         <a class="nav-link" id="v-pills-categories-tab" data-bs-toggle="pill" data-bs-target="#v-pills-categories" type="button" role="tab" aria-controls="v-pills-categories" aria-selected="false">Catégories</a>
         <a class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Commentaires</a>
     </div>
@@ -129,38 +129,35 @@ include __DIR__ . '/../Includes/navbar.php';
         <div class="tab-pane fade" id="v-pills-articles-humain" role="tabpanel" aria-labelledby="v-pills-articles-humain-tab" style="color: black;">
             <div class="d-flex justify-content-center">
                 <a href="<?= HOME_URL . 'dashboardAdmin/createArticleHumain' ?>" class="btn btn-success me-2">Ajouter un humain</a>
-                <a href="<?= HOME_URL . 'dashboardAdmin/createArticleTitan' ?>" class="btn btn-success">Ajouter un titan</a>
             </div>
             <div class="container">
                 <div class="row">
-                    <?php if (isset($articlesPersonnages) && !empty($articlesPersonnages)): ?>
-                        <?php foreach ($articlesPersonnages as $articlesPersonnage): ?>
+                    <?php if (isset($humains) && !empty($humains)): ?>
+                        <?php foreach ($humains as $humain): ?>
                             <div class="col-md-4">
                                 <div class="card" style="margin: 20px 0;">
-                                    <?php if (!empty($articlesPersonnage->getImage())): ?>
-                                        <img src="<?= htmlspecialchars($articlesPersonnage->getImage()) ?>" class="card-img-top" style="height: 500%" alt="Image de l'article">
-                                    <?php else: ?>
-                                        <img src="placeholder_image.jpg" class="card-img-top" alt="Image placeholder">
-                                    <?php endif; ?>
                                     <div class="card-body">
-                                        <h5 class="card-title"><?= htmlspecialchars($articlesPersonnage->getTitre()) ?></h5>
-                                        <p class="card-text"><?= htmlspecialchars(mb_substr($articlesPersonnage->getTexte(), 0, 100)) . (strlen($articlesPersonnage->getTexte()) > 100 ? '...' : '') ?></p>
-                                        <a class="btn btn-secondary" href="<?= HOME_URL . 'dashboardAdmin/readArticleHumain?id=' . $articlesPersonnage->getIdArticle() ?>">Voir</a>
-                                        <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateArticleHumain?id=' . $articlesPersonnage->getIdArticle() ?>">Modifier</a>
-                                        <form action="<?= HOME_URL . 'dashboardAdmin/deleteArticle' ?>" method="POST" style="display: inline;">
-                                            <input type="hidden" name="Id_Article" value="<?= $articlesPersonnage->getIdArticle() ?>">
-                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');">Supprimer</button>
+                                        <h5 class="card-title"><?= htmlspecialchars($humain->getPrenom()) . ' ' . htmlspecialchars($humain->getNom()) ?></h5>
+                                        <p class="card-text">Age : <?= htmlspecialchars($humain->getAge()) ?></p>
+                                        <p class="card-text">Date anniversaire : <?= htmlspecialchars($humain->getAnniversaire()) ?></p>
+                                        <a class="btn btn-secondary" href="<?= HOME_URL . 'dashboardAdmin/readArticleHumain?id=' . $humain->getIdHumain() ?>">Voir</a>
+                                        <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateArticleHumain?id=' . $humain->getIdHumain() ?>">Modifier</a>
+                                        <form action="<?= HOME_URL . 'dashboardAdmin/deleteHumain' ?>" method="POST" style="display: inline;">
+                                            <input type="hidden" name="Id_Humain" value="<?= $humain->getIdHumain() ?>">
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet humain ?');">Supprimer</button>
                                         </form>
+
                                     </div>
                                 </div>
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <p>Aucun article trouvé.</p>
+                        <p>Aucun article humain trouvé.</p>
                     <?php endif; ?>
                 </div>
             </div>
         </div>
+
 
         <!-- Catégories -->
         <div class="tab-pane fade" id="v-pills-categories" role="tabpanel" aria-labelledby="v-pills-categories-tab" tabindex="0" style="color: black;">
@@ -198,7 +195,6 @@ include __DIR__ . '/../Includes/navbar.php';
         </div>
 
         <!-- Commentaires -->
-
         <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0" style="color: black;">
             <div class="container">
                 <div class="row">
