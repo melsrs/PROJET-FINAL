@@ -201,6 +201,11 @@ include __DIR__ . '/../Includes/navbar.php';
                                         <p class="card-text"><?= htmlspecialchars(mb_substr($commentaire->getMessage(), 0, 100)) . (strlen($article->getTexte()) > 100 ? '...' : '') ?></p>
                                         <a class="btn btn-secondary" href="<?= HOME_URL . 'dashboardAdmin/readCommentaire?Id_Utilisateur=' . $commentaire->getIdUtilisateur() . '&Id_Article=' . $commentaire->getIdArticle() ?>">Voir</a>
                                         <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateCommentaire?Id_Utilisateur=' . $commentaire->getIdUtilisateur() . '&Id_Article=' . $commentaire->getIdArticle() ?>">Modifier</a>
+                                        <form action="<?= HOME_URL . 'dashboardAdmin/deleteCommentaire' ?>" method="POST" style="display: inline;">
+                                            <input type="hidden" name="Id_Article" value="<?= htmlspecialchars($commentaire->getIdArticle()) ?>">
+                                            <input type="hidden" name="Id_Utilisateur" value="<?= htmlspecialchars($commentaire->getIdUtilisateur()) ?>">
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');">Supprimer</button>
+                                        </form>
 
                                     </div>
                                 </div>

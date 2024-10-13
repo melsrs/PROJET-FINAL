@@ -268,6 +268,13 @@ switch ($route) {
             $homeController->afficherLaPageConnexion();
         }
         break;
+    case HOME_URL . 'dashboardAdmin/deleteCommentaire':
+        if ($methode === 'POST' && isset($_POST['Id_Utilisateur']) && $_SESSION['adminConnecte'] === true) {
+            $commenterController->deleteThisCommentaire((int)$_POST['Id_Article'], (int)$_POST['Id_Utilisateur']);
+        } else {
+            $homeController->afficherLaPageConnexion();
+        }
+        break;
 
 
     case HOME_URL . 'dashboard':
