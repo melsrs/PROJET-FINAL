@@ -8,19 +8,20 @@ include __DIR__ . '/../../Includes/navbar.php';
 <div class="createArticle">
     <h2> Modifier l'article </h2>
 
-    <?php if (isset($error)): ?>
-        <div class="alert alert-danger"><?php echo $error; ?></div>
+    <?php if (isset($_SESSION['success'])): ?>
+        <div class="alert alert-success"><?= htmlspecialchars($_SESSION['success']) ?></div>
+        <?php unset($_SESSION['success']); ?>
     <?php endif; ?>
-    <?php if (isset($success)): ?>
-        <div class="alert alert-success"><?php echo $success; ?></div>
+
+    <?php if (isset($_SESSION['error'])): ?>
+        <div class="alert alert-danger"><?= htmlspecialchars($_SESSION['error']) ?></div>
+        <?php unset($_SESSION['error']); ?>
     <?php endif; ?>
 
     <div class="container d-flex justify-content-center align-items-center">
         <form class="w-50" method="POST" action="<?= HOME_URL . 'dashboardAdmin/updateArticleHumain' ?>">
-        <input type="hidden" name="Id_Humain" value="<?= htmlspecialchars($humain->getIdHumain()) ?>">
-        <input type="hidden" name="Id_Article" value="<?= htmlspecialchars($humain->getIdArticle()) ?>">
-
-
+            <input type="hidden" name="Id_Humain" value="<?= htmlspecialchars($humain->getIdHumain()) ?>">
+            <input type="hidden" name="Id_Article" value="<?= htmlspecialchars($humain->getIdArticle()) ?>">
             <div class="mb-3 my-3">
                 <label for="image" class="form-label">Prenom</label>
                 <input type="text" name="prenom" class="form-control" id="prenom" value="<?= htmlspecialchars($humain->getPrenom()) ?>">

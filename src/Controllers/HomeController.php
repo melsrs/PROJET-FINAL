@@ -68,4 +68,9 @@ class HomeController
     {
         include __DIR__ . '/../Views/DashboardAdmin/ArticleHumain/createArticleHumain.php';
     }
+
+    public function afficherFormulaireCreationCategorie()
+    {
+        include __DIR__ . '/../Views/DashboardAdmin/CategorieAdmin/createCategorie.php';
+    }
 }

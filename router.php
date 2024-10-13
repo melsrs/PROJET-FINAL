@@ -225,6 +225,27 @@ switch ($route) {
             $homeController->afficherLaPageConnexion();
         }
         break;
+    case HOME_URL . 'dashboardAdmin/createCategorie':
+        if (isset($_SESSION['adminConnecte']) && $_SESSION['adminConnecte'] === true) {
+            if ($methode === 'GET') {
+                $homeController->afficherFormulaireCreationCategorie();
+            } elseif ($methode === 'POST') {
+                $humainController->createArticleHumain();
+            }
+        } else {
+            $homeController->afficherLaPageConnexion();
+        }
+        break;
+    case HOME_URL . 'dashboardAdmin/updateCategorie':
+        if ($methode === 'GET' && isset($_GET['id']) && $_SESSION['adminConnecte'] === true) {
+            $categorieController->showUpdateFormCategorie((int)$_GET['id']);
+        } elseif ($methode === 'POST' && $_SESSION['adminConnecte'] === true) {
+            $categorieController->saveUpdateCategorie();
+        } else {
+            $homeController->afficherLaPageConnexion();
+        }
+        break;
+
 
 
     case HOME_URL . 'dashboard':

@@ -125,7 +125,7 @@ include __DIR__ . '/../Includes/navbar.php';
             </div>
         </div>
 
-        <!-- Articles Personnages -->
+        <!-- Articles Humains -->
         <div class="tab-pane fade" id="v-pills-articles-humain" role="tabpanel" aria-labelledby="v-pills-articles-humain-tab" style="color: black;">
             <div class="d-flex justify-content-center">
                 <a href="<?= HOME_URL . 'dashboardAdmin/createArticleHumain' ?>" class="btn btn-success me-2">Ajouter un humain</a>

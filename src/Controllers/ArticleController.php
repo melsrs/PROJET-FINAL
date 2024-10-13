@@ -116,7 +116,7 @@ class ArticleController
             }
 
             $categorieRepository = new CategorieRepository();
-            $categories = $categorieRepository->getCategorieById();
+            $categories = $categorieRepository->getCategorie();
 
             include __DIR__ . '/../Views/DashboardAdmin/ArticleAdmin/updateArticle.php';
         } catch (Exception $e) {
