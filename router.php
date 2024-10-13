@@ -202,6 +202,13 @@ switch ($route) {
             $homeController->afficherLaPageConnexion();
         }
         break;
+    case HOME_URL . 'dashboardAdmin/readArticleHumain':
+        if ($methode === 'GET' && isset($_GET['id']) && $_SESSION['adminConnecte'] === true) {
+            $humainController->readArticleHumain((int)$_GET['id']);
+        } else {
+            $homeController->dashboardAdmin();
+        }
+        break;
     case HOME_URL . 'dashboardAdmin/updateArticleHumain':
         if ($methode === 'GET' && isset($_GET['id']) && $_SESSION['adminConnecte'] === true) {
             $humainController->showUpdateFormHumain((int)$_GET['id']);
@@ -211,7 +218,6 @@ switch ($route) {
             $homeController->afficherLaPageConnexion();
         }
         break;
-
     case HOME_URL . 'dashboardAdmin/deleteUtilisateur':
         if ($methode === 'POST' && isset($_POST['Id_Utilisateur']) && $_SESSION['adminConnecte'] === true) {
             $utilisateurController->deleteThisUtilisateur((int)$_POST['Id_Utilisateur']);

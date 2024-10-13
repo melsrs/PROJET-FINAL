@@ -140,13 +140,9 @@ include __DIR__ . '/../Includes/navbar.php';
                                         <h5 class="card-title"><?= htmlspecialchars($humain->getPrenom()) . ' ' . htmlspecialchars($humain->getNom()) ?></h5>
                                         <p class="card-text">Age : <?= htmlspecialchars($humain->getAge()) ?></p>
                                         <p class="card-text">Date anniversaire : <?= htmlspecialchars($humain->getAnniversaire()) ?></p>
+                                        <p class="card-text">Affiliation : <?= htmlspecialchars($humain->getAffiliation()) ?></p>
                                         <a class="btn btn-secondary" href="<?= HOME_URL . 'dashboardAdmin/readArticleHumain?id=' . $humain->getIdHumain() ?>">Voir</a>
                                         <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateArticleHumain?id=' . $humain->getIdHumain() ?>">Modifier</a>
-                                        <form action="<?= HOME_URL . 'dashboardAdmin/deleteHumain' ?>" method="POST" style="display: inline;">
-                                            <input type="hidden" name="Id_Humain" value="<?= $humain->getIdHumain() ?>">
-                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet humain ?');">Supprimer</button>
-                                        </form>
-
                                     </div>
                                 </div>
                             </div>

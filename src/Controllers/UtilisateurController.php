@@ -298,6 +298,7 @@ class UtilisateurController
     public function deconnexion()
     {
         try {
+            $_SESSION = [];
             session_destroy();
 
             $success = "Vous êtes déconnecté avec succès.";

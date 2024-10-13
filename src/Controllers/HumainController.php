@@ -79,6 +79,30 @@ class HumainController
         }
     }
 
+    public function readArticleHumain()
+    {
+        try {
+            $Id_Humain = isset($_GET['id']) ? (int)$_GET['id'] : null;
+
+            if (empty($Id_Humain) || !filter_var($Id_Humain, FILTER_VALIDATE_INT) || $Id_Humain <= 0) {
+                throw new Exception("L'ID de l'article est manquant ou invalide.");
+            }
+
+            $humain = $this->humainRepository->getArticleHumainById($Id_Humain);
+
+            if (!$humain) {
+                throw new Exception("Article non trouvé.");
+            }
+
+            include __DIR__ . '/../Views/DashboardAdmin/ArticleHumain/readArticleHumain.php';
+        } catch (Exception $e) {
+            $error = $e->getMessage();
+            include __DIR__ . '/../Views/DashboardAdmin/dashboardAdmin.php';
+            exit;
+        }
+    }
+
+
 
     public function showUpdateFormHumain()
     {
