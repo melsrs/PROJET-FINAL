@@ -7,7 +7,7 @@ use src\Models\Article;
 use src\Models\Humain;
 use src\Models\Database;
 
-class ArticleRepository
+class HumainRepository
 {
     private $DB;
 

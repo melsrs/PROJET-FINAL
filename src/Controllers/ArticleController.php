@@ -10,6 +10,8 @@ use src\Repositories\ArticleRepository;
 use src\Repositories\CategorieRepository;
 use src\Repositories\CommenterRepository;
 use src\Repositories\UtilisateurRepository;
+use src\Repositories\HumainRepository;
+
 
 class ArticleController
 {
@@ -321,12 +323,12 @@ class ArticleController
     public function createArticleHumain()
     {
         try {
-
             $article = new Article();
             $article->setTitre(isset($_POST['titre']) ? htmlspecialchars($_POST['titre']) : null);
             $article->setTexte(isset($_POST['texte']) ? htmlspecialchars($_POST['texte']) : null);
             $article->setDate(new DateTime('now'));
             $article->setImage(isset($_POST['image']) ? htmlspecialchars($_POST['image']) : null);
+            $article->setIdCategorie(isset($_POST['Id_Categorie']) ? (int) $_POST['Id_Categorie'] : null);
             
             $humain = new Humain();
             $humain->setPrenom(isset($_POST['prenom']) ? htmlspecialchars($_POST['prenom']) : null);
@@ -339,14 +341,19 @@ class ArticleController
             if (!isset($_POST['Id_Categorie']) || $_POST['Id_Categorie'] === '') {
                 throw new Exception("Veuillez remplir le champs catégories.");
             }
-            $article->setIdCategorie(isset($_POST['Id_Categorie']) ? (int) $_POST['Id_Categorie'] : null);
 
             if (
                 empty($article->getTitre()) ||
                 empty($article->getTexte()) ||
                 empty($article->getDate())  ||
                 empty($article->getImage()) ||
-                empty($article->getIdCategorie())
+                empty($article->getIdCategorie()) ||
+                empty($humain->getPrenom()) ||
+                empty($humain->getNom()) ||
+                empty($humain->getAge()) ||
+                empty($humain->getAnniversaire()) ||
+                empty($humain->getTaille()) ||
+                empty($humain->getAffiliation())
             ) {
                 throw new Exception("Veuillez remplir tous les champs.");
             }
@@ -357,7 +364,8 @@ class ArticleController
                 throw new Exception("L'utilisateur n'est pas connecté.");
             }
 
-            $this->articleRepository->newArticle($article);
+            $humainRepository = new HumainRepository();
+            $humainRepo = $humainRepository->createArticleHumain($article, $humain);
 
             $_SESSION['success'] = "L'article a bien été créé.";
             header('Location: ' . HOME_URL . 'dashboardAdmin');
