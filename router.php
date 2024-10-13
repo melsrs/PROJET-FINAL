@@ -309,6 +309,13 @@ switch ($route) {
             $homeController->afficherLaPageConnexion();
         }
         break;
+    case HOME_URL . 'dashboard/readCommentaire':
+        if ($methode === 'GET' && isset($_GET['Id_Utilisateur']) && isset($_GET['Id_Article']) && $_SESSION['connecte'] === true) {
+            $dashboardController->readCommentaire((int)$_GET['Id_Utilisateur'], (int)$_GET['Id_Article']);
+        } else {
+            $homeController->dashboard();
+        }
+        break;
     case HOME_URL . 'dashboard/deleteCommentaire':
         if ($methode === 'POST' && isset($_POST['Id_Utilisateur']) && $_SESSION['connecte'] === true) {
             $dashboardController->deleteThisCommentaire((int)$_POST['Id_Article'], (int)$_POST['Id_Utilisateur']);
