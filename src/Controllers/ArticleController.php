@@ -26,10 +26,10 @@ class ArticleController
         try {
 
             $article = new Article();
-            $article->setTitre(isset($_POST['titre']) ? htmlspecialchars($_POST['titre']) : null);
-            $article->setTexte(isset($_POST['texte']) ? htmlspecialchars($_POST['texte']) : null);
+            $article->setTitre(isset($_POST['titre']) ? htmlspecialchars($_POST['titre'], ENT_QUOTES, 'UTF-8') : null);
+            $article->setTexte(isset($_POST['texte']) ? htmlspecialchars($_POST['texte'], ENT_QUOTES, 'UTF-8') : null);
             $article->setDate(new DateTime('now'));
-            $article->setImage(isset($_POST['image']) ? htmlspecialchars($_POST['image']) : null);
+            $article->setImage(isset($_POST['image']) ? htmlspecialchars($_POST['image'], ENT_QUOTES, 'UTF-8') : null);
 
             if (!isset($_POST['Id_Categorie']) || $_POST['Id_Categorie'] === '') {
                 throw new Exception("Veuillez remplir le champs catégories.");
@@ -209,8 +209,7 @@ class ArticleController
             }
 
             // Récupérer les articles via le repository
-            $articleRepository = new ArticleRepository();
-            $articles = $articleRepository->findArticleByCategorie($Id_Categorie);
+            $articles = $this->articleRepository->findArticleByCategorie($Id_Categorie);
 
             // Récupérer la catégorie par son type
             $categorieRepository = new CategorieRepository();
@@ -296,13 +295,18 @@ class ArticleController
                 $utilisateur = $utilisateurRepository->getUtilisateurById($_SESSION['Id_Utilisateur']);
             }
 
+            $humainRepository = new HumainRepository();
+            $humain= $humainRepository->getHumainByArticleId($Id_Article);
+
+
             $commenterRepository = new CommenterRepository;
             $commentaires = $commenterRepository->getCommentairesByArticleId($Id_Article);
-
+            // var_dump($humains);
+            // die();
             $commentairesAvecUtilisateurs = [];
             if ($commentaires) {
                 $utilisateurRepository = new UtilisateurRepository();
-
+                
                 foreach ($commentaires as $commentaire) {
                     $utilisateurInfo = $utilisateurRepository->getUtilisateurById($commentaire->getIdUtilisateur());
                     $commentairesAvecUtilisateurs[] = [
@@ -318,5 +322,4 @@ class ArticleController
             exit;
         }
     }
-
 }

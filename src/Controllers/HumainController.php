@@ -173,4 +173,33 @@ class HumainController
             exit;
         }
     }
+
+    public function showArticleByCategorie($Id_Categorie, $type)
+    {
+        try {
+            $Id_Categorie = isset($_GET['id']) ? (int)$_GET['id'] : null;
+
+            if (empty($Id_Categorie) || !filter_var($Id_Categorie, FILTER_VALIDATE_INT) || $Id_Categorie <= 0) {
+                throw new Exception("L'ID de la catégorie est manquant ou invalide.");
+            }
+
+            // Récupérer les articles via le repository
+            $articleRepository = new ArticleRepository();
+            $articles = $articleRepository->findArticleByCategorie($Id_Categorie);
+
+            // Récupérer la catégorie par son type
+            $categorieRepository = new CategorieRepository();
+            $categorie = $categorieRepository->getCategorieByType($type);
+
+            if (empty($articles)) {
+                throw new Exception("Aucun article trouvé pour cette catégorie.");
+            }
+
+            include __DIR__ . '/../Views/Categorie/allArticlesByCategorie.php';
+        } catch (Exception $e) {
+            $error = $e->getMessage();
+            include __DIR__ . '/../Views/Categorie/categorie.php';
+            exit;
+        }
+    }
 }

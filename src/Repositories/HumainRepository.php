@@ -174,4 +174,16 @@ class HumainRepository
             throw $e;
         }
     }
+
+    public function getHumainByArticleId($Id_Article)
+    {
+        $sql = "SELECT * FROM humain
+                WHERE Id_Article = :Id_Article";
+                
+        $statement = $this->DB->prepare($sql);
+        $statement->execute([':Id_Article' => $Id_Article]);
+        $statement->setFetchMode(PDO::FETCH_CLASS, Humain::class);
+        $humain = $statement->fetch();
+        return $humain;
+    }
 }

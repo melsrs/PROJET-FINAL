@@ -59,6 +59,7 @@ switch ($route) {
             $homeController->AfficherCategories();
         }
         break;
+
     case HOME_URL . 'categorie/PERSONNAGE':
         if ($methode === 'GET' && isset($_GET['id'])) {
             $articleController->showArticleByCategorie((int)$_GET['id'], "PERSONNAGE");
@@ -66,6 +67,8 @@ switch ($route) {
             $homeController->AfficherCategories();
         }
         break;
+
+        
     case HOME_URL . 'categorie/LIEU+MYTHIQUE':
         if ($methode === 'GET' && isset($_GET['id'])) {
             $articleController->showArticleByCategorie((int)$_GET['id'], "LIEU MYTHIQUE");

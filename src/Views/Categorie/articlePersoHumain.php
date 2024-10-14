@@ -39,11 +39,21 @@ include __DIR__ . '/../Includes/navbar.php';
                         <?= htmlspecialchars($article->getTexte()) ?>
                     </p>
                 </div>
+                <?php if (!empty($humain)) : ?>
+                    <div class="d-flex flex-column justify-content-center align-items-center" style="width: 100%; background-color: black; color: white;">
+                        <div class="text-center p-5" style=" border: 5px solid #FF8FC3; border-radius: 5px;">
+                            <h5>Fiche personnage</h5>
+                            <p>Prénom et nom: <?= htmlspecialchars($humain->getPrenom()) ?> <?= htmlspecialchars($humain->getNom()) ?></p>
+                            <p>Âge: <?= htmlspecialchars($humain->getAge()) ?></p>
+                            <p>Taille: <?= htmlspecialchars($humain->getTaille()) ?> cm</p>
+                            <p>Anniversaire: <?= htmlspecialchars($humain->getAnniversaire()) ?></p>
+                            <p>Affiliation: <?= htmlspecialchars($humain->getAffiliation()) ?></p>
+                        </div>
+                    </div>
 
-                <div class="card" style="width: 100%; background-color: black; color: white">
-                    <h5> Fiche personnage </h5>
-                </div>
-                
+
+                <?php endif; ?>
+
             </div>
         <?php else: ?>
             <p>Aucun article trouvé.</p>
