@@ -33,10 +33,10 @@ include __DIR__ . '/../Includes/navbar.php';
             <div class="card" style="width: 100%; background-color: black; color: white">
                 <div>
                     <h4 style="margin-bottom: 15px">
-                        <?= htmlspecialchars($article->getTitre()) ?>
+                        <?= htmlspecialchars_decode($article->getTitre()) ?>
                     </h4>
                     <p style="margin: 0 0 60px 0">
-                        <?= htmlspecialchars($article->getTexte()) ?>
+                        <?= htmlspecialchars_decode($article->getTexte()) ?>
                     </p>
                 </div>
             </div>
@@ -80,9 +80,9 @@ include __DIR__ . '/../Includes/navbar.php';
                     <div class="card mb-3" style="background-color: black; color: white;">
                         <div class="mb-3 my-3">
                             <p class="card-title" style="font-weight: bold">
-                                <?= htmlspecialchars($utilisateur->getPrenom()) . ' ' . htmlspecialchars($utilisateur->getNom()) ?>
+                                <?= htmlspecialchars_decode($utilisateur->getPrenom()) . ' ' . htmlspecialchars_decode($utilisateur->getNom()) ?>
                             </p>
-                            <p class="card-text"><?= htmlspecialchars($commentaire->getMessage()) ?></p>
+                            <p class="card-text"><?= htmlspecialchars_decode($commentaire->getMessage()) ?></p>
                         </div>
                     </div>
                 <?php endforeach; ?>

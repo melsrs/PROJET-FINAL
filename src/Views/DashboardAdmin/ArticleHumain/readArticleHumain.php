@@ -19,8 +19,11 @@ include __DIR__ . '/../../Includes/navbar.php';
         <div class="card " style="color: black;   width: 400px">
             <div class="card-body">
 
-                <h5>Prénom et nom</h5>
-                <p><?= htmlspecialchars($humain->getPrenom()) . ' ' . htmlspecialchars($humain->getNom()) ?></p>
+                <h5>Prénom</h5>
+                <p><?= htmlspecialchars_decode($humain->getPrenom()) ?></p>
+
+                <h5>Nom :</h5>
+                <p><?= htmlspecialchars_decode($humain->getNom()) ?></p>
 
                 <h5>Age :</h5>
                 <p><?= htmlspecialchars($humain->getAge()) ?></p>
@@ -29,10 +32,10 @@ include __DIR__ . '/../../Includes/navbar.php';
                 <p><?= htmlspecialchars($humain->getAnniversaire()) ?></p>
 
                 <h5>Taille :</h5>
-                <p><?= htmlspecialchars($humain->getAge()) ?></p>
+                <p><?= htmlspecialchars($humain->getTaille()) ?></p>
 
                 <h5>Affiliation :</h5>
-                <p><?= htmlspecialchars($humain->getAffiliation()) ?></p>
+                <p><?= htmlspecialchars_decode($humain->getAffiliation()) ?></p>
 
                 <div class="d-flex ">
                     <a href="<?= HOME_URL . 'dashboardAdmin' ?>" class="btn btn-primary">Retour</a>

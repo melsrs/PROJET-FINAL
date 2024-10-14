@@ -33,10 +33,10 @@ include __DIR__ . '/../Includes/navbar.php';
             <div class="card" style="width: 100%; background-color: black; color: white">
                 <div>
                     <h4 style="margin-bottom: 15px">
-                        <?= htmlspecialchars($article->getTitre()) ?>
+                        <?= htmlspecialchars_decode($article->getTitre()) ?>
                     </h4>
                     <p style="margin: 0 0 60px 0">
-                        <?= htmlspecialchars($article->getTexte()) ?>
+                        <?= htmlspecialchars_decode($article->getTexte()) ?>
                     </p>
                 </div>
 
@@ -44,12 +44,12 @@ include __DIR__ . '/../Includes/navbar.php';
                     <div class="d-flex flex-column justify-content-center align-items-center" style="width: 100%; background-color: black; color: white;">
                         <h4>Fiche personnage</h4>
                         <div class="p-5 m-4" style=" border: 2px solid #FF8FC3; border-radius: 5px;">
-                            <p>Prénom : <?= htmlspecialchars($humain->getPrenom()) ?> </p>
-                            <p>Nom : <?= htmlspecialchars($humain->getNom()) ?></p>
-                            <p>Âge : <?= htmlspecialchars($humain->getAge()) ?></p>
-                            <p>Taille : <?= htmlspecialchars($humain->getTaille()) ?></p>
-                            <p>Anniversaire : <?= htmlspecialchars($humain->getAnniversaire()) ?></p>
-                            <p>Affiliation : <?= htmlspecialchars($humain->getAffiliation()) ?></p>
+                            <p>Prénom : <?= htmlspecialchars_decode($humain->getPrenom()) ?> </p>
+                            <p>Nom : <?= htmlspecialchars_decode($humain->getNom()) ?></p>
+                            <p>Âge : <?= htmlspecialchars_decode($humain->getAge()) ?></p>
+                            <p>Taille : <?= htmlspecialchars_decode($humain->getTaille()) ?></p>
+                            <p>Anniversaire : <?= htmlspecialchars_decode($humain->getAnniversaire()) ?></p>
+                            <p>Affiliation : <?= htmlspecialchars_decode($humain->getAffiliation()) ?></p>
                         </div>
                     </div>
 
@@ -97,9 +97,9 @@ include __DIR__ . '/../Includes/navbar.php';
                     <div class="card mb-3" style="background-color: black; color: white;">
                         <div class="mb-3 my-3">
                             <p class="card-title" style="font-weight: bold">
-                                <?= htmlspecialchars($utilisateur->getPrenom()) . ' ' . htmlspecialchars($utilisateur->getNom()) ?>
+                                <?= htmlspecialchars_decode($utilisateur->getPrenom()) . ' ' . htmlspecialchars_decode($utilisateur->getNom()) ?>
                             </p>
-                            <p class="card-text"><?= htmlspecialchars($commentaire->getMessage()) ?></p>
+                            <p class="card-text"><?= htmlspecialchars_decode($commentaire->getMessage()) ?></p>
                         </div>
                     </div>
                 <?php endforeach; ?>

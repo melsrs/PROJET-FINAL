@@ -21,7 +21,7 @@ include __DIR__ . '/../Includes/navbar.php';
                         <?php endif; ?>
                         <div class="card-body" style="padding: 10px;">
                             <h5 style="font-size: 1rem;"> 
-                                <?= htmlspecialchars($article->getTitre()) ?>
+                                <?= htmlspecialchars_decode($article->getTitre()) ?>
                             </h5>
                         </div>
                     </div>

@@ -294,8 +294,6 @@ class UtilisateurController
         }
     }
 
-
-
     public function deleteThisUtilisateur($Id_Utilisateur)
     {
         try {

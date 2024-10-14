@@ -26,10 +26,10 @@ class ArticleController
         try {
 
             $article = new Article();
-            $article->setTitre(isset($_POST['titre']) ? htmlspecialchars($_POST['titre'], ENT_QUOTES, 'UTF-8') : null);
-            $article->setTexte(isset($_POST['texte']) ? htmlspecialchars($_POST['texte'], ENT_QUOTES, 'UTF-8') : null);
+            $article->setTitre(isset($_POST['titre']) ? htmlspecialchars($_POST['titre']) : null);
+            $article->setTexte(isset($_POST['texte']) ? htmlspecialchars($_POST['texte']) : null);
             $article->setDate(new DateTime('now'));
-            $article->setImage(isset($_POST['image']) ? htmlspecialchars($_POST['image'], ENT_QUOTES, 'UTF-8') : null);
+            $article->setImage(isset($_POST['image']) ? htmlspecialchars($_POST['image']) : null);
 
             if (!isset($_POST['Id_Categorie']) || $_POST['Id_Categorie'] === '') {
                 throw new Exception("Veuillez remplir le champs catégories.");
@@ -208,10 +208,8 @@ class ArticleController
                 throw new Exception("L'ID de la catégorie est manquant ou invalide.");
             }
 
-            // Récupérer les articles via le repository
             $articles = $this->articleRepository->findArticleByCategorie($Id_Categorie);
 
-            // Récupérer la catégorie par son type
             $categorieRepository = new CategorieRepository();
             $categorie = $categorieRepository->getCategorieByType($type);
 

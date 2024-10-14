@@ -26,11 +26,11 @@ include __DIR__ . '/../Includes/navbar.php';
 
             <div class="mb-3 my-3">
                 <label for="prenom" class="form-label">Prénom</label>
-                <input type="text" name="prenom" class="form-control" id="prenom" required value="<?= htmlspecialchars($utilisateur->getPrenom()) ?>">
+                <input type="text" name="prenom" class="form-control" id="prenom" required value="<?= htmlspecialchars_decode($utilisateur->getPrenom()) ?>">
             </div>
             <div class="mb-3 my-3">
                 <label for="nom" class="form-label">Nom</label>
-                <input type="text" name="nom" class="form-control" id="nom" required value="<?= htmlspecialchars($utilisateur->getNom()) ?>">
+                <input type="text" name="nom" class="form-control" id="nom" required value="<?= htmlspecialchars_decode($utilisateur->getNom()) ?>">
             </div>
             <div class="mb-3 my-3">
                 <label for="mail" class="form-label">Mail</label>

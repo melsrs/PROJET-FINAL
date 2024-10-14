@@ -26,11 +26,11 @@ include __DIR__ . '/../../Includes/navbar.php';
             <input type="hidden" name="Id_Utilisateur" value="<?= htmlspecialchars($commentaire->getIdUtilisateur()) ?>">
             <div class="mb-3 my-3">
                 <label for="prenom" class="form-label">Commentaire</label>
-                <input type="text" name="message" class="form-control" id="message" required value="<?= htmlspecialchars($commentaire->getMessage()) ?>">
+                <input type="text" name="message" class="form-control" id="message" required value="<?= htmlspecialchars_decode($commentaire->getMessage()) ?>">
             </div>
             <div class="mb-3 my-3">
                 <label for="prenom" class="form-label">Validité</label>
-                <input type="text" name="valide" class="form-control" id="valide" required value="<?= htmlspecialchars($commentaire->isValide()) ?>">
+                <input type="text" name="valide" class="form-control" id="valide" required value="<?= htmlspecialchars_decode($commentaire->isValide()) ?>">
             </div>
 
             <div class="d-flex justify-content-center">

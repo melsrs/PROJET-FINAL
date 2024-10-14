@@ -24,7 +24,7 @@ include __DIR__ . '/../../Includes/navbar.php';
     <div class="card" style="color: black;">
         <div class="card-body">
             <h5>Commentaire :</h5>
-            <p><?= htmlspecialchars($commentaire->getMessage()) ?></p>
+            <p><?= htmlspecialchars_decode($commentaire->getMessage()) ?></p>
 
             <h5>Validité :</h5>
             <p><?= htmlspecialchars($commentaire->isValide()) ?></p>

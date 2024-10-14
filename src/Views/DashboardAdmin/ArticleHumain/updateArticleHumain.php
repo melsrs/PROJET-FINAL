@@ -24,27 +24,27 @@ include __DIR__ . '/../../Includes/navbar.php';
             <input type="hidden" name="Id_Article" value="<?= htmlspecialchars($humain->getIdArticle()) ?>">
             <div class="mb-3 my-3">
                 <label for="image" class="form-label">Prenom</label>
-                <input type="text" name="prenom" class="form-control" id="prenom" value="<?= htmlspecialchars($humain->getPrenom()) ?>">
+                <input type="text" name="prenom" class="form-control" id="prenom" value="<?= htmlspecialchars_decode($humain->getPrenom()) ?>">
             </div>
             <div class="mb-3 my-3">
                 <label for="image" class="form-label">Nom</label>
-                <input type="text" name="nom" class="form-control" id="nom" value="<?= htmlspecialchars($humain->getNom()) ?>">
+                <input type="text" name="nom" class="form-control" id="nom" value="<?= htmlspecialchars_decode($humain->getNom()) ?>">
             </div>
             <div class="mb-3 my-3">
                 <label for="image" class="form-label">Age</label>
-                <input type="text" name="age" class="form-control" id="age" value="<?= htmlspecialchars($humain->getAge()) ?>">
+                <input type="text" name="age" class="form-control" id="age" value="<?= htmlspecialchars_decode($humain->getAge()) ?>">
             </div>
             <div class="mb-3 my-3">
                 <label for="image" class="form-label">Anniversaire</label>
-                <input type="text" name="anniversaire" class="form-control" id="anniversaire" value="<?= htmlspecialchars($humain->getAnniversaire()) ?>">
+                <input type="text" name="anniversaire" class="form-control" id="anniversaire" value="<?= htmlspecialchars_decode($humain->getAnniversaire()) ?>">
             </div>
             <div class="mb-3 my-3">
                 <label for="image" class="form-label">Taille</label>
-                <input type="text" name="taille" class="form-control" id="taille" value="<?= htmlspecialchars($humain->getTaille()) ?>">
+                <input type="text" name="taille" class="form-control" id="taille" value="<?= htmlspecialchars_decode($humain->getTaille()) ?>">
             </div>
             <div class="mb-3 my-3">
                 <label for="image" class="form-label">Affiliation</label>
-                <input type="text" name="affiliation" class="form-control" id="affiliation" value="<?= htmlspecialchars($humain->getAffiliation()) ?>">
+                <input type="text" name="affiliation" class="form-control" id="affiliation" value="<?= htmlspecialchars_decode($humain->getAffiliation()) ?>">
             </div>
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary my-3">Modifier</button>

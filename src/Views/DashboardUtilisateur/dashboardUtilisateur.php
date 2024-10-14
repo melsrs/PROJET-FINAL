@@ -35,8 +35,8 @@ include __DIR__ . '/../Includes/navbar.php';
                         <div class="col-md-8">
                             <div class="card" style="margin: 20px 0; ">
                                 <div class="card-body">
-                                    <h5 class="card-title">Prénom : <?= htmlspecialchars($utilisateur->getPrenom()) ?></h5>
-                                    <p class="card-text">Nom : <?= htmlspecialchars($utilisateur->getNom()) ?></p>
+                                    <h5 class="card-title">Prénom : <?= htmlspecialchars_decode($utilisateur->getPrenom()) ?></h5>
+                                    <p class="card-text">Nom : <?= htmlspecialchars_decode($utilisateur->getNom()) ?></p>
                                     <p class="card-text">Email : <?= htmlspecialchars($utilisateur->getMail()) ?></p>
                                     <a class="btn btn-primary" href="<?= HOME_URL . 'dashboard/updateUtilisateur?id=' . $utilisateur->getIdUtilisateur() ?>">Modifier</a>
                                     <form action="<?= HOME_URL . 'dashboard/deleteUtilisateur' ?>" method="POST" style="display: inline;">
@@ -61,7 +61,7 @@ include __DIR__ . '/../Includes/navbar.php';
                             <?php foreach ($commentaires as $commentaire): ?>
                                 <div class="card mb-3">
                                     <div class="card-body">
-                                        <p class="card-text"><?= htmlspecialchars($commentaire->getMessage()) ?></p>
+                                        <p class="card-text"><?= htmlspecialchars_decode($commentaire->getMessage()) ?></p>
                                         <a class="btn btn-secondary" href="<?= HOME_URL . 'dashboard/readCommentaire?Id_Utilisateur=' . $commentaire->getIdUtilisateur() . '&Id_Article=' . $commentaire->getIdArticle() ?>">Voir</a>
                                         <a href="<?= HOME_URL . 'dashboard/updateCommentaire?Id_Utilisateur=' . $commentaire->getIdUtilisateur() . '&Id_Article=' . $commentaire->getIdArticle() ?>" class="btn btn-sm btn-primary">Modifier</a>
                                         <form action="<?= HOME_URL . 'dashboard/deleteCommentaire' ?>" method="POST" style="display: inline;">

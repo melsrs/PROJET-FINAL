@@ -24,7 +24,7 @@ include __DIR__ . '/../Includes/navbar.php';
         <div class="card" style="color: black;">
             <div class="card-body">
                 <h5>Commentaire :</h5>
-                <p><?= htmlspecialchars($commentaire->getMessage()) ?></p>
+                <p><?= htmlspecialchars_decode($commentaire->getMessage()) ?></p>
                 <div class="d-flex justify-content-center">
                     <a href="<?= HOME_URL . 'dashboard/updateCommentaire?Id_Utilisateur=' . $commentaire->getIdUtilisateur() . '&Id_Article=' . $commentaire->getIdArticle() ?>" class="btn btn-primary my-3">Modifier le commentaire</a>
                     <form action="<?= HOME_URL . 'dashboard/deleteCommentaire' ?>" method="POST" style="display: inline;">

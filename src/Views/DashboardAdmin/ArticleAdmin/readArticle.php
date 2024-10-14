@@ -21,10 +21,10 @@ include __DIR__ . '/../../Includes/navbar.php';
             <div class="card-body">
 
                 <h5>Titre :</h5>
-                <p><?= htmlspecialchars($article->getTitre()) ?></p>
+                <p><?= htmlspecialchars_decode($article->getTitre()) ?></p>
 
                 <h5>Texte :</h5>
-                <p><?= htmlspecialchars($article->getTexte()) ?></p>
+                <p><?= htmlspecialchars_decode($article->getTexte()) ?></p>
                 <?php
                 foreach ($categories as $categorie) {
                     if ($categorie->getIdCategorie() == $categorieId) {

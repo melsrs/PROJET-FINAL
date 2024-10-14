@@ -47,7 +47,7 @@ include __DIR__ . '/../Includes/navbar.php';
                             <div class="col-md-15">
                                 <div class="card" style="margin: 20px 0; ">
                                     <div class="card-body">
-                                        <h5 class="card-title"><?= htmlspecialchars($utilisateur->getPrenom() . ' ' . $utilisateur->getNom()) ?></h5>
+                                        <h5 class="card-title"><?= htmlspecialchars_decode($utilisateur->getPrenom() . ' ' . $utilisateur->getNom()) ?></h5>
                                         <p class="card-text">Email : <?= htmlspecialchars($utilisateur->getMail()) ?></p>
                                         <p class="card-text">Rôle : <?= htmlspecialchars($utilisateur->getIdRole()) ?></p>
                                         <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateAdmin?id=' . $utilisateur->getIdUtilisateur() ?>">Modifier</a>
@@ -71,7 +71,7 @@ include __DIR__ . '/../Includes/navbar.php';
                             <div class="col-md-4">
                                 <div class="card" style="margin: 20px 0;">
                                     <div class="card-body">
-                                        <h5 class="card-title"><?= htmlspecialchars($utilisateur->getPrenom() . ' ' . $utilisateur->getNom()) ?></h5>
+                                        <h5 class="card-title"><?= htmlspecialchars_decode($utilisateur->getPrenom() . ' ' . $utilisateur->getNom()) ?></h5>
                                         <p class="card-text">Email : <?= htmlspecialchars($utilisateur->getMail()) ?></p>
                                         <p class="card-text">Rôle : <?= htmlspecialchars($utilisateur->getIdRole()) ?></p>
                                         <form action="<?= HOME_URL . 'dashboardAdmin/deleteUtilisateur' ?>" method="POST" style="display: inline;">
@@ -106,8 +106,8 @@ include __DIR__ . '/../Includes/navbar.php';
                                         <img src="placeholder_image.jpg" class="card-img-top" alt="Image placeholder">
                                     <?php endif; ?>
                                     <div class="card-body">
-                                        <h5 class="card-title"><?= htmlspecialchars($article->getTitre()) ?></h5>
-                                        <p class="card-text"><?= htmlspecialchars(mb_substr($article->getTexte(), 0, 100)) . (strlen($article->getTexte()) > 100 ? '...' : '') ?></p>
+                                        <h5 class="card-title"><?= htmlspecialchars_decode($article->getTitre()) ?></h5>
+                                        <p class="card-text"><?= htmlspecialchars_decode(mb_substr($article->getTexte(), 0, 100)) . (strlen($article->getTexte()) > 100 ? '...' : '') ?></p>
                                         <a class="btn btn-secondary" href="<?= HOME_URL . 'dashboardAdmin/readArticle?id=' . $article->getIdArticle() ?>">Voir</a>
                                         <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateArticle?id=' . $article->getIdArticle() ?>">Modifier</a>
                                         <form action="<?= HOME_URL . 'dashboardAdmin/deleteArticle' ?>" method="POST" style="display: inline;">
@@ -137,10 +137,10 @@ include __DIR__ . '/../Includes/navbar.php';
                             <div class="col-md-4">
                                 <div class="card" style="margin: 20px 0;">
                                     <div class="card-body">
-                                        <h5 class="card-title"><?= htmlspecialchars($humain->getPrenom()) . ' ' . htmlspecialchars($humain->getNom()) ?></h5>
+                                        <h5 class="card-title"><?= htmlspecialchars_decode($humain->getPrenom()) . ' ' . htmlspecialchars_decode($humain->getNom()) ?></h5>
                                         <p class="card-text">Age : <?= htmlspecialchars($humain->getAge()) ?></p>
                                         <p class="card-text">Date anniversaire : <?= htmlspecialchars($humain->getAnniversaire()) ?></p>
-                                        <p class="card-text">Affiliation : <?= htmlspecialchars($humain->getAffiliation()) ?></p>
+                                        <p class="card-text">Affiliation : <?= htmlspecialchars_decode($humain->getAffiliation()) ?></p>
                                         <a class="btn btn-secondary" href="<?= HOME_URL . 'dashboardAdmin/readArticleHumain?id=' . $humain->getIdHumain() ?>">Voir</a>
                                         <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateArticleHumain?id=' . $humain->getIdHumain() ?>">Modifier</a>
                                     </div>
@@ -198,7 +198,7 @@ include __DIR__ . '/../Includes/navbar.php';
                             <div class="col-md-4">
                                 <div class="card" style="margin: 20px 0;">
                                     <div class="card-body">
-                                        <p class="card-text"><?= htmlspecialchars(mb_substr($commentaire->getMessage(), 0, 100)) . (strlen($article->getTexte()) > 100 ? '...' : '') ?></p>
+                                        <p class="card-text"><?= htmlspecialchars_decode(mb_substr($commentaire->getMessage(), 0, 100)) . (strlen($article->getTexte()) > 100 ? '...' : '') ?></p>
                                         <a class="btn btn-secondary" href="<?= HOME_URL . 'dashboardAdmin/readCommentaire?Id_Utilisateur=' . $commentaire->getIdUtilisateur() . '&Id_Article=' . $commentaire->getIdArticle() ?>">Voir</a>
                                         <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateCommentaire?Id_Utilisateur=' . $commentaire->getIdUtilisateur() . '&Id_Article=' . $commentaire->getIdArticle() ?>">Modifier</a>
                                         <form action="<?= HOME_URL . 'dashboardAdmin/deleteCommentaire' ?>" method="POST" style="display: inline;">

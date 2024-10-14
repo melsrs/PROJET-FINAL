@@ -26,11 +26,11 @@ include __DIR__ . '/../../Includes/navbar.php';
 
             <div class="mb-3 my-3">
                 <label for="titre" class="form-label">Titre</label>
-                <input type="text" name="titre" class="form-control" id="titre" required value="<?= htmlspecialchars($article->getTitre()) ?>">
+                <input type="text" name="titre" class="form-control" id="titre" required value="<?= htmlspecialchars_decode($article->getTitre()) ?>">
             </div>
             <div class="mb-3 my-3">
                 <label for="texte" class="form-label">Texte</label>
-                <textarea class="form-control" name="texte" id="texte" style="height: 100px" required><?= htmlspecialchars($article->getTexte()) ?></textarea>
+                <textarea class="form-control" name="texte" id="texte" style="height: 100px" required><?= htmlspecialchars_decode($article->getTexte()) ?></textarea>
             </div>
             <div class="mb-3 my-3">
                 <label for="image" class="form-label">Image</label>
