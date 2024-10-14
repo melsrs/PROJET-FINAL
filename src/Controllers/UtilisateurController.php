@@ -36,8 +36,24 @@ class UtilisateurController
                 throw new Exception("Veuillez remplir tous les champs.");
             }
 
+            if (strlen($utilisateur->getPrenom()) < 2 || strlen($utilisateur->getPrenom()) > 50) {
+                throw new Exception("Le prénom doit contenir entre 2 et 50 caractères.");
+            }
+
+            if (strlen($utilisateur->getNom()) < 2 || strlen($utilisateur->getNom()) > 50) {
+                throw new Exception("Le nom doit contenir entre 2 et 50 caractères.");
+            }
+
             if ($utilisateur->getMdp() !== $motDePasseConfirme) {
                 throw new Exception("Les mots de passe ne correspondent pas.");
+            }
+
+            if (strlen($utilisateur->getMdp()) < 8) {
+                throw new Exception("Le mot de passe doit contenir au moins 8 caractères.");
+            }
+
+            if (!filter_var($utilisateur->getMail(), FILTER_VALIDATE_EMAIL)) {
+                throw new Exception("Adresse email non valide.");
             }
 
             $utilisateurRepository = new UtilisateurRepository();
@@ -72,6 +88,10 @@ class UtilisateurController
 
             if (empty($utilisateur->getMail()) || empty($utilisateur->getMdp())) {
                 throw new Exception("Veuillez remplir tous les champs.");
+            }
+
+            if (!filter_var($utilisateur->getMail(), FILTER_VALIDATE_EMAIL)) {
+                throw new Exception("Adresse email non valide.");
             }
 
             $utilisateurBDD = $this->utilisateurRepository->getUtilisateurByMail($utilisateur->getMail());
@@ -191,42 +211,62 @@ class UtilisateurController
     public function saveUpdateUtilisateur()
     {
         try {
-            $utilisateur = new Utilisateur();
-            $utilisateur->setPrenom(isset($_POST['prenom']) ? htmlspecialchars($_POST['prenom']) : null);
-            $utilisateur->setNom(isset($_POST['nom']) ? htmlspecialchars($_POST['nom']) : null);
-            $utilisateur->setMail(isset($_POST['mail']) ? htmlspecialchars($_POST['mail']) : null);
 
-            $utilisateur->setMdp(isset($_POST['motDePasse']) ? htmlspecialchars($_POST['motDePasse']) : null);
+            $idUtilisateur = isset($_POST['Id_Utilisateur']) ? (int)$_POST['Id_Utilisateur'] : (int)$_SESSION['Id_Utilisateur'];
+
+            $utilisateur = $this->utilisateurRepository->getUtilisateurById($idUtilisateur);
+
+            if (!$utilisateur) {
+                throw new Exception("Utilisateur non trouvé.");
+            }
+
+            $utilisateur->setPrenom(isset($_POST['prenom']) ? htmlspecialchars($_POST['prenom']) : $utilisateur->getPrenom());
+            $utilisateur->setNom(isset($_POST['nom']) ? htmlspecialchars($_POST['nom']) : $utilisateur->getNom());
+            $utilisateur->setMail(isset($_POST['mail']) ? htmlspecialchars($_POST['mail']) : $utilisateur->getMail());
+
+            $motDePasse = isset($_POST['motDePasse']) ? htmlspecialchars($_POST['motDePasse']) : null;
             $motDePasseConfirme = isset($_POST['motDePasseConfirme']) ? htmlspecialchars($_POST['motDePasseConfirme']) : null;
 
-            if (!empty($utilisateur->getMdp()) || !empty($motDePasseConfirme)) {
-                if ($utilisateur->getMdp() !== $motDePasseConfirme) {
+            if (!empty($motDePasse)) {
+                if (strlen($motDePasse) < 8) {
+                    throw new Exception("Le mot de passe doit contenir au moins 8 caractères.");
+                }
+
+                if ($motDePasse !== $motDePasseConfirme) {
                     throw new Exception("Les mots de passe ne correspondent pas.");
                 }
 
-                $motDePasseHash = password_hash($utilisateur->getMdp(), PASSWORD_DEFAULT);
+                $motDePasseHash = password_hash($motDePasse, PASSWORD_DEFAULT);
                 $utilisateur->setMdp($motDePasseHash);
+            } else {
+                $utilisateur->setMdp($utilisateur->getMdp());
             }
 
-            $utilisateur->setIdRole(isset($_POST['role']) ? (int) $_POST['role'] : null);
+            $utilisateur->setIdRole(isset($_POST['role']) ? (int) $_POST['role'] : $utilisateur->getIdRole());
 
             if (
                 empty($utilisateur->getPrenom()) ||
                 empty($utilisateur->getNom()) ||
                 empty($utilisateur->getMail()) ||
-                (empty($utilisateur->getMdp()) && empty($motDePasseConfirme)) || // Assurez-vous que le mot de passe est fourni ou déjà présent
                 empty($utilisateur->getIdRole())
             ) {
                 throw new Exception("Veuillez remplir tous les champs obligatoires.");
             }
 
-            $utilisateur->setIdUtilisateur(isset($_SESSION['Id_Utilisateur']) ? $_SESSION['Id_Utilisateur'] : null);
-
-            if (empty($utilisateur->getIdUtilisateur())) {
-                throw new Exception("Veuillez vous authentifier.");
+            if (strlen($utilisateur->getPrenom()) < 2 || strlen($utilisateur->getPrenom()) > 50) {
+                throw new Exception("Le prénom doit contenir entre 2 et 50 caractères.");
             }
 
-            $utilisateur->setIdUtilisateur(isset($_POST['Id_Utilisateur']) ? (int) $_POST['Id_Utilisateur'] : null);
+            if (strlen($utilisateur->getNom()) < 2 || strlen($utilisateur->getNom()) > 50) {
+                throw new Exception("Le nom doit contenir entre 2 et 50 caractères.");
+            }
+
+            if (!filter_var($utilisateur->getMail(), FILTER_VALIDATE_EMAIL)) {
+                throw new Exception("Adresse email non valide.");
+            }
+
+            $utilisateur->setIdUtilisateur($idUtilisateur);
+
             if (empty($utilisateur->getIdUtilisateur())) {
                 throw new Exception("L'Id de l'utilisateur est manquant.");
             }
@@ -254,6 +294,8 @@ class UtilisateurController
         }
     }
 
+
+
     public function deleteThisUtilisateur($Id_Utilisateur)
     {
         try {
@@ -274,7 +316,6 @@ class UtilisateurController
                     session_destroy();
                     include __DIR__ . '/../Views/Connexion/connexion.php';
                     exit();
-
                 } elseif (isset($_SESSION['adminConnecte']) && $_SESSION['adminConnecte'] === true) {
                     $_SESSION['success'] = "L'utilisateur a été supprimé avec succès.";
                     header('Location: ' . HOME_URL . 'dashboardAdmin');
@@ -286,7 +327,6 @@ class UtilisateurController
 
             if (isset($_SESSION['adminConnecte']) && $_SESSION['adminConnecte'] === true) {
                 header('Location: ' . HOME_URL . 'dashboardAdmin');
-
             } elseif (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true) {
                 header('Location: ' . HOME_URL . 'dashboard');
             }

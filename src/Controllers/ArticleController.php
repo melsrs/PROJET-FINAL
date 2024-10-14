@@ -298,11 +298,9 @@ class ArticleController
             $humainRepository = new HumainRepository();
             $humain= $humainRepository->getHumainByArticleId($Id_Article);
 
-
             $commenterRepository = new CommenterRepository;
             $commentaires = $commenterRepository->getCommentairesByArticleId($Id_Article);
-            // var_dump($humains);
-            // die();
+
             $commentairesAvecUtilisateurs = [];
             if ($commentaires) {
                 $utilisateurRepository = new UtilisateurRepository();

@@ -37,18 +37,20 @@ include __DIR__ . '/../Includes/navbar.php';
                 <input type="email" name="mail" class="form-control" id="mail" required value="<?= htmlspecialchars($utilisateur->getMail()) ?>">
             </div>
             <div class="mb-3 my-3">
-                <label for="mdp" class="form-label">Mot de passe</label>
-                <input type="password" name="motDePasse" class="form-control" id="motDePasse" value="<?= htmlspecialchars($utilisateur->getMdp()) ?>">
+                <label for="motDePasse" class="form-label">Nouveau mot de passe</label>
+                <input type="password" name="motDePasse" class="form-control" id="motDePasse" placeholder="À remplir si changement de mot de passe">
             </div>
             <div class="mb-3 my-3">
-                <label for="motDePasseConfirme" class="form-label">Confirmation de mot de passe</label>
-                <input type="password" name="motDePasseConfirme" class="form-control" id="motDePasseConfirme">
+                <label for="motDePasseConfirme" class="form-label">Confirmation nouveau mot de passe</label>
+                <input type="password" name="motDePasseConfirme" class="form-control" id="motDePasseConfirme" placeholder="À remplir si changement de mot de passe">
             </div>
-            <div class="mb-3 my-3">
-                <input type="hidden" name="role" class="form-control" id="role" value="<?= htmlspecialchars($utilisateur->getIdRole()) ?>">
-            </div>
-            <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary my-3">Enregistrer</button>
-            </div>
-        </form>
+
     </div>
+    <div class="mb-3 my-3">
+        <input type="hidden" name="role" class="form-control" id="role" value="<?= htmlspecialchars($utilisateur->getIdRole()) ?>">
+    </div>
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary my-3">Enregistrer</button>
+    </div>
+    </form>
+</div>

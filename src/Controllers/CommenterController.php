@@ -25,7 +25,6 @@ class CommenterController
                 throw new Exception("L'utilisateur n'est pas connecté.");
             }
 
-            // Récupération de l'utilisateur
             $Id_Utilisateur = $_SESSION['Id_Utilisateur'];
             $utilisateurRepository = new UtilisateurRepository();
             $utilisateur = $utilisateurRepository->getUtilisateurById($Id_Utilisateur);
@@ -34,11 +33,9 @@ class CommenterController
                 throw new Exception("Cet utilisateur n'existe pas.");
             }
 
-            // Récupérer l'article
             $article = new Article();
             $article->setIdArticle(isset($_POST['Id_Article']) ? (int)$_POST['Id_Article'] : null);
 
-            // Vérifier si l'Id de l'article est valide
             if (empty($article->getIdArticle())) {
                 throw new Exception("Id de l'article manquant ou invalide.");
             }
@@ -46,13 +43,16 @@ class CommenterController
             $categorieRepository = new CategorieRepository();
             $categorie = $categorieRepository->getCategorieByType($type);
 
-            // Création du commentaire
             $commentaire = new Commenter();
             $commentaire->setMessage(isset($_POST['commentaire']) ? htmlspecialchars($_POST['commentaire']) : null);
             $commentaire->setDateCommentaire(new DateTime('now'));
 
             if (empty($commentaire->getMessage())) {
                 throw new Exception("Veuillez remplir le champ commentaire.");
+            }
+
+            if (strlen($commentaire->getMessage()) < 10 || strlen($commentaire->getMessage()) > 500) {
+                throw new Exception("Le commentaire doit contenir entre 10 et 500 caractères.");
             }
 
             // Associer l'Id utilisateur et l'Id article au commentaire
