@@ -105,6 +105,10 @@ class DashboardController
                 throw new Exception("Veuillez remplir tous les champs.");
             }
 
+            if (strlen($commentaire->getMessage()) < 10 || strlen($commentaire->getMessage()) > 500) {
+                throw new Exception("Le commentaire doit contenir entre 10 et 500 caractères.");
+            }
+
             $this->commenterRepository->updateCommentaire($commentaire);
 
             $_SESSION['success'] = "Le commentaire a été modifié.";

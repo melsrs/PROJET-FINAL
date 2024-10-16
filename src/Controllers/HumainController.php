@@ -195,11 +195,13 @@ class HumainController
                 throw new Exception("Aucun article trouvé pour cette catégorie.");
             }
 
-            include __DIR__ . '/../Views/Categorie/allArticlesByCategorie.php';
+            include __DIR__ . '/../Views/Categorie/allArticlesPersoHumainByCategorie.php';
         } catch (Exception $e) {
             $error = $e->getMessage();
             include __DIR__ . '/../Views/Categorie/categorie.php';
             exit;
         }
     }
+
+    
 }

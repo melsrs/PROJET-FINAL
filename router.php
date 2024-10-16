@@ -59,10 +59,9 @@ switch ($route) {
             $homeController->AfficherCategories();
         }
         break;
-
     case HOME_URL . 'categorie/PERSONNAGE':
         if ($methode === 'GET' && isset($_GET['id'])) {
-            $articleController->showArticleByCategorie((int)$_GET['id'], "PERSONNAGE");
+            $humainController->showArticleByCategorie((int)$_GET['id'], "PERSONNAGE");
         } else {
             $homeController->AfficherCategories();
         }
@@ -324,7 +323,6 @@ switch ($route) {
             $homeController->afficherLaPageConnexion();
         }
         break;
-
     case HOME_URL . 'deconnexion':
         $utilisateurController->deconnexion();
         break;

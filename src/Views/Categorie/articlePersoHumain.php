@@ -21,29 +21,29 @@ include __DIR__ . '/../Includes/navbar.php';
 <div class="container">
     <div class="row justify-content-center">
         <?php if (!empty($article)) : ?>
-            <div class="col-md-8 d-flex flex-column justify-content-center" style="margin-top: 20px; margin-bottom: 35px;">
+            <div class="col-md-8 d-flex flex-column justify-content-center mt-5 mb-5">
 
                 <?php if (!empty($article->getImage())): ?>
-                    <img src="<?= htmlspecialchars($article->getImage()) ?>" class="img-fluid" alt="Image de l'article" style="width: 100%; height: 340px; object-fit: cover; margin-bottom: 20px;">
+                    <img src="<?= htmlspecialchars($article->getImage()) ?>" class="img-fluid img-perso" alt="Image de l'article">
                 <?php else: ?>
-                    <img src="placeholder_image.jpg" class="img-fluid" alt="Image placeholder" style="width: 100%; height: 200px; object-fit: cover; margin-bottom: 20px;">
+                    <img src="placeholder_image.jpg" class="img-fluid img-perso" alt="Image placeholder">
                 <?php endif; ?>
             </div>
 
-            <div class="card" style="width: 100%; background-color: black; color: white">
+            <div class="card w-100 bg-black text-white">
                 <div>
-                    <h4 style="margin-bottom: 15px">
+                    <h5 class="mb-3">
                         <?= htmlspecialchars_decode($article->getTitre()) ?>
-                    </h4>
-                    <p style="margin: 0 0 60px 0">
+                    </h5>
+                    <p class="mb-5">
                         <?= htmlspecialchars_decode($article->getTexte()) ?>
                     </p>
                 </div>
 
                 <?php if (!empty($humain)) : ?>
-                    <div class="d-flex flex-column justify-content-center align-items-center" style="width: 100%; background-color: black; color: white;">
-                        <h4>Fiche personnage</h4>
-                        <div class="p-5 m-4" style=" border: 2px solid #FF8FC3; border-radius: 5px;">
+                    <div class="d-flex flex-column justify-content-center align-items-center bg-black text-white">
+                        <h6>Fiche personnage</h6>
+                        <div class="p-5 m-4 fichePerso" style=" border: 2px solid #FF8FC3; border-radius: 5px;">
                             <p>Prénom : <?= htmlspecialchars_decode($humain->getPrenom()) ?> </p>
                             <p>Nom : <?= htmlspecialchars_decode($humain->getNom()) ?></p>
                             <p>Âge : <?= htmlspecialchars_decode($humain->getAge()) ?></p>

@@ -212,7 +212,7 @@ include __DIR__ . '/../Includes/navbar.php';
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <p>Aucun article humain trouvé.</p>
+                        <p>Aucun commentaire trouvé.</p>
                     <?php endif; ?>
                 </div>
             </div>

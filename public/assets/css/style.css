@@ -12,6 +12,21 @@ h2 {
   margin: 20px 0px 40px 0px !important;
 }
 
+h3 {
+  font-size: 1.25rem !important;
+  position: absolute; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  color: #ff8fc3 !important;
+  font-weight: bold !important;
+  z-index: 2; 
+}
+
+h4 {
+  font-size: 1rem !important;
+}
+
 .nav-link:hover {
   text-decoration: underline;
 }
@@ -22,8 +37,7 @@ h2 {
   align-items: center;
 }
 
-.imgAccueil {
-  max-width: 100%;
+.img-fluid {
   border-radius: 15px;
 }
 
@@ -64,11 +78,28 @@ h2 {
 }
 
 .footer {
-  display: flex;
-  justify-content: space-between;
+  /* display: flex;
+  justify-content: space-between; */
   margin: 150px 40px 0px 40px;
 }
 
 .pagesLegales{
   margin: 30px 40px 0px 40px;
+}
+
+.border{
+  border: black !important;
+}
+
+.img-custom {
+  height: 180px;
+  object-fit: cover; 
+  width: 100%;
+}
+
+.img-perso{
+  width: 100% !important; 
+  height: 340px !important; 
+  object-fit: cover !important; 
+  margin-bottom: 20px !important;
 }
