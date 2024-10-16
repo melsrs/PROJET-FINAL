@@ -39,7 +39,7 @@ include __DIR__ . '/../../Includes/navbar.php';
                 <p><?= htmlspecialchars($categorieType ?? 'Inconnue') ?></p>
 
                 <div class="d-flex ">
-                    <a href="<?= HOME_URL . 'dashboardAdmin/updateArticle?id=' . htmlspecialchars($article->getIdArticle()) ?>" class="btn btn-primary">Modifier l'article</a>
+                    <a href="<?= HOME_URL . 'dashboardAdmin/updateArticle?id=' . htmlspecialchars($article->getIdArticle()) ?>" class="btn btn-primary me-2">Modifier l'article</a>
                     <form action="<?= HOME_URL . 'dashboardAdmin/deleteArticle' ?>" method="POST" style="display: inline;">
                         <input type="hidden" name="Id_Article" value="<?= htmlspecialchars($article->getIdArticle()) ?>">
                         <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');">Supprimer</button>

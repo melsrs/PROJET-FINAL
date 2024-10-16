@@ -21,7 +21,7 @@ include __DIR__ . '/../Includes/navbar.php';
     <?php endif; ?>
 
     <div class="container d-flex justify-content-center align-items-center">
-        <div class="card" style="color: black;">
+        <div class="card text-black w-100">
             <div class="card-body">
                 <h5>Commentaire :</h5>
                 <p><?= htmlspecialchars_decode($commentaire->getMessage()) ?></p>

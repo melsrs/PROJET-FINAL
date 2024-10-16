@@ -25,7 +25,7 @@ include __DIR__ . '/../Includes/navbar.php';
 <?php endif; ?>
 
 
-<div class="bg-white dashboard d-flex align-items-start ">
+<div class="bg-white dashboard d-flex align-items-start flex-wrap">
     <div class="navbarDash nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
         <a class="nav-link active" id="v-pills-account-tab" data-bs-toggle="pill" data-bs-target="#v-pills-account" type="button" role="tab" aria-controls="v-pills-account" aria-selected="false">Mon compte</a>
         <a class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Utilisateurs</a>
@@ -35,17 +35,16 @@ include __DIR__ . '/../Includes/navbar.php';
         <a class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Commentaires</a>
     </div>
 
-    <!-- Contenu des onglets -->
     <div class="tab-content" id="v-pills-tabContent">
 
-
+        <!-- Mon compte -->
         <div class="tab-pane fade show active" id="v-pills-account" role="tabpanel" aria-labelledby="v-pills-account-tab" style="color: black;">
             <div class="container">
                 <div class="container">
                     <div class="row">
                         <?php if (!empty($utilisateur)): ?>
-                            <div class="col-md-15">
-                                <div class="card" style="margin: 20px 0; ">
+                            <div class="col-md-12">
+                                <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title"><?= htmlspecialchars_decode($utilisateur->getPrenom() . ' ' . $utilisateur->getNom()) ?></h5>
                                         <p class="card-text">Email : <?= htmlspecialchars($utilisateur->getMail()) ?></p>
@@ -69,7 +68,7 @@ include __DIR__ . '/../Includes/navbar.php';
                     <?php if (isset($utilisateurs) && !empty($utilisateurs)): ?>
                         <?php foreach ($utilisateurs as $utilisateur): ?>
                             <div class="col-md-4">
-                                <div class="card" style="margin: 20px 0;">
+                                <div class="card mb-4">
                                     <div class="card-body">
                                         <h5 class="card-title"><?= htmlspecialchars_decode($utilisateur->getPrenom() . ' ' . $utilisateur->getNom()) ?></h5>
                                         <p class="card-text">Email : <?= htmlspecialchars($utilisateur->getMail()) ?></p>
@@ -99,14 +98,16 @@ include __DIR__ . '/../Includes/navbar.php';
                     <?php if (isset($articles) && !empty($articles)): ?>
                         <?php foreach ($articles as $article): ?>
                             <div class="col-md-4">
-                                <div class="card" style="margin: 20px 0;">
+                                <div class="card mt-4">
                                     <?php if (!empty($article->getImage())): ?>
-                                        <img src="<?= htmlspecialchars($article->getImage()) ?>" class="card-img-top" style="height: 500%" alt="Image de l'article">
+                                        <img src="<?= htmlspecialchars($article->getImage()) ?>" class="card-img-top img-dashboard" alt="Image de l'article">
                                     <?php else: ?>
                                         <img src="placeholder_image.jpg" class="card-img-top" alt="Image placeholder">
                                     <?php endif; ?>
                                     <div class="card-body">
-                                        <h5 class="card-title"><?= htmlspecialchars_decode($article->getTitre()) ?></h5>
+                                        <h5>
+                                            <?= htmlspecialchars_decode(mb_substr($article->getTitre(), 0, 20)) . (mb_strlen($article->getTitre()) > 20 ? '...' : '') ?>
+                                        </h5>
                                         <p class="card-text"><?= htmlspecialchars_decode(mb_substr($article->getTexte(), 0, 100)) . (strlen($article->getTexte()) > 100 ? '...' : '') ?></p>
                                         <a class="btn btn-secondary" href="<?= HOME_URL . 'dashboardAdmin/readArticle?id=' . $article->getIdArticle() ?>">Voir</a>
                                         <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateArticle?id=' . $article->getIdArticle() ?>">Modifier</a>
@@ -135,7 +136,7 @@ include __DIR__ . '/../Includes/navbar.php';
                     <?php if (isset($humains) && !empty($humains)): ?>
                         <?php foreach ($humains as $humain): ?>
                             <div class="col-md-4">
-                                <div class="card" style="margin: 20px 0;">
+                                <div class="card mt-4">
                                     <div class="card-body">
                                         <h5 class="card-title"><?= htmlspecialchars_decode($humain->getPrenom()) . ' ' . htmlspecialchars_decode($humain->getNom()) ?></h5>
                                         <p class="card-text">Age : <?= htmlspecialchars($humain->getAge()) ?></p>
@@ -165,9 +166,9 @@ include __DIR__ . '/../Includes/navbar.php';
                     <?php if (isset($categories) && !empty($categories)): ?>
                         <?php foreach ($categories as $categorie): ?>
                             <div class="col-md-4">
-                                <div class="card" style="margin: 20px 0;">
+                                <div class="card mt-4">
                                     <?php if (!empty($categorie->getImage())): ?>
-                                        <img src="<?= htmlspecialchars($categorie->getImage()) ?>" class="card-img-top" alt="Image de la catégorie">
+                                        <img src="<?= htmlspecialchars($categorie->getImage()) ?>" class="card-img-top img-dashboard" alt="Image de la catégorie">
                                     <?php else: ?>
                                         <img src="placeholder_image.jpg" class="card-img-top" alt="Image placeholder">
                                     <?php endif; ?>
@@ -195,16 +196,16 @@ include __DIR__ . '/../Includes/navbar.php';
                 <div class="row">
                     <?php if (isset($commentaires) && !empty($commentaires)): ?>
                         <?php foreach ($commentaires as $commentaire): ?>
-                            <div class="col-md-4">
-                                <div class="card" style="margin: 20px 0;">
+                            <div class="col-md-6">
+                                <div class="card mt-4">
                                     <div class="card-body">
-                                        <p class="card-text"><?= htmlspecialchars_decode(mb_substr($commentaire->getMessage(), 0, 100)) . (strlen($article->getTexte()) > 100 ? '...' : '') ?></p>
+                                        <p class="card-text"><?= htmlspecialchars_decode(mb_substr($commentaire->getMessage(), 0, 50)) . (strlen($article->getTexte()) > 50 ? '...' : '') ?></p>
                                         <a class="btn btn-secondary" href="<?= HOME_URL . 'dashboardAdmin/readCommentaire?Id_Utilisateur=' . $commentaire->getIdUtilisateur() . '&Id_Article=' . $commentaire->getIdArticle() ?>">Voir</a>
                                         <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateCommentaire?Id_Utilisateur=' . $commentaire->getIdUtilisateur() . '&Id_Article=' . $commentaire->getIdArticle() ?>">Modifier</a>
                                         <form action="<?= HOME_URL . 'dashboardAdmin/deleteCommentaire' ?>" method="POST" style="display: inline;">
                                             <input type="hidden" name="Id_Article" value="<?= htmlspecialchars($commentaire->getIdArticle()) ?>">
                                             <input type="hidden" name="Id_Utilisateur" value="<?= htmlspecialchars($commentaire->getIdUtilisateur()) ?>">
-                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');">Supprimer</button>
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');">Supprimer</button>
                                         </form>
 
                                     </div>

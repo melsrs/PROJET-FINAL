@@ -16,7 +16,7 @@ include __DIR__ . '/../../Includes/navbar.php';
     <?php endif; ?>
 
     <div class="container d-flex justify-content-center align-items-center">
-        <div class="card " style="color: black;   width: 400px">
+        <div class="card text-black w-50">
             <div class="card-body">
 
                 <h5>Prénom</h5>

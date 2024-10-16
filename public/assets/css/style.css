@@ -103,3 +103,8 @@ h4 {
   object-fit: cover !important; 
   margin-bottom: 20px !important;
 }
+
+.img-dashboard {
+  height: 200px; 
+  object-fit: cover;
+}
