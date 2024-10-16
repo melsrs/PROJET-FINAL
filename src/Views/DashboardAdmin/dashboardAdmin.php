@@ -25,7 +25,7 @@ include __DIR__ . '/../Includes/navbar.php';
 <?php endif; ?>
 
 
-<div class="bg-white dashboard d-flex align-items-start flex-wrap">
+<div class="bg-white dashboard d-flex align-items-start">
     <div class="navbarDash nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
         <a class="nav-link active" id="v-pills-account-tab" data-bs-toggle="pill" data-bs-target="#v-pills-account" type="button" role="tab" aria-controls="v-pills-account" aria-selected="false">Mon compte</a>
         <a class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Utilisateurs</a>
@@ -191,7 +191,7 @@ include __DIR__ . '/../Includes/navbar.php';
         </div>
 
         <!-- Commentaires -->
-        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0" style="color: black;">
+        <div class="tab-pane fade text-black flex-wrap" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0">
             <div class="container">
                 <div class="row">
                     <?php if (isset($commentaires) && !empty($commentaires)): ?>

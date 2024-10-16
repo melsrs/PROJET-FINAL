@@ -47,27 +47,6 @@ trait Hydratation
     $this->hydrate([$name => $value]);
   }
 
-  /**
-   * Méthode appelée lors de la serialisation de l'objet.
-   * ! ATTENTION : récupère tous les getters ! 
-   *
-   * @return array
-   */
-  // public function __serialize(): array
-  // {
-  //   $class = new \ReflectionClass(get_class($this));
-
-  //   $ObjToArray = [];
-  //   foreach ($class->getMethods(\ReflectionMethod::IS_PUBLIC) as $methode) {
-  //     $nomMethode = $methode->getName();
-  //     // Vérifie si le nom de la méthode commence par 'get'
-  //     if (strpos($nomMethode, 'get') === 0) {
-  //       // puis on enlève get pour ne garder que le nom de la propriété :
-  //       $ObjToArray[ltrim($nomMethode, 'get')] = $this->$nomMethode();
-  //     }
-  //   }
-  //   return $ObjToArray;
-  // }
 
   /**
    * Méthode de réhydratation de l'objet lors de sa déserialisation.

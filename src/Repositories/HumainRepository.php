@@ -61,12 +61,12 @@ class HumainRepository
             $humain->setIdHumain($idHumain);
             $humain->setIdArticle($idArticle);
 
-            // Si tout s'est bien passé, valider la transaction
+            // Valider la transaction si aucune erreur
             $this->DB->commit();
 
             return ['article' => $article, 'humain' => $humain];
         } catch (\Exception $e) {
-            // En cas d'erreur, annuler la transaction
+            // Annuler la transaction si erreur
             $this->DB->rollBack();
             throw $e;
         }
