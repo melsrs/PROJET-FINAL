@@ -26,35 +26,102 @@ class UtilisateurController
 
             $motDePasseConfirme = isset($_POST['motDePasseConfirme']) ? $_POST['motDePasseConfirme'] : null;
 
-            if (
-                empty($utilisateur->getPrenom()) ||
-                empty($utilisateur->getNom()) ||
-                empty($utilisateur->getMail()) ||
-                empty($utilisateur->getMdp()) ||
-                empty($motDePasseConfirme)
-            ) {
-                throw new Exception("Veuillez remplir tous les champs.");
+            // if (
+            //     empty($utilisateur->getPrenom()) ||
+            //     empty($utilisateur->getNom()) ||
+            //     empty($utilisateur->getMail()) ||
+            //     empty($utilisateur->getMdp()) ||
+            //     empty($motDePasseConfirme)
+            // ) {
+            //     throw new Exception("Veuillez remplir tous les champs.");
+            // }
+
+            // if (strlen($utilisateur->getPrenom()) < 2 || strlen($utilisateur->getPrenom()) > 50) {
+            //     throw new Exception("Le prénom doit contenir entre 2 et 50 caractères.");
+            // }
+
+            // if (strlen($utilisateur->getNom()) < 2 || strlen($utilisateur->getNom()) > 50) {
+            //     throw new Exception("Le nom doit contenir entre 2 et 50 caractères.");
+            // }
+
+            // if ($utilisateur->getMdp() !== $motDePasseConfirme) {
+            //     throw new Exception("Les mots de passe ne correspondent pas.");
+            // }
+
+            // if (strlen($utilisateur->getMdp()) < 8) {
+            //     throw new Exception("Le mot de passe doit contenir au moins 8 caractères.");
+            // }
+
+            // if (!filter_var($utilisateur->getMail(), FILTER_VALIDATE_EMAIL)) {
+            //     throw new Exception("Adresse email non valide.");
+            // }
+
+            // Initialisation d'un tableau d'erreurs
+            $erreurs = [];
+
+            // Validation des champs vides
+            if (empty($utilisateur->getPrenom())) {
+                $erreurs[] = "Veuillez remplir tous les champs.";
             }
 
-            if (strlen($utilisateur->getPrenom()) < 2 || strlen($utilisateur->getPrenom()) > 50) {
-                throw new Exception("Le prénom doit contenir entre 2 et 50 caractères.");
+            if (empty($utilisateur->getNom())) {
+                $erreurs[] = "Veuillez remplir tous les champs.";
             }
 
-            if (strlen($utilisateur->getNom()) < 2 || strlen($utilisateur->getNom()) > 50) {
-                throw new Exception("Le nom doit contenir entre 2 et 50 caractères.");
+            if (empty($utilisateur->getMail())) {
+                $erreurs[] = "Veuillez remplir tous les champs.";
             }
 
-            if ($utilisateur->getMdp() !== $motDePasseConfirme) {
-                throw new Exception("Les mots de passe ne correspondent pas.");
+            if (empty($utilisateur->getMdp())) {
+                $erreurs[] = "Veuillez remplir tous les champs.";
             }
 
-            if (strlen($utilisateur->getMdp()) < 8) {
-                throw new Exception("Le mot de passe doit contenir au moins 8 caractères.");
+            if (empty($motDePasseConfirme)) {
+                $erreurs[] = "Veuillez remplir tous les champs.";
             }
 
-            if (!filter_var($utilisateur->getMail(), FILTER_VALIDATE_EMAIL)) {
-                throw new Exception("Adresse email non valide.");
+            // Validation de la longueur du prénom
+            switch (true) {
+                case (strlen($utilisateur->getPrenom()) < 2):
+                    $erreurs[] = "Le prénom doit contenir au moins 2 caractères.";
+                    break;
+                case (strlen($utilisateur->getPrenom()) > 50):
+                    $erreurs[] = "Le prénom doit contenir au maximum 50 caractères.";
+                    break;
             }
+
+            // Validation de la longueur du nom
+            switch (true) {
+                case (strlen($utilisateur->getNom()) < 2):
+                    $erreurs[] = "Le nom doit contenir au moins 2 caractères.";
+                    break;
+                case (strlen($utilisateur->getNom()) > 50):
+                    $erreurs[] = "Le nom doit contenir au maximum 50 caractères.";
+                    break;
+            }
+
+            // Validation de la correspondance des mots de passe
+            switch (true) {
+                case ($utilisateur->getMdp() !== $motDePasseConfirme):
+                    $erreurs[] = "Les mots de passe ne correspondent pas.";
+                    break;
+                case (strlen($utilisateur->getMdp()) < 8):
+                    $erreurs[] = "Le mot de passe doit contenir au moins 8 caractères.";
+                    break;
+            }
+
+            // Validation de l'email
+            switch (true) {
+                case (!filter_var($utilisateur->getMail(), FILTER_VALIDATE_EMAIL)):
+                    $erreurs[] = "Adresse email non valide.";
+                    break;
+            }
+
+            // Si des erreurs sont présentes, lève une exception
+            if (!empty($erreurs)) {
+                throw new Exception(implode(" ", $erreurs));
+            }
+
 
             $utilisateurRepository = new UtilisateurRepository();
 
