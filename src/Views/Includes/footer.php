@@ -14,6 +14,8 @@
         </div>
     </div>
 </div>
+
+<script src="<?= HOME_URL . 'assets/js/script.js' ?>" ></script>
 </body>
 
 </html>

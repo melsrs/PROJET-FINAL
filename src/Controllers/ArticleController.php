@@ -177,26 +177,33 @@ class ArticleController
     public function deleteThisArticle($Id_Article)
     {
         try {
+            // Récupération de l'article par ID
             $article = $this->articleRepository->getArticleById($Id_Article);
             if (!$article) {
+                // Si l'article n'existe pas, renvoyer une erreur
                 throw new Exception("L'article n'existe pas.");
             }
 
+            // Suppression de l'article
             $success = $this->articleRepository->deleteArticle($Id_Article);
 
+            // Vérifier si la suppression a été effectuée avec succès
             if ($success) {
-                $_SESSION['success'] = "L'article a été supprimé avec succès.";
+                // Réponse en JSON en cas de succès
+                header('Content-Type: application/json');
+                echo json_encode(['success' => true, 'message' => "L'article a été supprimé avec succès."]);
             } else {
+                // Si la suppression échoue, renvoyer une erreur
                 throw new Exception("Une erreur est survenue lors de la suppression de l'article.");
             }
-
-            header('Location: ' . HOME_URL . 'dashboardAdmin');
         } catch (Exception $e) {
-            $_SESSION['error'] = $e->getMessage();
-            header('Location: ' . HOME_URL . 'dashboardAdmin');
-            exit();
+            // Réponse en JSON avec le message d'erreur
+            header('Content-Type: application/json');
+            echo json_encode(['success' => false, 'error' => $e->getMessage()]);
         }
+        exit(); // Terminer l'exécution après avoir envoyé le JSON
     }
+
 
 
     public function showArticleByCategorie($Id_Categorie, $type)
@@ -294,7 +301,7 @@ class ArticleController
             }
 
             $humainRepository = new HumainRepository();
-            $humain= $humainRepository->getHumainByArticleId($Id_Article);
+            $humain = $humainRepository->getHumainByArticleId($Id_Article);
 
             $commenterRepository = new CommenterRepository;
             $commentaires = $commenterRepository->getCommentairesByArticleId($Id_Article);
@@ -302,7 +309,7 @@ class ArticleController
             $commentairesAvecUtilisateurs = [];
             if ($commentaires) {
                 $utilisateurRepository = new UtilisateurRepository();
-                
+
                 foreach ($commentaires as $commentaire) {
                     $utilisateurInfo = $utilisateurRepository->getUtilisateurById($commentaire->getIdUtilisateur());
                     $commentairesAvecUtilisateurs[] = [

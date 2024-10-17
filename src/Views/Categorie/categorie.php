@@ -4,8 +4,7 @@ include __DIR__ . '/../Includes/header.php';
 include __DIR__ . '/../Includes/navbar.php';
 
 ?>
-
-<h2>Catégorie</h2>
+<h2>Catégories</h2>
 
 <div class="container">
   <div class="row justify-content-center">

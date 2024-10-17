@@ -45,7 +45,6 @@ class UtilisateurRepository
     $statement = $this->DB->prepare($sql);
     $statement->execute([':mail' => $mail]);
     return (int) $statement->fetch()['nombre'] > 0;
-    
   }
 
   public function getUtilisateurByMail($mail)

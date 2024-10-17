@@ -24,12 +24,11 @@ include __DIR__ . '/../Includes/navbar.php';
     <?php unset($_SESSION['error']); ?>
 <?php endif; ?>
 
-
 <div class="bg-white dashboard d-flex align-items-start">
     <div class="navbarDash nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-        <a class="nav-link active" id="v-pills-account-tab" data-bs-toggle="pill" data-bs-target="#v-pills-account" type="button" role="tab" aria-controls="v-pills-account" aria-selected="false">Mon compte</a>
-        <a class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Utilisateurs</a>
-        <a class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Articles</a>
+        <a class="nav-link active" id="v-pills-articles-tab" data-bs-toggle="pill" data-bs-target="#v-pills-articles" type="button" role="tab" aria-controls="v-pills-articles" aria-selected="true">Articles</a>
+        <a class="nav-link" id="v-pills-account-tab" data-bs-toggle="pill" data-bs-target="#v-pills-account" type="button" role="tab" aria-controls="v-pills-account" aria-selected="false">Mon compte</a>
+        <a class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="false">Utilisateurs</a>
         <a class="nav-link" id="v-pills-articles-humain-tab" data-bs-toggle="pill" data-bs-target="#v-pills-articles-humain" type="button" role="tab" aria-controls="v-pills-articles-humain" aria-selected="false">Articles Humains</a>
         <a class="nav-link" id="v-pills-categories-tab" data-bs-toggle="pill" data-bs-target="#v-pills-categories" type="button" role="tab" aria-controls="v-pills-categories" aria-selected="false">Catégories</a>
         <a class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Commentaires</a>
@@ -37,32 +36,71 @@ include __DIR__ . '/../Includes/navbar.php';
 
     <div class="tab-content" id="v-pills-tabContent">
 
-        <!-- Mon compte -->
-        <div class="tab-pane fade show active" id="v-pills-account" role="tabpanel" aria-labelledby="v-pills-account-tab" style="color: black;">
+        <!-- Articles -->
+        <div class="tab-pane fade show active" id="v-pills-articles" role="tabpanel" aria-labelledby="v-pills-articles-tab" tabindex="0" style="color: black;">
+            <div class="d-flex justify-content-center">
+                <a href="<?= HOME_URL . 'dashboardAdmin/createArticle' ?>" class="btn btn-success">Ajouter un article</a>
+            </div>
             <div class="container">
-                <div class="container">
-                    <div class="row">
-                        <?php if (!empty($utilisateur)): ?>
-                            <div class="col-md-12">
-                                <div class="card">
+                <div class="row">
+                    <?php if (isset($articles) && !empty($articles)): ?>
+                        <?php foreach ($articles as $article): ?>
+                            <div class="col-md-4" id="article-<?= $article->getIdArticle() ?>">
+                                <div class="card mt-4">
+                                    <?php if (!empty($article->getImage())): ?>
+                                        <img src="<?= htmlspecialchars($article->getImage()) ?>" class="card-img-top img-dashboard" alt="Image de l'article">
+                                    <?php else: ?>
+                                        <img src="placeholder_image.jpg" class="card-img-top" alt="Image placeholder">
+                                    <?php endif; ?>
                                     <div class="card-body">
-                                        <h5 class="card-title"><?= htmlspecialchars_decode($utilisateur->getPrenom() . ' ' . $utilisateur->getNom()) ?></h5>
-                                        <p class="card-text">Email : <?= htmlspecialchars($utilisateur->getMail()) ?></p>
-                                        <p class="card-text">Rôle : <?= htmlspecialchars($utilisateur->getIdRole()) ?></p>
-                                        <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateAdmin?id=' . $utilisateur->getIdUtilisateur() ?>">Modifier</a>
+                                        <h5>
+                                            <?= htmlspecialchars_decode(mb_substr($article->getTitre(), 0, 20)) . (mb_strlen($article->getTitre()) > 20 ? '...' : '') ?>
+                                        </h5>
+                                        <p class="card-text"><?= htmlspecialchars_decode(mb_substr($article->getTexte(), 0, 100)) . (strlen($article->getTexte()) > 100 ? '...' : '') ?></p>
+                                        <a class="btn btn-secondary" href="<?= HOME_URL . 'dashboardAdmin/readArticle?id=' . $article->getIdArticle() ?>">Voir</a>
+                                        <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateArticle?id=' . $article->getIdArticle() ?>">Modifier</a>
+                                        <form class="delete-form" method="POST" data-article-id="<?= $article->getIdArticle() ?>" style="display: inline;">
+                                            <input type="hidden" name="Id_Article" value="<?= $article->getIdArticle() ?>">
+                                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
-                        <?php else: ?>
-                            <p>Aucun utilisateur trouvé.</p>
-                        <?php endif; ?>
-                    </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>Aucun article trouvé.</p>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <!-- Mon compte -->
+        <div class="tab-pane fade" id="v-pills-account" role="tabpanel" aria-labelledby="v-pills-account-tab" style="color: black;">
+            <div class="container">
+                <div class="row">
+                    <?php if (!empty($utilisateur)): ?>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?= htmlspecialchars_decode($utilisateur->getPrenom() . ' ' . $utilisateur->getNom()) ?></h5>
+                                    <p class="card-text">Email : <?= htmlspecialchars($utilisateur->getMail()) ?></p>
+                                    <p class="card-text">Rôle : <?= htmlspecialchars($utilisateur->getIdRole()) ?></p>
+                                    <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateAdmin?id=' . $utilisateur->getIdUtilisateur() ?>">Modifier</a>
+                                </div>
+                            </div>
+                        </div>
+                    <?php else: ?>
+                        <p>Aucun utilisateur trouvé.</p>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
 
         <!-- Utilisateurs -->
-        <div class="tab-pane fade show" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0" style="color: black;">
+        <div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0" style="color: black;">
             <div class="container">
                 <div class="row">
                     <?php if (isset($utilisateurs) && !empty($utilisateurs)): ?>
@@ -88,44 +126,6 @@ include __DIR__ . '/../Includes/navbar.php';
             </div>
         </div>
 
-        <!-- Articles -->
-        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0" style="color: black;">
-            <div class="d-flex justify-content-center">
-                <a href="<?= HOME_URL . 'dashboardAdmin/createArticle' ?>" class="btn btn-success">Ajouter un article</a>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <?php if (isset($articles) && !empty($articles)): ?>
-                        <?php foreach ($articles as $article): ?>
-                            <div class="col-md-4">
-                                <div class="card mt-4">
-                                    <?php if (!empty($article->getImage())): ?>
-                                        <img src="<?= htmlspecialchars($article->getImage()) ?>" class="card-img-top img-dashboard" alt="Image de l'article">
-                                    <?php else: ?>
-                                        <img src="placeholder_image.jpg" class="card-img-top" alt="Image placeholder">
-                                    <?php endif; ?>
-                                    <div class="card-body">
-                                        <h5>
-                                            <?= htmlspecialchars_decode(mb_substr($article->getTitre(), 0, 20)) . (mb_strlen($article->getTitre()) > 20 ? '...' : '') ?>
-                                        </h5>
-                                        <p class="card-text"><?= htmlspecialchars_decode(mb_substr($article->getTexte(), 0, 100)) . (strlen($article->getTexte()) > 100 ? '...' : '') ?></p>
-                                        <a class="btn btn-secondary" href="<?= HOME_URL . 'dashboardAdmin/readArticle?id=' . $article->getIdArticle() ?>">Voir</a>
-                                        <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateArticle?id=' . $article->getIdArticle() ?>">Modifier</a>
-                                        <form action="<?= HOME_URL . 'dashboardAdmin/deleteArticle' ?>" method="POST" style="display: inline;">
-                                            <input type="hidden" name="Id_Article" value="<?= $article->getIdArticle() ?>">
-                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');">Supprimer</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <p>Aucun article trouvé.</p>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
-
         <!-- Articles Humains -->
         <div class="tab-pane fade" id="v-pills-articles-humain" role="tabpanel" aria-labelledby="v-pills-articles-humain-tab" style="color: black;">
             <div class="d-flex justify-content-center">
@@ -141,15 +141,18 @@ include __DIR__ . '/../Includes/navbar.php';
                                         <h5 class="card-title"><?= htmlspecialchars_decode($humain->getPrenom()) . ' ' . htmlspecialchars_decode($humain->getNom()) ?></h5>
                                         <p class="card-text">Age : <?= htmlspecialchars($humain->getAge()) ?></p>
                                         <p class="card-text">Date anniversaire : <?= htmlspecialchars($humain->getAnniversaire()) ?></p>
-                                        <p class="card-text">Affiliation : <?= htmlspecialchars_decode($humain->getAffiliation()) ?></p>
-                                        <a class="btn btn-secondary" href="<?= HOME_URL . 'dashboardAdmin/readArticleHumain?id=' . $humain->getIdHumain() ?>">Voir</a>
-                                        <a class="btn btn-primary" href="<?= HOME_URL . 'dashboardAdmin/updateArticleHumain?id=' . $humain->getIdHumain() ?>">Modifier</a>
+                                        <a href="<?= HOME_URL . 'dashboardAdmin/readArticleHumain?id=' . $humain->getIdHumain() ?>" class="btn btn-secondary">Voir</a>
+                                        <a href="<?= HOME_URL . 'dashboardAdmin/updateArticleHumain?id=' . $humain->getIdHumain() ?>" class="btn btn-primary">Modifier</a>
+                                        <form action="<?= HOME_URL . 'dashboardAdmin/deleteArticleHumain' ?>" method="POST" style="display: inline;">
+                                            <input type="hidden" name="Id_Humain" value="<?= $humain->getIdHumain() ?>">
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet humain ?');">Supprimer</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <p>Aucun article humain trouvé.</p>
+                        <p>Aucun humain trouvé.</p>
                     <?php endif; ?>
                 </div>
             </div>
@@ -218,6 +221,12 @@ include __DIR__ . '/../Includes/navbar.php';
                 </div>
             </div>
         </div>
-
+        
     </div>
 </div>
+
+<?php
+
+include __DIR__ . '/../Includes/footer.php';
+
+?>
