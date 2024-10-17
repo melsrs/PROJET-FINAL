@@ -102,23 +102,32 @@ class HumainController
         }
     }
 
-
-
     public function showUpdateFormHumain()
     {
         try {
             $Id_Humain = isset($_GET['id']) ? (int)$_GET['id'] : null;
 
             if (empty($Id_Humain) || !filter_var($Id_Humain, FILTER_VALIDATE_INT) || $Id_Humain <= 0) {
-                throw new Exception("L'Id de l'article est manquant ou invalide.");
+                throw new Exception("L'ID de l'humain est manquant ou invalide.");
             }
 
+            // Récupération de l'humain et de l'article associé
             $humain = $this->humainRepository->getArticleHumainById($Id_Humain);
 
             if (!$humain) {
+                throw new Exception("Humain non trouvé.");
+            }
+
+            // Récupération de l'article via l'ID de l'article présent dans l'objet humain
+            $articleRepository = new ArticleRepository;
+            $article = $articleRepository->getArticleById($humain->getIdArticle());
+
+
+            if (!$article) {
                 throw new Exception("Article non trouvé.");
             }
 
+            // Inclure la vue en passant à la fois l'article et l'humain
             include __DIR__ . '/../Views/DashboardAdmin/ArticleHumain/updateArticleHumain.php';
         } catch (Exception $e) {
             $error = $e->getMessage();
@@ -127,9 +136,16 @@ class HumainController
         }
     }
 
+
     public function saveUpdateArticleHumain()
     {
         try {
+            $article = new Article();
+            $article->setTitre(isset($_POST['titre']) ? htmlspecialchars($_POST['titre']) : null);
+            $article->setTexte(isset($_POST['texte']) ? htmlspecialchars($_POST['texte']) : null);
+            $article->setDate(new DateTime('now'));
+            $article->setImage(isset($_POST['image']) ? htmlspecialchars($_POST['image']) : null);
+            $article->setIdCategorie(isset($_POST['Id_Categorie']) ? (int) $_POST['Id_Categorie'] : null);
 
             $humain = new Humain();
             $humain->setPrenom(isset($_POST['prenom']) ? htmlspecialchars($_POST['prenom']) : null);
@@ -139,7 +155,16 @@ class HumainController
             $humain->setTaille(isset($_POST['taille']) ? htmlspecialchars($_POST['taille']) : null);
             $humain->setAffiliation(isset($_POST['affiliation']) ? htmlspecialchars($_POST['affiliation']) : null);
 
+            if (!isset($_POST['Id_Categorie']) || $_POST['Id_Categorie'] === '') {
+                throw new Exception("Veuillez remplir le champs catégories.");
+            }
+
             if (
+                empty($article->getTitre()) ||
+                empty($article->getTexte()) ||
+                empty($article->getDate())  ||
+                empty($article->getImage()) ||
+                empty($article->getIdCategorie()) ||
                 empty($humain->getPrenom()) ||
                 empty($humain->getNom()) ||
                 empty($humain->getAge()) ||
@@ -150,9 +175,9 @@ class HumainController
                 throw new Exception("Veuillez remplir tous les champs.");
             }
 
-            $humain->setIdHumain(isset($_POST['Id_Humain']) ? (int) $_POST['Id_Humain'] : null);
-            if (empty($humain->getIdHumain())) {
-                throw new Exception("L'Id de l'humain est manquant.");
+            $article->setIdArticle(isset($_POST['Id_Article']) ? (int) $_POST['Id_Article'] : null);
+            if (empty($article->getIdArticle())) {
+                throw new Exception("L'ID de l'article est manquant.");
             }
 
             $humain->setIdArticle(isset($_POST['Id_Article']) ? (int) $_POST['Id_Article'] : null);
@@ -160,7 +185,18 @@ class HumainController
                 throw new Exception("L'ID de l'article est manquant.");
             }
 
-            $this->humainRepository->updateArticleHumain($humain);
+            $humain->setIdHumain(isset($_POST['Id_Humain']) ? (int) $_POST['Id_Humain'] : null);
+            if (empty($humain->getIdHumain())) {
+                throw new Exception("L'Id de l'humain est manquant.");
+            }
+
+            $article->setIdUtilisateur(isset($_SESSION['Id_Utilisateur']) ? $_SESSION['Id_Utilisateur'] : null);
+
+            if (empty($article->getIdUtilisateur())) {
+                throw new Exception("Veuillez vous authentifier.");
+            }
+
+            $this->humainRepository->updateArticleHumain($article, $humain);
 
             $_SESSION['success'] = "L'article a bien été modifié.";
 
@@ -202,6 +238,4 @@ class HumainController
             exit;
         }
     }
-
-    
 }

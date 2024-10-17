@@ -72,7 +72,66 @@ class HumainRepository
         }
     }
 
-    public function updateArticleHumain(Humain $humain)
+    public function updateArticleHumain(Article $article, Humain $humain): array
+    {
+        $this->DB->beginTransaction();
+
+        try {
+            $sqlArticle = "UPDATE article 
+                       SET titre = :titre, 
+                           texte = :texte, 
+                           date = :date, 
+                           image = :image, 
+                           Id_Categorie = :Id_Categorie, 
+                           Id_Utilisateur = :Id_Utilisateur
+                       WHERE Id_Article = :Id_Article";
+
+            $statementArticle = $this->DB->prepare($sqlArticle);
+
+            $statementArticle->execute([
+                ':titre'            => $article->getTitre(),
+                ':texte'            => $article->getTexte(),
+                ':date'             => $article->getDate()->format('Y-m-d H:i:s'),
+                ':image'            => $article->getImage(),
+                ':Id_Categorie'     => $article->getIdCategorie(),
+                ':Id_Utilisateur'   => $article->getIdUtilisateur(),
+                ':Id_Article'       => $article->getIdArticle()
+            ]);
+
+            $sqlHumain = "UPDATE humain 
+                      SET prenom = :prenom, 
+                          nom = :nom, 
+                          age = :age, 
+                          anniversaire = :anniversaire, 
+                          taille = :taille, 
+                          affiliation = :affiliation
+                          
+                      WHERE Id_Humain = :Id_Humain";
+
+            $statementHumain = $this->DB->prepare($sqlHumain);
+
+            $statementHumain->execute([
+                ':prenom'        => $humain->getPrenom(),
+                ':nom'           => $humain->getNom(),
+                ':age'           => $humain->getAge(),
+                ':anniversaire'  => $humain->getAnniversaire(),
+                ':taille'        => $humain->getTaille(),
+                ':affiliation'   => $humain->getAffiliation(),
+                
+                ':Id_Humain'      => $humain->getIdHumain()
+            ]);
+
+            $this->DB->commit();
+
+            return ['article' => $article, 'humain' => $humain];
+        } catch (\Exception $e) {
+            $this->DB->rollBack();
+            throw $e;
+        }
+    }
+
+
+    public function updateArticleHumainnn(Humain $humain)
     {
         $sql = "UPDATE humain 
                 SET prenom = :prenom, 
@@ -116,70 +175,11 @@ class HumainRepository
         return $humain;
     }
 
-    public function updateArticleHumainn(Article $article, Humain $humain): array
-    {
-        $this->DB->beginTransaction();
-
-        try {
-
-            $sqlArticle = "UPDATE article SET 
-                            titre = :titre, 
-                            texte = :texte, 
-                            date = :date, 
-                            image = :image, 
-                            Id_Categorie = :Id_Categorie, 
-                            Id_Utilisateur = :Id_Utilisateur 
-                        WHERE Id_Article = :Id_Article";
-
-            $statementArticle = $this->DB->prepare($sqlArticle);
-
-            $statementArticle->execute([
-                ':titre'               => $article->getTitre(),
-                ':texte'               => $article->getTexte(),
-                ':date'                => $article->getDate()->format('Y-m-d H:i:s'),
-                ':image'               => $article->getImage(),
-                ':Id_Categorie'        => $article->getIdCategorie(),
-                ':Id_Utilisateur'      => $article->getIdUtilisateur(),
-                ':Id_Article'          => $article->getIdArticle()
-            ]);
-
-            $sqlHumain = "UPDATE humain SET 
-                            prenom = :prenom, 
-                            nom = :nom, 
-                            age = :age, 
-                            anniversaire = :anniversaire, 
-                            taille = :taille, 
-                            affiliation = :affiliation 
-                        WHERE Id_Humain = :Id_Humain";
-
-            $statementHumain = $this->DB->prepare($sqlHumain);
-
-            $statementHumain->execute([
-                ':prenom'        => $humain->getPrenom(),
-                ':nom'           => $humain->getNom(),
-                ':age'           => $humain->getAge(),
-                ':anniversaire'  => $humain->getAnniversaire(),
-                ':taille'        => $humain->getTaille(),
-                ':affiliation'   => $humain->getAffiliation(),
-                ':Id_Humain'     => $humain->getIdHumain()
-            ]);
-
-            // Si tout s'est bien passé, valider la transaction
-            $this->DB->commit();
-
-            return ['article' => $article, 'humain' => $humain];
-        } catch (\Exception $e) {
-            // En cas d'erreur, annuler la transaction
-            $this->DB->rollBack();
-            throw $e;
-        }
-    }
-
     public function getHumainByArticleId($Id_Article)
     {
         $sql = "SELECT * FROM humain
                 WHERE Id_Article = :Id_Article";
-                
+
         $statement = $this->DB->prepare($sql);
         $statement->execute([':Id_Article' => $Id_Article]);
         $statement->setFetchMode(PDO::FETCH_CLASS, Humain::class);

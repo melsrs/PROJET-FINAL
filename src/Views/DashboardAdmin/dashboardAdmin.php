@@ -135,7 +135,7 @@ include __DIR__ . '/../Includes/navbar.php';
                 <div class="row">
                     <?php if (isset($humains) && !empty($humains)): ?>
                         <?php foreach ($humains as $humain): ?>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="card mt-4">
                                     <div class="card-body">
                                         <h5 class="card-title"><?= htmlspecialchars_decode($humain->getPrenom()) . ' ' . htmlspecialchars_decode($humain->getNom()) ?></h5>
@@ -143,10 +143,6 @@ include __DIR__ . '/../Includes/navbar.php';
                                         <p class="card-text">Date anniversaire : <?= htmlspecialchars($humain->getAnniversaire()) ?></p>
                                         <a href="<?= HOME_URL . 'dashboardAdmin/readArticleHumain?id=' . $humain->getIdHumain() ?>" class="btn btn-secondary">Voir</a>
                                         <a href="<?= HOME_URL . 'dashboardAdmin/updateArticleHumain?id=' . $humain->getIdHumain() ?>" class="btn btn-primary">Modifier</a>
-                                        <form action="<?= HOME_URL . 'dashboardAdmin/deleteArticleHumain' ?>" method="POST" style="display: inline;">
-                                            <input type="hidden" name="Id_Humain" value="<?= $humain->getIdHumain() ?>">
-                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet humain ?');">Supprimer</button>
-                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -221,7 +217,7 @@ include __DIR__ . '/../Includes/navbar.php';
                 </div>
             </div>
         </div>
-        
+
     </div>
 </div>
 

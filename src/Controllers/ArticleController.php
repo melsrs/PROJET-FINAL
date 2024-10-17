@@ -173,7 +173,6 @@ class ArticleController
         }
     }
 
-
     public function deleteThisArticle($Id_Article)
     {
         try {
@@ -203,8 +202,6 @@ class ArticleController
         }
         exit(); // Terminer l'exécution après avoir envoyé le JSON
     }
-
-
 
     public function showArticleByCategorie($Id_Categorie, $type)
     {
